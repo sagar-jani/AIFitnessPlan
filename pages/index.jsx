@@ -57,6 +57,9 @@ const Home = () => {
         // Split the details string by ", " to get the individual details
         const details = parts[1].slice(0, -1).split(',')
         console.log('details', details)
+        if (details.length < 4) {
+          return
+        }
         // Create a food object with the details
         const food = {
           name: foodName,
@@ -124,13 +127,14 @@ const Home = () => {
           >
             Gender
           </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+          <select
+            className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
             id='gender'
-            type='text'
             name='gender'
-            placeholder='Male or Female'
-          />
+          >
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+          </select>
         </div>
         <div className='mb-4'>
           <label
@@ -227,6 +231,15 @@ const Home = () => {
       )}
 
       {meals && <MealTable meals={meals} />}
+
+      <div className='fixed bottom-0 right-0 mb-4 mr-4'>
+        <a
+          href='https://twitter.com/sagarjani'
+          className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
+        >
+          Made By @SagarJani
+        </a>
+      </div>
     </div>
   )
 }

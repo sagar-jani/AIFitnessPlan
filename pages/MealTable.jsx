@@ -9,16 +9,16 @@ function MealTable(props) {
       <tr key={i}>
         <td className='border px-4 py-2'>{meal.name}</td>
         <td className='border px-4 py-2'>{food.name}</td>
-        <td className='border px-4 py-2'>{food.protein}</td>
-        <td className='border px-4 py-2'>{food.fat}</td>
-        <td className='border px-4 py-2'>{food.carbs}</td>
+        <td className='border px-4 py-2'>{food.protein.slice(0, -1)}</td>
+        <td className='border px-4 py-2'>{food.fat.slice(0, -1)}</td>
+        <td className='border px-4 py-2'>{food.carbs.slice(0, -1)}</td>
         <td className='border px-4 py-2'>{food.calories}</td>
       </tr>
     ))
   }
 
   return (
-    <table className='table-auto'>
+    <table className='mx-auto text-center'>
       <thead>
         <tr>
           <th className='px-4 py-2'>Meal</th>
@@ -29,6 +29,16 @@ function MealTable(props) {
           <th className='px-4 py-2'>Calories</th>
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>Overall calorie</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
       <tbody>{meals.map((meal, i) => renderMeal(meal))}</tbody>
     </table>
   )

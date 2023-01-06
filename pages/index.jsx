@@ -113,134 +113,145 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <Head>
-        <title>Diet Plan Generator</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      </Head>
-      <header className={styles.banner}>🎁 Generate a diet plan</header>
-      <form className='mx-auto max-w-lg' onSubmit={handleSubmit}>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='gender'
-          >
-            Gender
-          </label>
-          <select
-            className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-            id='gender'
-            name='gender'
-          >
-            <option value='Male'>Male</option>
-            <option value='Female'>Female</option>
-          </select>
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='age'
-          >
-            Age
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            id='age'
-            name='age'
-            type='number'
-            placeholder='39'
+    <main>
+      <section className='pb-40 text-white bg-gray-800'>
+        <Head>
+          <title>Diet Plan Generator</title>
+          <meta
+            name='viewport'
+            content='initial-scale=1.0, width=device-width'
           />
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='weight'
+        </Head>
+        <header className={styles.banner}>🎁 Generate a diet plan</header>
+        <form className='mx-auto max-w-lg' onSubmit={handleSubmit}>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='gender'
+            >
+              Gender
+            </label>
+            <select
+              className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+              id='gender'
+              name='gender'
+            >
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='age'
+            >
+              Age
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='age'
+              name='age'
+              type='number'
+              placeholder='39'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='weight'
+            >
+              Weight (kg)
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='weight'
+              type='number'
+              name='weight'
+              placeholder='79'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='height'
+            >
+              Height (cm)
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='height'
+              type='number'
+              name='height'
+              placeholder='176'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='body-fat'
+            >
+              Body fat (%)
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='body-fat'
+              type='number'
+              name='fat'
+              placeholder='25'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='activity-level'
+            >
+              Activity level
+            </label>
+            <select
+              className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+              id='activity-level'
+              name='activity'
+            >
+              <option value='1.2'>Sedentary (office job)</option>
+              <option value='1.375'>Light Exercise (1-2 days/week)</option>
+              <option value='1.55'>Moderate Exercise (3-5 days/week)</option>
+              <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
+              <option value='1.9'>Athlete (2x per day)</option>
+            </select>
+          </div>
+          <button
+            className='block bg-teal-700  text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
+            type='submit'
           >
-            Weight (kg)
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            id='weight'
-            type='number'
-            name='weight'
-            placeholder='79'
-          />
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='height'
-          >
-            Height (cm)
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            id='height'
-            type='number'
-            name='height'
-            placeholder='176'
-          />
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='body-fat'
-          >
-            Body fat (%)
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-            id='body-fat'
-            type='number'
-            name='fat'
-            placeholder='25'
-          />
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='activity-level'
-          >
-            Activity level
-          </label>
-          <select
-            className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-            id='activity-level'
-            name='activity'
-          >
-            <option value='1.2'>Sedentary (office job)</option>
-            <option value='1.375'>Light Exercise (1-2 days/week)</option>
-            <option value='1.55'>Moderate Exercise (3-5 days/week)</option>
-            <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
-            <option value='1.9'>Athlete (2x per day)</option>
-          </select>
-        </div>
-        <button
-          className='block bg-blue-500 hover:bg-blue-700 text-white font-bold mx-auto py-2 px-4 rounded-md text-center '
-          type='submit'
-        >
-          Generate Diet Plan now &gt;
-        </button>
-      </form>
-      {tdee > 0 && (
-        <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
-          <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
-            Your Total Daily Energy Expensiture is 2412
-          </span>
-        </div>
-      )}
+            Generate Diet Plan now &gt;
+          </button>
+        </form>
+      </section>
 
-      {meals && <MealTable meals={meals} />}
+      <section className='relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 astro-ASTJXEJC'>
+        {tdee > 0 && (
+          <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
+            <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
+              Your Total Daily Energy Expensiture is 2412
+            </span>
+          </div>
+        )}
 
-      <div className='fixed bottom-0 right-0 mb-4 mr-4'>
-        <a
-          href='https://twitter.com/sagarjani'
-          className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
-        >
-          Made By @SagarJani
-        </a>
-      </div>
-    </div>
+        {meals && <MealTable meals={meals} />}
+
+        <div className='fixed bottom-0 right-0 mb-4 mr-4'>
+          <a
+            href='https://twitter.com/sagarjani'
+            className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
+          >
+            Made By @SagarJani
+          </a>
+        </div>
+      </section>
+      <footer className='bg-black text-white font-bold text-xl flex justify-center p-4'>
+        <p>© 2023 AI Fitness Plan. All rights reserved.</p>
+      </footer>
+    </main>
   )
 }
 

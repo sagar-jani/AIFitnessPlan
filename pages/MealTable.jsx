@@ -3,11 +3,6 @@ import React, { useState } from 'react'
 function MealTable(props) {
   const { meals } = props
   console.log('meals', meals)
-  const [totalProtein, setTotalProtein] = useState(0)
-  const [totalFat, setTotalFat] = useState(0)
-  const [totalCarbs, setTotalCarbs] = useState(0)
-  const [totalCalories, setTotalCalories] = useState(0)
-
   const totals = meals.reduce(
     (acc, meal) => {
       if (meal.foods && meal.foods.length > 0) {

@@ -31,18 +31,6 @@ const Home = () => {
         }
         // Create a new meal object
         currentMeal = { name: line, foods: [] }
-        // } else if (line.startsWith('Overall:')) {
-        //   console.log('Overall')
-        //   // Split the line by "," to get the individual totals
-        //   const totals = line.split(', ');
-        //   // Extract the values from the totals strings
-        //   const overall = {
-        //     calories: totals[0].split(' ')[1],
-        //     protein: totals[1].split(' ')[0],
-        //     fat: totals[2].split(' ')[0],
-        //     carbs: totals[3].split(' ')[0]
-        //   };
-        //   meals.push({ name: 'Overall', overall });
       } else {
         // Split the line by "(" to get the food name and details
         const parts = line.split('(')
@@ -122,11 +110,14 @@ const Home = () => {
             content='initial-scale=1.0, width=device-width'
           />
         </Head>
-        <header className={styles.banner}>🎁 Generate a diet plan</header>
-        <form className='mx-auto max-w-lg' onSubmit={handleSubmit}>
+        {/* <header>
+          <h1>FitnessAI.com</h1>
+        </header> */}
+
+        <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='gender'
             >
               Gender
@@ -142,7 +133,7 @@ const Home = () => {
           </div>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='age'
             >
               Age
@@ -157,7 +148,7 @@ const Home = () => {
           </div>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='weight'
             >
               Weight (kg)
@@ -172,7 +163,7 @@ const Home = () => {
           </div>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='height'
             >
               Height (cm)
@@ -187,7 +178,7 @@ const Home = () => {
           </div>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='body-fat'
             >
               Body fat (%)
@@ -202,7 +193,7 @@ const Home = () => {
           </div>
           <div className='mb-4'>
             <label
-              className='block text-gray-700 text-sm font-bold mb-2'
+              className='block text-white text-sm font-bold mb-2'
               htmlFor='activity-level'
             >
               Activity level

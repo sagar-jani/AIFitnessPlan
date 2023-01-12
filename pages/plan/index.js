@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import MealTable from './MealTable'
+import MealTable from '../MealTable'
 
-const Home = () => {
+const Plan = () => {
   const [tdee, setTdee] = useState(0)
   const [error, setError] = useState(null)
   const [meals, setMeals] = useState([])
@@ -246,4 +245,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Plan

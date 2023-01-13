@@ -5,12 +5,12 @@ import Link from "next/link";
 
 const Home = () => {
   return (
-    <section className='bg-black min-h-screen'>
+    <section className=' min-h-screen'>
       <Head>
         <title>Fitness AI</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-      <div className='bg-black flex items-center justify-center flex-col '>
+      <div className='bg-gray-800 flex items-center justify-center flex-col '>
         <div className='absolute top-0 right-0'>
           <button className='px-4 py-2 mt-3 mr-3 font-medium text-white bg-2CB49B hover:bg-white hover:text-2CB49B bg-til rounded-2xl'>
             Join Waitlist
@@ -99,28 +99,12 @@ const Home = () => {
             </div>
           </div>
 
-          {/* <div className='items-center justify-center'>
-            <a href="#" className="inline-flex  px-3 py-2 text-sm font-medium text-center text-white bg-til rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                          Try It Today !
-                          <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                      </a>
-          </div> */}
-
-          {/* <button className="bg-til text-white ml-70 p-2 rounded-lg flex content-center justify-center items-center">
-                Get it Started
-              </button> */}
-          {/* <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center justify-center text-white bg-til rounded-lg hover:bg-til focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Get it started
-            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-          </a> */}
-          <Link href="/plan" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center justify-center text-white bg-til rounded-lg hover:bg-til focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-            Get it started
-            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-
-          </Link>
         </div>
 
+        <Link href="/plan" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center justify-center text-white bg-til rounded-lg hover:bg-til focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Get it started
+          <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </Link>
 
         <div className='fixed bottom-0 right-0 mb-4 mr-4'>
           <a

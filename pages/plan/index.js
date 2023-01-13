@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import MealTable from '../MealTable'
+import Link from "next/link";
+import MaintainanceCalorie from '../../components/MaintainanceCalorie';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
   const [error, setError] = useState(null)
   const [meals, setMeals] = useState([])
+  const [bmr, setBMR] = useState(0)
 
   const formatResponse = (response) => {
     const meals = []
@@ -70,33 +73,32 @@ const Plan = () => {
   }
 
   const handleSubmit = async (e) => {
-    const BMR =
-      66 +
-      13.7 * e.target.weight.value +
-      5 * e.target.height.value -
-      6.8 * e.target.age.value
-    console.log('BMR', BMR)
 
-    const tdeeCalculated = BMR * e.target.activity.value
+    const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
+
+    setBMR(bmrDerived)
+
+    const tdeeCalculated = bmrDerived * e.target.activity.value
     console.log('TDEE', tdeeCalculated)
+    console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
     e.preventDefault()
-    const response = await fetch('/api/diet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tdee: tdee,
-      }),
-    })
-    const data = await response.json()
-    if (response.status !== 200) {
-      setError(data.detail)
-      return
-    }
-    console.log('data', data)
-    console.log('meals', formatResponse(data))
+    // const response = await fetch('/api/diet', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     tdee: tdee,
+    //   }),
+    // })
+    // const data = await response.json()
+    // if (response.status !== 200) {
+    //   setError(data.detail)
+    //   return
+    // }
+    // console.log('data', data)
+    // console.log('meals', formatResponse(data))
   }
 
   return (
@@ -109,9 +111,17 @@ const Plan = () => {
             content='initial-scale=1.0, width=device-width'
           />
         </Head>
-        {/* <header>
-          <h1>FitnessAI.com</h1>
-        </header> */}
+        <div className='bg-gray-800 flex items-center justify-center flex-col '>
+          <Link href="/" className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
+            Fitness AI
+          </Link>
+          <h1 className='text-white text-5xl font-bold mt-20'>
+            AI POWERED FITNESS
+          </h1>
+          <p className='text-white text-lg font-outline'>
+            Personalised nutrition plan to achieve your goal
+          </p>
+        </div>
 
         <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
           <div className='mb-4'>
@@ -213,19 +223,35 @@ const Plan = () => {
             className='block bg-teal-700  text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
             type='submit'
           >
-            Generate Diet Plan now &gt;
+            Start Your Plan &gt;
           </button>
         </form>
       </section>
 
-      <section className='relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 astro-ASTJXEJC'>
-        {tdee > 0 && (
+
+      {/* {tdee > 0 && (
           <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
             <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
-              Your Total Daily Energy Expensiture is 2412
+              Your Total Daily Energy Expensiture is {tdee}
             </span>
           </div>
         )}
+
+        {bmr > 0 && (
+          <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
+            <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
+              Your BMR is {bmr}
+            </span>
+          </div>
+        )} */}
+
+
+      <section className='justify-center items-center content-center'>
+        {tdee > 0 && <MaintainanceCalorie tdee={tdee} bmr={bmr} />}
+      </section>
+
+
+      <section className='relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 astro-ASTJXEJC'>
 
         {meals && <MealTable meals={meals} />}
 

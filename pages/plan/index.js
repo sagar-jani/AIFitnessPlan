@@ -234,10 +234,11 @@ const Plan = () => {
         {tdee > 0 && <MaintainanceCalorie tdee={tdee} bmr={bmr} />}
         {bmr > 0 && <BMR bmr={bmr} />}
         {<MacroCalculation tdee={tdee} />}
+
       </section>
 
       <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
-        {meals && <MealTable meals={meals} />}
+        {/* {meals && <MealTable meals={meals} />} */}
 
         <div className='fixed bottom-0 right-0 mb-4 '>
           <a

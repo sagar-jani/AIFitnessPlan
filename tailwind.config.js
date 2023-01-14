@@ -7,9 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-      'black': '#0D0C0F',
-      "til": "#2CB49B"
-    },
+        'black': '#0D0C0F',
+        "til": "#2CB49B",
+        "peach": "#fdf6e5"
+      },
     },
   },
   plugins: [],

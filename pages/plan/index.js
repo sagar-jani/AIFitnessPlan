@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import MealTable from '../MealTable'
 import Link from "next/link";
-import MaintainanceCalorie from '../../components/MaintainanceCalorie';
+import MaintainanceCalorie from '../../components/maintainance-calorie';
+import BMR from '../../components/bmr';
+import MacroCalculation from '../../components/macro-calculation';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -138,6 +140,7 @@ const Plan = () => {
             >
               <option value='Male'>Male</option>
               <option value='Female'>Female</option>
+              required
             </select>
           </div>
           <div className='mb-4'>
@@ -147,13 +150,7 @@ const Plan = () => {
             >
               Age
             </label>
-            <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              id='age'
-              name='age'
-              type='number'
-              placeholder='39'
-            />
+            <input required className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
           </div>
           <div className='mb-4'>
             <label
@@ -168,6 +165,7 @@ const Plan = () => {
               type='number'
               name='weight'
               placeholder='79'
+              required
             />
           </div>
           <div className='mb-4'>
@@ -183,6 +181,7 @@ const Plan = () => {
               type='number'
               name='height'
               placeholder='176'
+              required
             />
           </div>
           <div className='mb-4'>
@@ -198,6 +197,7 @@ const Plan = () => {
               type='number'
               name='fat'
               placeholder='25'
+              required
             />
           </div>
           <div className='mb-4'>
@@ -211,6 +211,7 @@ const Plan = () => {
               className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
               id='activity-level'
               name='activity'
+              required
             >
               <option value='1.2'>Sedentary (office job)</option>
               <option value='1.375'>Light Exercise (1-2 days/week)</option>
@@ -229,33 +230,16 @@ const Plan = () => {
       </section>
 
 
-      {/* {tdee > 0 && (
-          <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
-            <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
-              Your Total Daily Energy Expensiture is {tdee}
-            </span>
-          </div>
-        )}
-
-        {bmr > 0 && (
-          <div className='text-center text-2xl font-bold text-gray-800 p-4 rounded-md'>
-            <span className='bg-gradient-to-r from-teal-400 to-blue-500'>
-              Your BMR is {bmr}
-            </span>
-          </div>
-        )} */}
-
-
       <section className='justify-center items-center content-center'>
         {tdee > 0 && <MaintainanceCalorie tdee={tdee} bmr={bmr} />}
+        {bmr > 0 && <BMR bmr={bmr} />}
+        {<MacroCalculation tdee={tdee} />}
       </section>
 
-
-      <section className='relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 astro-ASTJXEJC'>
-
+      <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
         {meals && <MealTable meals={meals} />}
 
-        <div className='fixed bottom-0 right-0 mb-4 mr-4'>
+        <div className='fixed bottom-0 right-0 mb-4 '>
           <a
             href='https://twitter.com/sagarjani'
             className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '

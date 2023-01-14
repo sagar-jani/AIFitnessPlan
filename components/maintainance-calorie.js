@@ -16,12 +16,12 @@ const MaintainanceCalorie = (props) => {
         <div className="w-1/2 px-11 py-5  placeholder-sky-200 border border-gray-200 rounded-xl shadow-md text-md dark:bg-gray-800 dark:border-gray-700">
           Based on your stats, the best estimate for your maintenance calories is
           <span className=' px-1 font-bold'>
-           {tdee}
+            {tdee}
           </span>
-          per day based on the Mifflin-St Jeor Formula, which is widely known to be the most accurate. The table below shows the difference if you were to have selected a different activity level.
+          per day based on the Harris-Benedict, which is widely known to be the most accurate. The table below shows the difference if you were to have selected a different activity level.
         </div>
-
       </div>
+
     </>
   )
 }

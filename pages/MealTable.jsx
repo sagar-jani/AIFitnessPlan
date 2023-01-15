@@ -54,7 +54,7 @@ function MealTable(props) {
           <th className='px-4 py-2'>Calories</th>
         </tr>
       </thead>
-      <tfoot className='bg-blue-500 text-white font-bold text-center'>
+      <tfoot className='bg-teal-700 text-white font-bold text-center'>
         <tr>
           <td></td>
           <td className='tex-2xl'>Overall calorie</td>

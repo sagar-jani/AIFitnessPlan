@@ -4,7 +4,7 @@ const BMR = (props) => {
   return (
     <>
       <div className="text-center mb-5 mt-10">
-        <p className="text-black text-2xl font-bold">BMR</p>
+        <p className="text-black text-5xl font-bold">BMR</p>
       </div>
       <div className="flex flex-row mb-10 items-center justify-center ">
 
@@ -15,7 +15,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr)} calories per day
+            {Math.ceil(bmr).toLocaleString('en-US')} calories per day
           </div>
 
           <div className='col-span-1 row-span-1'>
@@ -23,7 +23,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr * 1.2)} calories per day
+            {Math.ceil(bmr * 1.2).toLocaleString('en-US')} calories per day
           </div>
 
           <div className='col-span-1 row-span-1'>
@@ -31,7 +31,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr * 1.375)} calories per day
+            {Math.ceil(bmr * 1.375).toLocaleString('en-US')} calories per day
           </div>
 
           <div className='col-span-1 row-span-1'>
@@ -39,7 +39,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr * 1.55)} calories per day
+            {Math.ceil(bmr * 1.55).toLocaleString('en-US')} calories per day
           </div>
 
           <div className='col-span-1 row-span-1'>
@@ -47,7 +47,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr * 1.725)} calories per day
+            {Math.ceil(bmr * 1.725).toLocaleString('en-US')} calories per day
           </div>
 
           <div className='col-span-1 row-span-1'>
@@ -55,7 +55,7 @@ const BMR = (props) => {
           </div>
 
           <div className='col-span-1 row-span-1'>
-            {Math.ceil(bmr * 1.9)} calories per day
+            {Math.ceil(bmr * 1.9).toLocaleString('en-US')} calories per day
           </div>
 
 

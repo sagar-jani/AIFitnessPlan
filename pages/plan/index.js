@@ -5,12 +5,15 @@ import Link from "next/link";
 import MaintainanceCalorie from '../../components/maintainance-calorie';
 import BMR from '../../components/bmr';
 import MacroCalculation from '../../components/macro-calculation';
+import CheckoutForm from '../../components/CheckoutForm';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
   const [error, setError] = useState(null)
   const [meals, setMeals] = useState([])
   const [bmr, setBMR] = useState(0)
+  const [activeTab, setActiveTab] = useState('Maintainance')
+  const [dietType, setDietType] = useState('ModCarb')
 
   const formatResponse = (response) => {
     const meals = []
@@ -72,6 +75,25 @@ const Plan = () => {
     console.log(meals)
     setMeals(meals)
     return meals
+  }
+
+  const generateNutritionPlan = async () => {
+    const response = await fetch('/api/diet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tdee: tdee,
+      }),
+    })
+    const data = await response.json()
+    if (response.status !== 200) {
+      setError(data.detail)
+      return
+    }
+    console.log('data', data)
+    console.log('meals', formatResponse(data))
   }
 
   const handleSubmit = async (e) => {
@@ -231,14 +253,24 @@ const Plan = () => {
 
 
       <section className='justify-center items-center content-center'>
-        {tdee > 0 && <MaintainanceCalorie tdee={tdee} bmr={bmr} />}
-        {bmr > 0 && <BMR bmr={bmr} />}
-        {<MacroCalculation tdee={tdee} />}
+        {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
+          <BMR bmr={bmr} />
+          <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} setDietType={setDietType} />
+          <CheckoutForm />
+          <button onClick={generateNutritionPlan}
+            className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
+            type='submit'
+          >
+            Generate Nutrition Plan
+          </button>
+
+        </>}
+
 
       </section>
 
       <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
-        {/* {meals && <MealTable meals={meals} />} */}
+        {meals.length > 0 && <MealTable meals={meals} />}
 
         <div className='fixed bottom-0 right-0 mb-4 '>
           <a

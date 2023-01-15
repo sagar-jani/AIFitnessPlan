@@ -1,19 +1,23 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Boxes from './Macro';
 
 
 const MacroCalculation = (props) => {
-  const [activeTab, setActiveTab] = useState('maintenance');
-  const { tdee } = props
+  // const [activeTab, setActiveTab] = useState('maintenance');
+  const { tdee, activeTab, setActiveTab, setDietType } = props
+
+  useEffect(() => {
+    setActiveTab('maintenance')
+  }, [])
   return (
-    <div className="text-center">
+    <div className="text-center border-2 mb-10">
       <div className="text-center mb-5 mt-10">
-        <p className="text-black text-2xl font-bold m-5">Macro Nutrients </p>
-        {/* <div className='flex text-center  justify-center'>
+        <p className="text-black text-5xl font-bold m-5">Macro Nutrients </p>
+        <div className='flex text-center  justify-center'>
           <p className='w-1/2'>Macronutrients are the nutrients we need in larger quantities that provide us with energy: in other words, fat, protein and carbohydrate.
           </p>
-        </div> */}
+        </div>
       </div>
       <div className="flex justify-center mb-10">
         <button

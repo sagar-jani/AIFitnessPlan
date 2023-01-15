@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 const Boxes = (props) => {
 
   const { tdee } = props
+  const [diet, setDiet] = useState('muscleBuildModCarb')
 
   return (
     <div>
       <div className='grid grid-flow-col grid-rows-4 gap-4 justify-center place-items-center mb-10'>
-        <div className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32">
+        <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32">
           Moderate Carb (30/35/35)
-        </div>
+        </button>
 
         <div className="box-border h-32 w-52 rounded-2xl bg-peach px-10 py-10 border-2 text-center">
           {Math.ceil(tdee * 0.30 / 4)} g
@@ -26,9 +27,9 @@ const Boxes = (props) => {
           <div className="text-center">Carbs</div>
         </div>
 
-        <div className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32">
+        <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32">
           Lower Carb (40/40/20)
-        </div>
+        </button>
 
         <div className="box-border h-32 w-52 rounded-2xl bg-peach px-10 py-10 border-2 text-center">
           {Math.ceil(tdee * 0.40 / 4)} g
@@ -49,9 +50,9 @@ const Boxes = (props) => {
         </div>
 
 
-        <div className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32">
+        <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32" onClick={() => setDiet('higherCarb')}>
           Higher Carb (30/20/50)
-        </div>
+        </button>
 
         <div className="box-border h-32 w-52 rounded-2xl bg-peach px-10 py-10 border-2 text-center">
           {Math.ceil(tdee * 0.30 / 4)} g

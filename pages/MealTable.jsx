@@ -43,36 +43,35 @@ function MealTable(props) {
     ))
   }
 
-  return
-  {
-    !meals ? (
-      <></>
-    ) : (
-      <table className='mx-auto text-center text-xl'>
-        <thead>
-          <tr>
-            <th className='px-4 py-2'>Meal</th>
-            <th className='px-4 py-2'>Food Item</th>
-            <th className='px-4 py-2'>Protein (gm)</th>
-            <th className='px-4 py-2'>Fat (gm)</th>
-            <th className='px-4 py-2'>Carbs (gm)</th>
-            <th className='px-4 py-2'>Calories</th>
-          </tr>
-        </thead>
-        <tfoot className='bg-teal-700 text-white font-bold text-center'>
-          <tr>
-            <td></td>
-            <td className='tex-2xl'>Overall calorie</td>
-            <td className='tex-2xl'>{totals?.protein}</td>
-            <td>{totals?.fat}</td>
-            <td>{totals?.carbs}</td>
-            <td>{totals?.calories}</td>
-          </tr>
-        </tfoot>
-        <tbody>{meals.map((meal, i) => renderMeal(meal))}</tbody>
-      </table>
-    )
-  }
+  return (
+    <>
+      {meals && (
+        <table className='mx-auto text-center text-xl'>
+          <thead>
+            <tr>
+              <th className='px-4 py-2'>Meal</th>
+              <th className='px-4 py-2'>Food Item</th>
+              <th className='px-4 py-2'>Protein (gm)</th>
+              <th className='px-4 py-2'>Fat (gm)</th>
+              <th className='px-4 py-2'>Carbs (gm)</th>
+              <th className='px-4 py-2'>Calories</th>
+            </tr>
+          </thead>
+          <tfoot className='bg-teal-700 text-white font-bold text-center'>
+            <tr>
+              <td></td>
+              <td className='tex-2xl'>Overall calorie</td>
+              <td className='tex-2xl'>{totals?.protein}</td>
+              <td>{totals?.fat}</td>
+              <td>{totals?.carbs}</td>
+              <td>{totals?.calories}</td>
+            </tr>
+          </tfoot>
+          <tbody>{meals.map((meal, i) => renderMeal(meal))}</tbody>
+        </table>
+      )}
+    </>
+  )
 }
 
 export default MealTable

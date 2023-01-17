@@ -81,22 +81,22 @@ const Plan = () => {
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
-    // const response = await fetch('/api/diet', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     tdee: tdee,
-    //   }),
-    // })
-    // const data = await response.json()
-    // if (response.status !== 200) {
-    //   setError(data.detail)
-    //   return
-    // }
-    // console.log('data', data)
-    // console.log('meals', formatResponse(data))
+    const response = await fetch('/api/diet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tdee: tdee,
+      }),
+    })
+    const data = await response.json()
+    if (response.status !== 200) {
+      setError(data.detail)
+      return
+    }
+    console.log('data', data)
+    console.log('meals', formatResponse(data))
   }
 
   const handleSubmit = async (e) => {

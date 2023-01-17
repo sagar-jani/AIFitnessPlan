@@ -9,16 +9,16 @@ function MealTable(props) {
         meal.foods.forEach((food) => {
           console.log('foodie', food)
           if (food?.protein) {
-            acc.protein += parseInt(food.protein)
+            acc.protein += parseInt(food?.protein)
           }
           if (food?.fat) {
-            acc.fat += parseInt(food.fat)
+            acc.fat += parseInt(food?.fat)
           }
           if (food?.carbs) {
-            acc.carbs += parseInt(food.carbs)
+            acc.carbs += parseInt(food?.carbs)
           }
           if (food?.calories) {
-            acc.calories += parseInt(food.calories)
+            acc.calories += parseInt(food?.calories)
           }
         })
       }
@@ -34,9 +34,9 @@ function MealTable(props) {
       <tr key={i}>
         <td className='border px-4 py-2'>{meal?.name}</td>
         <td className='border px-4 py-2'>{food?.name}</td>
-        <td className='border px-4 py-2'>{food?.protein.slice(0, -1)}</td>
-        <td className='border px-4 py-2'>{food?.fat.slice(0, -1)}</td>
-        <td className='border px-4 py-2'>{food?.carbs.slice(0, -1)}</td>
+        <td className='border px-4 py-2'>{food?.protein?.slice(0, -1)}</td>
+        <td className='border px-4 py-2'>{food?.fat?.slice(0, -1)}</td>
+        <td className='border px-4 py-2'>{food?.carbs?.slice(0, -1)}</td>
         <td className='border px-4 py-2'>{food?.calories}</td>
       </tr>
     ))
@@ -58,7 +58,7 @@ function MealTable(props) {
         <tr>
           <td></td>
           <td className='tex-2xl'>Overall calorie</td>
-          <td className='tex-2xl'>{totals.protein}</td>
+          <td className='tex-2xl'>{totals?.protein}</td>
           <td>{totals.fat}</td>
           <td>{totals.carbs}</td>
           <td>{totals.calories}</td>

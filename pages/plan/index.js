@@ -110,22 +110,22 @@ const Plan = () => {
     console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
     e.preventDefault()
-    // const response = await fetch('/api/diet', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     tdee: tdee,
-    //   }),
-    // })
-    // const data = await response.json()
-    // if (response.status !== 200) {
-    //   setError(data.detail)
-    //   return
-    // }
-    // console.log('data', data)
-    // console.log('meals', formatResponse(data))
+    const response = await fetch('/api/diet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tdee: tdee,
+      }),
+    })
+    const data = await response.json()
+    if (response.status !== 200) {
+      setError(data.detail)
+      return
+    }
+    console.log('data', data)
+    console.log('meals', formatResponse(data))
   }
 
   return (

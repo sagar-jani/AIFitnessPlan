@@ -108,8 +108,9 @@ const Home = () => {
 
         <div className='fixed bottom-0 right-0 mr-4 mb-5 font-bold text-xl '>
           <a
+            target="_blank"
             href='https://twitter.com/sagarjani'
-            className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
+            className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 ' rel="noreferrer"
           >
             Made By @SagarJani
           </a>

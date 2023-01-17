@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 function MealTable(props) {
   const { meals } = props
   console.log('meals', meals)
-  const totals = meals.reduce(
+  const totals = meals?.reduce(
     (acc, meal) => {
       if (meal.foods && meal.foods.length > 0) {
         meal.foods.forEach((food) => {

@@ -4,8 +4,7 @@ import Boxes from './Macro';
 
 
 const MacroCalculation = (props) => {
-  // const [activeTab, setActiveTab] = useState('maintenance');
-  const { tdee, activeTab, setActiveTab, setDietType } = props
+  const { tdee, activeTab, setActiveTab, dietType, setDietType } = props
 
   useEffect(() => {
     setActiveTab('maintenance')
@@ -43,21 +42,21 @@ const MacroCalculation = (props) => {
         <>
           <p >These macronutrient values reflect your maintenance calories of {tdee.toLocaleString("en-US")} calories per day.
           </p>
-          <Boxes tdee={tdee} />
+          <Boxes tdee={tdee} setDietType={setDietType} dietType={dietType} />
         </>
       )}
       {activeTab === 'fatloss' && (
         <>
           <p>These macronutrient values reflect your cutting calories of {(tdee - 500).toLocaleString("en-US")} calories per day, which is a 500 calorie per day deficit from your maintenance of {tdee.toLocaleString("en-US")} calories per day.
           </p>
-          <Boxes tdee={tdee - 500} />
+          <Boxes tdee={tdee - 500} setDietType={setDietType} dietType={dietType} />
         </>
       )}
       {activeTab === 'musclebuilding' && (
         <>
           <p>These macronutrient values reflect your bulking calories of {(tdee + 500).toLocaleString("en-US")} calories per day, which is +500 calories per day from your maintenance of {tdee.toLocaleString("en-US")} calories per day.
           </p>
-          <Boxes tdee={tdee + 500} />
+          <Boxes tdee={tdee + 500} setDietType={setDietType} dietType={dietType} />
         </>
       )}
     </div>

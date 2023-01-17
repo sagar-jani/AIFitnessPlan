@@ -78,22 +78,25 @@ const Plan = () => {
   }
 
   const generateNutritionPlan = async () => {
-    const response = await fetch('/api/diet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tdee: tdee,
-      }),
-    })
-    const data = await response.json()
-    if (response.status !== 200) {
-      setError(data.detail)
-      return
-    }
-    console.log('data', data)
-    console.log('meals', formatResponse(data))
+
+    const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
+    console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
+    // const response = await fetch('/api/diet', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     tdee: tdee,
+    //   }),
+    // })
+    // const data = await response.json()
+    // if (response.status !== 200) {
+    //   setError(data.detail)
+    //   return
+    // }
+    // console.log('data', data)
+    // console.log('meals', formatResponse(data))
   }
 
   const handleSubmit = async (e) => {
@@ -255,8 +258,8 @@ const Plan = () => {
       <section className='justify-center items-center content-center'>
         {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
           <BMR bmr={bmr} />
-          <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} setDietType={setDietType} />
-          <CheckoutForm />
+          <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
+          {/* <CheckoutForm /> */}
           <button onClick={generateNutritionPlan}
             className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
             type='submit'

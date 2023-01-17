@@ -16,15 +16,15 @@ export default async function handler(req, res) {
         line_items: [
           {
             name: 'Fitness Plan',
-            amount: 10.0 * 100,
+            amount: 0.5 * 100,
             currency: CURRENCY,
             quantity: 1,
           },
         ],
-        success_url: 'http://localhost:3000/success',
-        cancel_url: 'http://localhost:3000/cancel',
-        // success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
-        // cancel_url: `${req.headers.origin}/donate-with-checkout`,
+        // success_url: 'http://localhost:3000/success',
+        // cancel_url: 'http://localhost:3000/cancel',
+        success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/donate-with-checkout`,
       }
       const checkoutSession = await stripe.checkout.sessions.create(params)
 

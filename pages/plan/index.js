@@ -82,6 +82,9 @@ const Plan = () => {
   }
 
   const generateNutritionPlan = async () => {
+    const protein = dietType === 'modCarb' ? (tdee * 0.30) / 4 : dietType === 'lowCarb' ? (tdee * 0.40) / 4 : (tdee * 0.30) / 4
+    const fat = dietType === 'modCarb' ? (tdee * 0.35) / 9 : dietType === 'lowCarb' ? (tdee * 0.40) / 9 : (tdee * 0.20) / 9
+    const carb = dietType === 'modCarb' ? (tdee * 0.35) / 4 : dietType === 'lowCarb' ? (tdee * 0.20) / 4 : (tdee * 0.50) / 4
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
@@ -91,7 +94,10 @@ const Plan = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        tdee: tdee,
+        tdee: tdeeCalculated,
+        protein,
+        fat,
+        carb
       }),
     })
     const data = await response.json()
@@ -114,22 +120,6 @@ const Plan = () => {
     console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
     e.preventDefault()
-    // const response = await fetch('/api/diet', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     tdee: tdee,
-    //   }),
-    // })
-    // const data = await response.json()
-    // if (response.status !== 200) {
-    //   setError(data.detail)
-    //   return
-    // }
-    // console.log('data', data)
-    // console.log('meals', formatResponse(data))
   }
 
   return (

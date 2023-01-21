@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Head from 'next/head'
 import MealTable from '../MealTable'
 import Link from "next/link";
@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 
 
 import NoSSRWrapper from '../../components/dynamic'
+import LoadingDots from '../../components/LoadingDots';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -18,6 +19,9 @@ const Plan = () => {
   const [bmr, setBMR] = useState(0)
   const [activeTab, setActiveTab] = useState('Maintainance')
   const [dietType, setDietType] = useState('ModCarb')
+  const [loading, setLoading] = useState(false)
+
+  const bmrAnalysisRef = useRef(null)
 
   const formatResponse = (response) => {
     console.log('format response', response)
@@ -83,6 +87,7 @@ const Plan = () => {
   }
 
   const generateNutritionPlan = async () => {
+    setLoading(true)
     const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev/'
     const protein = dietType === 'modCarb' ? (tdee * 0.30) / 4 : dietType === 'lowCarb' ? (tdee * 0.40) / 4 : (tdee * 0.30) / 4
     const fat = dietType === 'modCarb' ? (tdee * 0.35) / 9 : dietType === 'lowCarb' ? (tdee * 0.40) / 9 : (tdee * 0.20) / 9
@@ -91,7 +96,7 @@ const Plan = () => {
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
     try {
-      const response = await fetch(`${BASE_URL}/diet-planner`, {
+      const response = await fetch(`${BASE_URL}/diet-planner1`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,12 +113,6 @@ const Plan = () => {
       console.log('data', data.plan)
       console.log('response', response)
       console.log('meals', formatResponse(data.plan))
-
-      // if (response.status !== 200) {
-      //   setError(data.detail)
-      //   return
-      // }
-
     } catch (error) {
       if (error.response) {
         console.log(error.response.status);
@@ -122,21 +121,22 @@ const Plan = () => {
         console.log(error.message);
       }
       console.log('An error occured while generating nutrition plan', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleSubmit = async (e) => {
-
-    // const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
+    e.preventDefault()
     const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
-
     setBMR(bmrDerived)
-
+    document.getElementById('bmrAnalysisSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
     const tdeeCalculated = bmrDerived * e.target.activity.value
     console.log('TDEE', tdeeCalculated)
     console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
-    e.preventDefault()
+
+
   }
 
   return (
@@ -224,22 +224,6 @@ const Plan = () => {
             <div className='mb-4'>
               <label
                 className='block text-white text-sm font-bold mb-2'
-                htmlFor='body-fat'
-              >
-                Body fat (%)
-              </label>
-              <input
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                id='body-fat'
-                type='number'
-                name='fat'
-                placeholder='25'
-                required
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                className='block text-white text-sm font-bold mb-2'
                 htmlFor='activity-level'
               >
                 Activity level
@@ -267,17 +251,42 @@ const Plan = () => {
         </section>
 
 
-        <section className='justify-center items-center content-center'>
+        <section className='justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
           {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
             <BMR bmr={bmr} />
             <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
             {/* <CheckoutForm /> */}
-            <button onClick={generateNutritionPlan}
+
+            {/* <button onClick={generateNutritionPlan}
               className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
               type='submit'
             >
               Generate Nutrition Plan
-            </button>
+            </button> */}
+
+            {!loading && (
+              <button
+                className="block bg-teal-700 rounded-xl text-white  mx-auto font-medium py-6 px-8 mt-8 hover:bg-til/80 text-center "
+                onClick={(e) => generateNutritionPlan()}
+              >
+                Generate Nutrition Plan &rarr;
+              </button>
+            )}
+
+            {loading && (
+              // <button
+              //   className="block bg-teal-700 rounded-xl text-white  mx-auto font-medium py-6 px-8  mt-8 hover:bg-til/80 text-center"
+              //   disabled
+              // >
+              //   <LoadingDots color="white" style="large" />
+              // </button>
+              <button onClick={generateNutritionPlan}
+                className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
+                type='submit'
+              >
+                <LoadingDots color="white" style="large" />
+              </button>
+            )}
 
           </>}
 

@@ -12,9 +12,9 @@ const Home = () => {
       </Head>
       <div className='bg-gray-800 flex items-center justify-center flex-col '>
         <div className='absolute top-0 right-0'>
-          <button className='px-4 py-2 mt-3 mr-3 font-medium text-white bg-2CB49B hover:bg-white hover:text-2CB49B bg-til rounded-2xl'>
+          {/* <button className='px-4 py-2 mt-3 mr-3 font-medium text-white bg-2CB49B hover:bg-white hover:text-2CB49B bg-til rounded-2xl'>
             Join Waitlist
-          </button>
+          </button> */}
         </div>
         <div className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
           Fitness AI
@@ -101,7 +101,7 @@ const Home = () => {
 
         </div>
 
-        <Link href="/plan" className="inline-flex items-center px-10 py-5 text-2xl font-medium text-center justify-center text-white bg-til rounded-lg hover:bg-til focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <Link href="/plan" className="inline-flex items-center px-10 py-5 text-2xl font-medium text-center justify-center text-white bg-til rounded-3xl hover:bg-til focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Get started
           <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </Link>

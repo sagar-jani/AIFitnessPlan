@@ -46,7 +46,7 @@ function MealTable(props) {
   return (
     <>
       {meals && (
-        <table className='mx-auto text-center text-xl'>
+        <table className='mx-auto text-center text-lg font-outline'>
           <thead>
             <tr>
               <th className='px-4 py-2'>Meal</th>
@@ -67,7 +67,9 @@ function MealTable(props) {
               <td>{totals?.calories}</td>
             </tr>
           </tfoot>
-          <tbody>{meals.map((meal, i) => renderMeal(meal))}</tbody>
+          <tbody className='font-outline'>
+            {meals.map((meal, i) => renderMeal(meal))}
+          </tbody>
         </table>
       )}
     </>

@@ -13,13 +13,14 @@ import NoSSRWrapper from '../../components/dynamic'
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
-  const [error, setErro3r] = useState(null)
+  const [error, setError] = useState(null)
   const [meals, setMeals] = useState([])
   const [bmr, setBMR] = useState(0)
   const [activeTab, setActiveTab] = useState('Maintainance')
   const [dietType, setDietType] = useState('ModCarb')
 
   const formatResponse = (response) => {
+    console.log('format response', response)
     const meals = []
 
     // Split the response into lines
@@ -76,41 +77,57 @@ const Plan = () => {
     // Add the final meal to the meals list
     meals.push(currentMeal)
 
-    console.log(meals)
+    console.log('meals', meals)
     setMeals(meals)
     return meals
   }
 
   const generateNutritionPlan = async () => {
+    const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev/'
     const protein = dietType === 'modCarb' ? (tdee * 0.30) / 4 : dietType === 'lowCarb' ? (tdee * 0.40) / 4 : (tdee * 0.30) / 4
     const fat = dietType === 'modCarb' ? (tdee * 0.35) / 9 : dietType === 'lowCarb' ? (tdee * 0.40) / 9 : (tdee * 0.20) / 9
     const carb = dietType === 'modCarb' ? (tdee * 0.35) / 4 : dietType === 'lowCarb' ? (tdee * 0.20) / 4 : (tdee * 0.50) / 4
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
-    const response = await fetch('/api/diet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tdee: tdeeCalculated,
-        protein,
-        fat,
-        carb
-      }),
-    })
-    const data = await response.json()
-    if (response.status !== 200) {
-      setError(data.detail)
-      return
+    try {
+      const response = await fetch(`${BASE_URL}/diet-planner`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          calorie: Math.ceil(tdeeCalculated),
+          protein: Math.ceil(protein),
+          fat: Math.ceil(fat),
+          carb: Math.ceil(carb)
+        }),
+      })
+
+      const data = await response.json()
+      console.log('data', data.plan)
+      console.log('response', response)
+      console.log('meals', formatResponse(data.plan))
+
+      // if (response.status !== 200) {
+      //   setError(data.detail)
+      //   return
+      // }
+
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.status);
+        console.log(error.response.data);
+      } else {
+        console.log(error.message);
+      }
+      console.log('An error occured while generating nutrition plan', error)
     }
-    console.log('data', data)
-    console.log('meals', formatResponse(data))
   }
 
   const handleSubmit = async (e) => {
 
+    // const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
     const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
 
     setBMR(bmrDerived)

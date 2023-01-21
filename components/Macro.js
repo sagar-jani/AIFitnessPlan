@@ -39,10 +39,10 @@ const Boxes = (props) => {
           </div>
         </button>
 
-        <button className='row-span-3'>
+        <button className='row-span-3' onClick={() => setDietType('lowCarb')}>
 
           <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32"
-            onClick={() => setDietType('lowCarb')}>
+            onClick={() => setDietType('lowCarb')} >
             Lower Carb (40/40/20)
           </button>
 
@@ -65,7 +65,7 @@ const Boxes = (props) => {
 
         </button>
 
-        <button className='row-span-3'>
+        <button className='row-span-3' onClick={() => setDietType('highCarb')}>
           <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32" onClick={() => setDietType('highCarb')}>
             Higher Carb (30/20/50)
           </button>

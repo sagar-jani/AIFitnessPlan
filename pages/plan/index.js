@@ -14,7 +14,7 @@ import LoadingDots from '../../components/LoadingDots';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
   const [meals, setMeals] = useState([])
   const [bmr, setBMR] = useState(0)
   const [activeTab, setActiveTab] = useState('Maintainance')
@@ -96,7 +96,7 @@ const Plan = () => {
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
     try {
-      const response = await fetch(`${BASE_URL}/diet-planner1`, {
+      const response = await fetch(`${BASE_URL}/diet-planner`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,6 +114,8 @@ const Plan = () => {
       console.log('response', response)
       console.log('meals', formatResponse(data.plan))
     } catch (error) {
+      console.log('nskjndkj')
+      setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")
       if (error.response) {
         console.log(error.response.status);
         console.log(error.response.data);
@@ -287,6 +289,8 @@ const Plan = () => {
                 <LoadingDots color="white" style="large" />
               </button>
             )}
+
+            {/* {<div className='font-bold text-red-600'>{error}</div>}`   */}
 
           </>}
 

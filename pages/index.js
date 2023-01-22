@@ -10,7 +10,7 @@ const Home = () => {
         <title>Fitness AI</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-      <div className='bg-gray-800 flex items-center justify-center flex-col '>
+      <div className='bg-black flex items-center justify-center flex-col '>
         <div className='absolute top-0 right-0'>
           {/* <button className='px-4 py-2 mt-3 mr-3 font-medium text-white bg-2CB49B hover:bg-white hover:text-2CB49B bg-til rounded-2xl'>
             Join Waitlist

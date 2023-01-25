@@ -9,13 +9,13 @@ const Boxes = (props) => {
 
   return (
     <div>
-      <p className='mt-10 text-2xl'>
+      <p className='mt-10 text-xl text-white'>
         Select any one plan below to generate a nutrition plan.
       </p>
       <div className={`grid grid-flow-col grid-rows-4 gap-4 justify-center place-items-center mb-10 `}>
         <button className='row-span-3' onClick={() => { setDietType('modCarb'); console.log('dietType', dietType) }}>
           <div className='grid-row-spaln'></div>
-          <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32"
+          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32"
             onClick={() => setDietType('modCarb')}>
             Moderate Carb (30/35/35)
           </button>
@@ -41,7 +41,7 @@ const Boxes = (props) => {
 
         <button className='row-span-3' onClick={() => setDietType('lowCarb')}>
 
-          <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32"
+          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32"
             onClick={() => setDietType('lowCarb')} >
             Lower Carb (40/40/20)
           </button>
@@ -66,7 +66,7 @@ const Boxes = (props) => {
         </button>
 
         <button className='row-span-3' onClick={() => setDietType('highCarb')}>
-          <button className=" bg-blue-500 text-white p-2 rounded-md text-xs -mb-32" onClick={() => setDietType('highCarb')}>
+          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32" onClick={() => setDietType('highCarb')}>
             Higher Carb (30/20/50)
           </button>
 
@@ -87,7 +87,7 @@ const Boxes = (props) => {
         </button>
       </div >
 
-      <p>There are 4 calories per gram of both protein and carbohydrates, and 9 calories per gram of fats.
+      <p className='text-white'>There are 4 calories per gram of both protein and carbohydrates, and 9 calories per gram of fats.
 
       </p>
     </div >

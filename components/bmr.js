@@ -4,9 +4,9 @@ const BMR = (props) => {
   return (
     <>
       <div className="text-center mb-5 mt-10">
-        <p className="text-black text-5xl font-bold">BMR</p>
+        <p className="text-white text-5xl font-bold">BMR</p>
       </div>
-      <div className="flex flex-row mb-10 items-center justify-center ">
+      <div className="flex flex-row mb-10 items-center justify-center text-white">
 
         <div className='grid grid-cols-2 divide-y gap-x-20 gap-y-2 text-lg'>
 

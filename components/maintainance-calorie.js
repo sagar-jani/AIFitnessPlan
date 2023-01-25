@@ -4,7 +4,7 @@ const MaintainanceCalorie = (props) => {
   return (
     <>
       <div className="text-center mb-5 mt-10">
-        <p className="text-black text-5xl font-bold">Your Maintenance Calories</p>
+        <p className="text-white text-5xl font-bold">Your Maintenance Calories</p>
       </div>
 
       <div className="flex flex-row mb-10 items-center justify-center ">
@@ -13,7 +13,7 @@ const MaintainanceCalorie = (props) => {
           {tdee.toLocaleString('en-US')}
         </div>
 
-        <div className="w-1/2 px-11 py-5  placeholder-sky-200 border border-gray-200 rounded-xl shadow-md text-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-1/2 px-11 py-5  placeholder-sky-200 border border-gray-200 rounded-xl shadow-md text-white text-md dark:bg-gray-800 dark:border-gray-700">
           Based on your stats, the best estimate for your maintenance calories is
           <span className=' px-1 font-bold'>
             {tdee}

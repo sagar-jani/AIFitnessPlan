@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         'black': '#0D0C0F',
         "til": "#2CB49B",
-        "peach": "#fdf6e5"
+        "peach": "#fdf6e5",
+        "primary": "#1ca1f2"
       },
     },
   },

@@ -16,7 +16,7 @@ const WorkoutTable = ({ workoutArray }) => {
         {workoutArray.map((day, dayIndex) => (
           <React.Fragment key={dayIndex}>
             <tr className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full text-md font-medium uppercase tracking-wide text-white transform">
-              <td className="px-4 py-2" colSpan={4}>
+              <td className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full text-md font-medium uppercase tracking-wide text-white transform" colSpan={4}>
                 {day.day}
               </td>
             </tr>

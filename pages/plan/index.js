@@ -107,8 +107,9 @@ const Plan = () => {
     const prompt = `one-day diet with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
 
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
+    const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev'
     try {
-      const response = await fetch(`/api/ai`, {
+      const response = await fetch(`${BASE_URL}/diet-planner`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

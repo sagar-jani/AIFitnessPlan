@@ -19,6 +19,9 @@ const handler = async (req, res) => {
     const data = await response.json()
     console.log('data', data)
     res.status(200).json({ plan: data.plan })
+    // res.status(200).json({
+    //   body: data.plan,
+    // });
 
   } catch (error) {
     if (error.response) {

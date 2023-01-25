@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { use, useRef, useState } from 'react'
 import Head from 'next/head'
 import MealTable from '../MealTable'
 import Link from "next/link";
@@ -11,6 +11,9 @@ import dynamic from 'next/dynamic'
 
 import NoSSRWrapper from '../../components/dynamic'
 import LoadingDots from '../../components/LoadingDots';
+import Ingredients from '../../components/Ingredients';
+import DividerDropdown from '../../components/dropdown';
+import ExerciseSelection from '../../components/ExerciseSelection';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -20,6 +23,8 @@ const Plan = () => {
   const [activeTab, setActiveTab] = useState('Maintainance')
   const [dietType, setDietType] = useState('ModCarb')
   const [loading, setLoading] = useState(false)
+  const [ingredients, setIngredients] = useState()
+  const [exercisePlanConsent, setExercisePlanConsent] = useState(false)
 
   const bmrAnalysisRef = useRef(null)
 
@@ -47,7 +52,11 @@ const Plan = () => {
         }
         // Create a new meal object
         currentMeal = { name: line, foods: [] }
-      } else {
+      } else if (line.startsWith('Ingredients')) {
+        const ingredients = line.substring(13).split(", ");
+        setIngredients(ingredients)
+      }
+      else {
         // Split the line by "(" to get the food name and details
         const parts = line.split('(')
         console.log('parts', parts)
@@ -88,40 +97,33 @@ const Plan = () => {
 
   const generateNutritionPlan = async () => {
     setLoading(true)
-    const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev/'
+
     const protein = dietType === 'modCarb' ? (tdee * 0.30) / 4 : dietType === 'lowCarb' ? (tdee * 0.40) / 4 : (tdee * 0.30) / 4
     const fat = dietType === 'modCarb' ? (tdee * 0.35) / 9 : dietType === 'lowCarb' ? (tdee * 0.40) / 9 : (tdee * 0.20) / 9
     const carb = dietType === 'modCarb' ? (tdee * 0.35) / 4 : dietType === 'lowCarb' ? (tdee * 0.20) / 4 : (tdee * 0.50) / 4
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
+
+    const prompt = `one-day diet with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
+
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
     try {
-      const response = await fetch(`${BASE_URL}/diet-planner`, {
+      const response = await fetch(`/api/ai`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          calorie: Math.ceil(tdeeCalculated),
-          protein: Math.ceil(protein),
-          fat: Math.ceil(fat),
-          carb: Math.ceil(carb)
+          prompt
         }),
       })
 
-      const data = await response.json()
-      console.log('data', data.plan)
       console.log('response', response)
+      const data = await response.json()
       console.log('meals', formatResponse(data.plan))
+
     } catch (error) {
-      console.log('nskjndkj')
       setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")
-      if (error.response) {
-        console.log(error.response.status);
-        console.log(error.response.data);
-      } else {
-        console.log(error.message);
-      }
       console.log('An error occured while generating nutrition plan', error)
     } finally {
       setLoading(false)
@@ -137,8 +139,6 @@ const Plan = () => {
     console.log('TDEE', tdeeCalculated)
     console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
-
-
   }
 
   return (
@@ -166,10 +166,7 @@ const Plan = () => {
 
           <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
             <div className='mb-4'>
-              <label
-                className='block text-white text-sm font-bold mb-2'
-                htmlFor='gender'
-              >
+              <label className='block text-white text-sm font-bold mb-2' htmlFor='gender'>
                 Gender
               </label>
               <select
@@ -259,6 +256,8 @@ const Plan = () => {
             <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
             {/* <CheckoutForm /> */}
 
+            {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
+
             {/* <button onClick={generateNutritionPlan}
               className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
               type='submit'
@@ -276,17 +275,12 @@ const Plan = () => {
             )}
 
             {loading && (
-              // <button
-              //   className="block bg-teal-700 rounded-xl text-white  mx-auto font-medium py-6 px-8  mt-8 hover:bg-til/80 text-center"
-              //   disabled
-              // >
-              //   <LoadingDots color="white" style="large" />
-              // </button>
               <button onClick={generateNutritionPlan}
                 className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
                 type='submit'
               >
                 <LoadingDots color="white" style="large" />
+                <p>Please wait, this would take ~15 seconds.</p>
               </button>
             )}
 
@@ -296,10 +290,24 @@ const Plan = () => {
 
 
         </section>
-
         <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
           {meals.length > 0 && <MealTable meals={meals} />}
+        </section>
 
+        <ExerciseSelection />
+
+        <section className='bg-gray-800 justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
+          {meals.length > 0 &&
+            <>
+              <div className="text-center mb-5 mt-10">
+                <p className="text-5xl font-bold">Let&apos;s generate exercise plan now !</p>
+              </div>
+              <ExerciseSelection />
+            </>
+          }
+
+        </section>
+        <footer className='bg-black text-white font-bold text-xl flex justify-center p-4'>
           <div className='fixed bottom-0 right-0 mb-4 '>
             <a
               href='https://twitter.com/sagarjani'
@@ -308,8 +316,6 @@ const Plan = () => {
               Made By @SagarJani
             </a>
           </div>
-        </section>
-        <footer className='bg-black text-white font-bold text-xl flex justify-center p-4'>
           <p>© 2023 AI Fitness Plan. All rights reserved.</p>
         </footer>
       </main>

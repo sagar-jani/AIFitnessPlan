@@ -3,7 +3,6 @@ import LoadingDots from './LoadingDots';
 import WorkoutTable from './WorkoutTable';
 
 const ExerciseSelection = () => {
-  const [workoutPlan, setWorkoutPlan] = useState(null)
   const [loading, setLoading] = useState(false)
   const [selectedTrainingType, setSelectedTrainingType] = useState('Home');
   const [error, setError] = useState('')
@@ -57,6 +56,7 @@ const ExerciseSelection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     const homePrompt = `Generate workout plan for ${e.target.workout.value} to perform at Home like day1, day2, day3 in table format with columns separate by | - No##Workout##Sets##Reps`
     const gymPrompt = `Generate a workout plan for ${e.target.workout.value} for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in format like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps`
     const prompt = e.target.workout.value === 'Home' ? homePrompt : gymPrompt
@@ -138,19 +138,18 @@ const ExerciseSelection = () => {
 
             {
               !loading && <div className="flex justify-center">
-                <button className="bg-primary text-white py-2 px-4 rounded-full hover:bg-blue-600">
+                <button className="bg-primary text-center text-white py-2 px-4 rounded-full hover:bg-blue-600">
                   Submit
                 </button>
               </div>
             }
 
             {loading && (
-              <button className="bg-primary text-white py-2 px-4 rounded-full hover:bg-blue-600">
-                Submit
-
-                <LoadingDots color="white" style="large" />
-                <p>Please wait, this would take ~15 seconds.</p>
-              </button>
+              <div className="flex justify-center">
+                <button className="bg-primary text-center text-white py-2 px-4 rounded-full hover:bg-blue-600">
+                  <LoadingDots color="white" style="large" />
+                </button>
+              </div>
             )}
 
 

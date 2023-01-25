@@ -46,9 +46,9 @@ function MealTable(props) {
   return (
     <>
       {meals && (
-        <table className='mx-auto text-center text-lg font-outline'>
+        <table className='mx-auto text-center text-lg font-outline text-white'>
           <thead>
-            <tr>
+            <tr className='text-primary'>
               <th className='px-4 py-2'>Meal</th>
               <th className='px-4 py-2'>Food Item</th>
               <th className='px-4 py-2'>Protein (gm)</th>
@@ -57,7 +57,7 @@ function MealTable(props) {
               <th className='px-4 py-2'>Calories</th>
             </tr>
           </thead>
-          <tfoot className='bg-teal-700 text-white font-bold text-center'>
+          <tfoot className='bg-primary text-white font-bold text-center'>
             <tr>
               <td></td>
               <td className='tex-2xl'>Overall calorie</td>

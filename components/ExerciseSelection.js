@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoadingDots from './LoadingDots';
 import WorkoutTable from './WorkoutTable';
 
 const ExerciseSelection = () => {
@@ -102,13 +103,13 @@ const ExerciseSelection = () => {
       </code></pre> */}
 
       <style>{tailwindStyles}</style>
-      <div className="flex justify-center">
+      <div className="flex justify-center bg-gradient ">
         <div className="border rounded p-4 w-1/2 mx-auto flex flex-col items-center">
           <div className="bg-gradient-red text-white py-2 px-4 text-2xl rounded-t-lg text-center font-medium">Exercise Selection</div>
           <form className="w-full py-4" onSubmit={(e) => handleSubmit(e)}>
             <div className="flex -mx-2 w-full justify-between text-center">
               <div className="mx-auto">
-                <label className="block text-gray-700">
+                <label className="block text-white text-lg">
                   <input
                     type="radio"
                     value="Home"
@@ -121,7 +122,7 @@ const ExerciseSelection = () => {
                 </label>
               </div>
               <div className="mx-auto">
-                <label className="block text-gray-700">
+                <label className="block text-white text-lg">
                   <input
                     id="workout"
                     type="radio"
@@ -134,11 +135,25 @@ const ExerciseSelection = () => {
                 </label>
               </div>
             </div>
-            <div className="flex justify-center">
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600">
+
+            {
+              !loading && <div className="flex justify-center">
+                <button className="bg-primary text-white py-2 px-4 rounded-full hover:bg-blue-600">
+                  Submit
+                </button>
+              </div>
+            }
+
+            {loading && (
+              <button className="bg-primary text-white py-2 px-4 rounded-full hover:bg-blue-600">
                 Submit
+
+                <LoadingDots color="white" style="large" />
+                <p>Please wait, this would take ~15 seconds.</p>
               </button>
-            </div>
+            )}
+
+
           </form>
         </div>
       </div>

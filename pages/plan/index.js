@@ -110,7 +110,7 @@ const Plan = () => {
     console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
     const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev'
     try {
-      const response = await fetch(`https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev`, {
+      const response = await fetch(`${BASE_URL}/diet-planner`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -280,7 +280,7 @@ const Plan = () => {
 
               {loading && (
                 <button onClick={generateNutritionPlan}
-                  className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
+                  className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
                   type='submit'
                 >
                   <LoadingDots color="white" style="large" />
@@ -300,18 +300,18 @@ const Plan = () => {
 
           {/* <ExerciseSelection /> */}
 
-          <section className=' justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
+          <section className='bg-gradient justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
             {meals.length > 0 &&
               <>
                 <div className="text-center mb-5 mt-10">
-                  <p className="text-5xl font-bold">Let&apos;s generate exercise plan now !</p>
+                  <p className="text-5xl font-bold text-white">Let&apos;s generate exercise plan now !</p>
                 </div>
                 <ExerciseSelection />
               </>
             }
 
           </section>
-          <footer className='text-white text-white font-bold text-xl flex justify-center p-4'>
+          <footer className='text-white  font-bold text-xl flex justify-center p-4'>
             <div className='fixed bottom-0 right-0 mb-4 '>
               <a
                 href='https://twitter.com/sagarjani'

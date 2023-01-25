@@ -1,8 +1,10 @@
 const handler = async (req, res) => {
+  console.log('process.version', process.version)
+  console.log('FUnciton invoked', req.body)
   const { prompt } = req.body
 
   console.log('prompt', prompt)
-  const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev/'
+  const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev'
   try {
     const response = await fetch(`${BASE_URL}/diet-planner`, {
       method: 'POST',
@@ -14,11 +16,9 @@ const handler = async (req, res) => {
       }),
     })
 
-
     const data = await response.json()
     console.log('data', data)
-    // res.status(200).json({ plan: data.plan })
-    res.end(JSON.stringify(data));
+    res.status(200).json({ plan: data.plan })
 
   } catch (error) {
     if (error.response) {

@@ -23,11 +23,24 @@ const ExerciseSelection = () => {
     let currentExercises = [];
 
     workoutLines.forEach((line, index) => {
+
       if (line.startsWith('Day')) {
+        let day = line.split("|")
+        console.log('day1', day)
+        if (day.length < 1) {
+
+          day = line.split("|");
+          console.log('day2', day)
+          if (day.length < 1) {
+            line = line.replace(/\s{2,}/g, " ");
+            day = line.split(" ");
+            console.log('day3', day)
+          }
+        }
         if (currentDay !== '') {
           workoutArray.push({ day: currentDay, exercises: currentExercises });
         }
-        currentDay = line;
+        currentDay = day;
         currentExercises = [];
         return;
       }
@@ -58,7 +71,8 @@ const ExerciseSelection = () => {
     e.preventDefault()
     setLoading(true)
     const homePrompt = `Generate workout plan for ${e.target.workout.value} to perform at Home like day1, day2, day3 in table format with columns separate by | - No##Workout##Sets##Reps`
-    const gymPrompt = `Generate a workout plan for ${e.target.workout.value} for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in format like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps`
+    // const gymPrompt = `Generate a workout plan for ${e.target.workout.value} for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in format like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps`
+    const gymPrompt = `Generate a workout plan for ${e.target.workout.value}  for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in clear headers like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps|`
     const prompt = e.target.workout.value === 'Home' ? homePrompt : gymPrompt
     console.log('e.target.workout.value', e.target.workout.value)
     try {

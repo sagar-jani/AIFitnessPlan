@@ -294,7 +294,7 @@ const Plan = () => {
           {meals.length > 0 && <MealTable meals={meals} />}
         </section>
 
-        <ExerciseSelection />
+        {/* <ExerciseSelection /> */}
 
         <section className='bg-gray-800 justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
           {meals.length > 0 &&

@@ -9,6 +9,12 @@ const ExerciseSelection = () => {
   const [workout, setWorkout] = useState([]);
 
 
+  const tailwindStyles = `
+  .bg-gradient-red {
+      background-image: linear-gradient(90deg, rgba(131, 58, 180, .9) 0%, rgba(253, 29, 29, .9) 100%);
+  }
+`;
+
   const formatWorkout = (workoutPlan) => {
     const workoutArray = [];
 
@@ -30,8 +36,16 @@ const ExerciseSelection = () => {
         return;
       }
 
-      // line = line.replace(/\s{2,}/g, ' ');
-      const [no, workout, sets, reps] = line.split('##');
+
+      let [no, workout, sets, reps] = line.split("##");
+      if (line.split("##").length <= 1) {
+        [no, workout, sets, reps] = line.split("|");
+        if (line.split("|").length <= 1) {
+          line = line.replace(/\s{2,}/g, " ");
+          [no, workout, sets, reps] = line.split(" ");
+        }
+      }
+
       currentExercises.push({ no, workout, sets, reps });
     });
 
@@ -40,12 +54,12 @@ const ExerciseSelection = () => {
     setWorkout(workoutArray);
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // const prompt = `Generate workout plan for ${e.target.workout.value} to perform at ${selectedTrainingType} like day1, day2, day3`
-    // const prompt = `Generate workout plan for ${e.target.workout.value} to perform at ${selectedTrainingType} like day1, day2, day3 in table format with columns - No, Workout, Sets, Reps`
-    const prompt = "Generate workout plan for ${e.target.workout.value} to perform at Home like day1, day2, day3 in table format with columns separate by ## - No##Workout##Sets##Reps"
+    const homePrompt = `Generate workout plan for ${e.target.workout.value} to perform at Home like day1, day2, day3 in table format with columns separate by | - No##Workout##Sets##Reps`
+    const gymPrompt = `Generate a workout plan for ${e.target.workout.value} for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in format like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps`
+    const prompt = e.target.workout.value === 'Home' ? homePrompt : gymPrompt
+    console.log('e.target.workout.value', e.target.workout.value)
     try {
       const response = await fetch(`/api/ai`, {
         method: 'POST',
@@ -70,15 +84,12 @@ const ExerciseSelection = () => {
     }
   }
 
-
   const handleRadioChange = (e) => {
     setSelectedTrainingType(e.target.value);
   }
 
-
   return (
     <>
-
       {/* <pre className="prism-code language-json"><code><span className="token punctuation">{</span><span className="token plain"></span>
         <span className="token plain">  </span><span className="token property">"usage"</span><span className="token operator">:</span><span className="token plain"> </span><span className="token punctuation">{</span><span className="token plain"></span>
         <span className="token plain">    </span><span className="token property">"quota"</span><span className="token operator">:</span><span className="token plain"> </span><span className="token number">350</span><span className="token punctuation">,</span><span className="token plain"></span>
@@ -89,34 +100,50 @@ const ExerciseSelection = () => {
         <span className="token plain">  </span><span className="token property">"url"</span><span className="token operator">:</span><span className="token plain"> </span><span className="token string">"&lt;a URL pointing to the generated image&gt;"</span><span className="token plain"></span>
         <span className="token plain"></span><span className="token punctuation">}</span>
       </code></pre> */}
-      <form className='mx-auto max-w-lg mt-20 px-20' onSubmit={handleSubmit}>
-        <div className="flex justify-center ">
 
-          <div className="border-2 border-gray-600 ">
-            <select id="workout" name="workout" className="appearance-none border  hover:border-gray-500 px-4 py-2 pr-8 rounded-lg leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-500">
-              <option value='Strength Training 3x per week'>Strength Training 3x per week</option>
-              <option value='Strength Training 5x per week'>Strength Training 5x per week</option>
-              <option value='Strength Training 6x per week'>Strength Training 6x per week</option>
-            </select>
-            <div className="">
-              <label className="inline-flex items-center">
-                <input type="radio" className="form-radio" value="Home" name="radio-group" onChange={handleRadioChange} defaultChecked />
-                <span className="ml-2">Home Workout</span>
-              </label>
-              <label className="inline-flex items-center ml-6">
-                <input type="radio" className="form-radio" value="Commercial Gym" name="radio-group" onChange={handleRadioChange} />
-                <span className="ml-2">Commercial Gym</span>
-              </label>
+      <style>{tailwindStyles}</style>
+      <div className="flex justify-center">
+        <div className="border rounded p-4 w-1/2 mx-auto flex flex-col items-center">
+          <div className="bg-gradient-red text-white py-2 px-4 text-2xl rounded-t-lg text-center font-medium">Exercise Selection</div>
+          <form className="w-full py-4" onSubmit={(e) => handleSubmit(e)}>
+            <div className="flex -mx-2 w-full justify-between text-center">
+              <div className="mx-auto">
+                <label className="block text-gray-700">
+                  <input
+                    type="radio"
+                    value="Home"
+                    id="workout"
+                    checked={selectedTrainingType === 'Home'}
+                    onChange={handleRadioChange}
+                    className="mr-2"
+                  />
+                  Home Workout
+                </label>
+              </div>
+              <div className="mx-auto">
+                <label className="block text-gray-700">
+                  <input
+                    id="workout"
+                    type="radio"
+                    value="Commercial Gym"
+                    checked={selectedTrainingType === 'Commercial Gym'}
+                    onChange={handleRadioChange}
+                    className="mr-2"
+                  />
+                  Commercial Gym
+                </label>
+              </div>
             </div>
-            <button
-              className='block bg-teal-700  text-white font-bold mx-auto py-4 px-4 rounded-xl text-center  mb-4 mt-4'
-              type='submit'
-            >
-              Generate Workout &gt;
-            </button>
-          </div>
+            <div className="flex justify-center">
+              <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
+
+
       {workout.length > 0 && <WorkoutTable workoutArray={workout} />}
 
     </>

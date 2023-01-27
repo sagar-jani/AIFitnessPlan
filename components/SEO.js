@@ -10,7 +10,7 @@ const SEO = () => (
     <meta property="og:description" content="Learn about the latest research and developments in AI-driven fitness, diet, and exercise. Get personalized recommendations and achieve your health goals with cutting-edge technology." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.aifitnessplanner.com/" />
-    <meta property="og:image" content="https://www.aifitnessplanner.com/" />
+    <meta property="og:image" content="https://www.aifitnessplanner.com/images/ai-fitness-og-1.png" />
     <meta property="og:site_name" content="Fitness, Diet, and Exercise on AI" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />

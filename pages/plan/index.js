@@ -271,7 +271,7 @@ const Plan = () => {
 
               {!loading && (
                 <button
-                  className="block bg-primary rounded-xl text-white  mx-auto font-medium py-6 px-8 mt-8 hover:bg-til/80 text-center "
+                  className="block bg-primary rounded-xl text-white  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
                   onClick={(e) => generateNutritionPlan()}
                 >
                   Generate Nutrition Plan &rarr;

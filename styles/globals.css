@@ -4,8 +4,17 @@
 
 .bg-gradient {
   background: linear-gradient(135deg, #144462, #010101 90%);
+  /* font-family: 'Inter', sans-serif; */
 }
 
-body {
+/* body {
   font-family: 'Inter', sans-serif;
+} */
+
+.text-instagram {
+  color: #E1306C;
+}
+
+.text-gmail {
+  color: #4285F4;
 }

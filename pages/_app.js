@@ -4,6 +4,11 @@ import '../styles/globals.css'
 
 import * as ga from '../lib/ga'
 import { useRouter } from 'next/router'
+import { Inter } from '@next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+})
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -21,5 +26,9 @@ export default function App({ Component, pageProps }) {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events])
-  return <Component {...pageProps} />
+  return (
+    // <main className={inter.className}>
+    <Component {...pageProps} />
+    // </main>
+  )
 }

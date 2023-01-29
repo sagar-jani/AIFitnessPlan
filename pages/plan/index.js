@@ -15,6 +15,7 @@ import Ingredients from '../../components/Ingredients';
 import DividerDropdown from '../../components/dropdown';
 import ExerciseSelection from '../../components/ExerciseSelection';
 import Layout from '../../components/layout';
+import NutritionInput from '../../components/NutritionInput';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -26,6 +27,10 @@ const Plan = () => {
   const [loading, setLoading] = useState(false)
   const [ingredients, setIngredients] = useState()
   const [exercisePlanConsent, setExercisePlanConsent] = useState(false)
+
+
+  const [dietPattern, setDietPattern] = useState('Vegetarian');
+  const [cuisine, setCuisine] = useState('Italian');
 
   const bmrAnalysisRef = useRef(null)
 
@@ -105,9 +110,10 @@ const Plan = () => {
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
 
-    const prompt = `one-day diet with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
+    const prompt = `one-day diet for ${dietPattern} with ${cuisine} with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
 
-    console.log('Generating plan for', dietType, tdeeCalculated, activeTab)
+    console.log('prompt', prompt)
+    console.log('Generating plan for', dietType, tdeeCalculated, activeTab, dietPattern, cuisine)
     const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev'
     try {
       const response = await fetch(`${BASE_URL}/diet-planner`, {
@@ -244,7 +250,7 @@ const Plan = () => {
                 </select>
               </div>
               <button
-                className='block py-6 px-8 bg-primary mt-10  text-white font-bold mx-auto font-medium rounded-xl text-center '
+                className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
                 type='submit'
               >
 
@@ -269,9 +275,11 @@ const Plan = () => {
               Generate Nutrition Plan
             </button> */}
 
+              {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
+
               {!loading && (
                 <button
-                  className="block bg-primary rounded-xl text-white  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
+                  className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
                   onClick={(e) => generateNutritionPlan()}
                 >
                   Generate Nutrition Plan &rarr;

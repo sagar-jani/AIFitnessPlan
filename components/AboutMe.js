@@ -30,10 +30,10 @@ const AboutMe = () => {
   return (
     <div className='flex'>
       <ul className='mx-auto'>
-        <li className='inline-block mx-4'>
+        <li className='inline-block mx-2'>
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">About Me</Link>
         </li>
-        <li className="inline-block mx-4">
+        <li className="inline-block mx-2">
           <Link href={`${amazonLink}`} className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">EBook</Link >
         </li>
         {/* <li className="inline-block mx-4">
@@ -42,9 +42,9 @@ const AboutMe = () => {
             </a>
           </Link>
         </li> */}
-        <li className="inline-block mx-4">
-          <Link href='/contact' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Contact</Link>
-        </li>
+        {/* <li className="inline-block mx-4">
+          <Link href='/transformation' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Transformations</Link>
+        </li> */}
       </ul>
     </div >
 

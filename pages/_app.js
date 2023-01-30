@@ -5,6 +5,7 @@ import '../styles/globals.css'
 import * as ga from '../lib/ga'
 import { useRouter } from 'next/router'
 import { Inter } from '@next/font/google'
+import Layout from '../components/layout'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,7 +29,9 @@ export default function App({ Component, pageProps }) {
   }, [router.events])
   return (
     // <main className={inter.className}>
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
     // </main>
   )
 }

@@ -1,39 +1,20 @@
-// pages/layout.js
 import React from 'react'
 import AboutMe from './AboutMe'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import SocialIcons from './SocialIcons';
 import { FaEnvelope } from 'react-icons/fa';
-import GmailIcon from '../styles/Gmail';
-// import { fab } from '@fortawesome/free-brands-svg-icons';
-
-
-
-// const Layout = ({ children }) => {
-//   return (
-//     <div className="bg-gradient">
-//       {children}
-//     </div>
-//   )
-// }
 
 const Layout = ({ children }) => {
   return (
-    <div>
-      <header className='flex'>
+    <div className='bg-gradient '>
+      <header className=' flex justify-center'>
         <nav className=" mb-10 mt-10">
           <AboutMe />
         </nav>
-        <nav className="flex text-right justify-end">
+        <nav className="flex text-center ">
           <a href="mailto:sagar.aj@gmail.com"
             className="flex items-center m-2">
             <FaEnvelope className="text-gmail" size={30} />
-            <p className="ml-2">
-              Email
-            </p>
           </a>
           <SocialIcons />
         </nav>
@@ -41,6 +22,19 @@ const Layout = ({ children }) => {
       <main className="bg-gradient">
         {children}
       </main>
+      <footer className=' text-white font-bold text-xl flex justify-center p-4 mt-10 mb-5'>
+        <div className='fixed bottom-0 right-0 mr-4 mb-5 font-bold text-xl'>
+          <a
+            target="_blank"
+            href='https://twitter.com/sagarjani'
+            className='right-0 bottom-0 mb-4 mr-4 font-mono text-white rounded-xl p-4'
+            rel="noreferrer"
+          >
+            Made By @SagarJani
+          </a>
+        </div>
+        <p>© 2023 AI Fitness Plan. All rights reserved.</p>
+      </footer>
     </div>
   )
 }

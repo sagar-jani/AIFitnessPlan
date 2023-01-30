@@ -151,187 +151,187 @@ const Plan = () => {
 
   return (
     <NoSSRWrapper>
-      <Layout>
-        <main>
-          <section className='pb-40 text-white '>
-            <Head>
-              <title>Diet Plan Generator</title>
-              <meta
-                name='viewport'
-                content='initial-scale=1.0, width=device-width'
-              />
-            </Head>
-            <div className=' flex items-center justify-center flex-col '>
-              <Link href="/" className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
-                Fitness AI
-              </Link>
-              <h1 className='text-white text-5xl font-black mt-20 ' style={{ fontFamily: 'Inter, sans-serif' }}>
-                AI POWERED FITNESS
-              </h1>
-              <p className='text-white text-lg font-black ' style={{ fontFamily: 'Inter, sans-serif' }}>
-                Personalised nutrition plan to achieve your goal
-              </p>
-            </div>
 
-            <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
-              <div className='mb-4'>
-                <label className='block text-white text-sm font-bold mb-2' htmlFor='gender'>
-                  Gender
-                </label>
-                <select
-                  className='block appearance-none w-full  border border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                  id='gender'
-                  name='gender'
-                >
-                  <option value='Male'>Male</option>
-                  <option value='Female'>Female</option>
-                  required
-                </select>
-              </div>
-              <div className='mb-4'>
-                <label
-                  className='block text-white text-sm font-bold mb-2'
-                  htmlFor='age'
-                >
-                  Age
-                </label>
-                <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
-              </div>
-              <div className='mb-4'>
-                <label
-                  className='block text-white text-sm font-bold mb-2'
-                  htmlFor='weight'
-                >
-                  Weight (kg)
-                </label>
-                <input
-                  className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-                  id='weight'
-                  type='number'
-                  name='weight'
-                  placeholder='79'
-                  required
-                />
-              </div>
-              <div className='mb-4'>
-                <label
-                  className='block text-white text-sm font-bold mb-2'
-                  htmlFor='height'
-                >
-                  Height (cm)
-                </label>
-                <input
-                  className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-                  id='height'
-                  type='number'
-                  name='height'
-                  placeholder='176'
-                  required
-                />
-              </div>
-              <div className='mb-4'>
-                <label
-                  className='block text-white text-sm font-bold mb-2'
-                  htmlFor='activity-level'
-                >
-                  Activity level
-                </label>
-                <select
-                  className='block appearance-none w-full  border  text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                  id='activity-level'
-                  name='activity'
-                  required
-                >
-                  <option value='1.2'>Sedentary (office job)</option>
-                  <option value='1.375'>Light Exercise (1-2 days/week)</option>
-                  <option value='1.55'>Moderate Exercise (3-5 days/week)</option>
-                  <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
-                  <option value='1.9'>Athlete (2x per day)</option>
-                </select>
-              </div>
-              <button
-                className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
-                type='submit'
+      <main>
+        <section className='pb-40 text-white '>
+          <Head>
+            <title>Diet Plan Generator</title>
+            <meta
+              name='viewport'
+              content='initial-scale=1.0, width=device-width'
+            />
+          </Head>
+          <div className=' flex items-center justify-center flex-col '>
+            <Link href="/" className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
+              Fitness AI
+            </Link>
+            <h1 className='text-white text-5xl font-black mt-20 ' style={{ fontFamily: 'Inter, sans-serif' }}>
+              AI POWERED FITNESS
+            </h1>
+            <p className='text-white text-lg font-black ' style={{ fontFamily: 'Inter, sans-serif' }}>
+              Personalised nutrition plan to achieve your goal
+            </p>
+          </div>
+
+          <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
+            <div className='mb-4'>
+              <label className='block text-white text-sm font-bold mb-2' htmlFor='gender'>
+                Gender
+              </label>
+              <select
+                className='block appearance-none w-full  border border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                id='gender'
+                name='gender'
               >
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+                required
+              </select>
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-white text-sm font-bold mb-2'
+                htmlFor='age'
+              >
+                Age
+              </label>
+              <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-white text-sm font-bold mb-2'
+                htmlFor='weight'
+              >
+                Weight (kg)
+              </label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
+                id='weight'
+                type='number'
+                name='weight'
+                placeholder='79'
+                required
+              />
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-white text-sm font-bold mb-2'
+                htmlFor='height'
+              >
+                Height (cm)
+              </label>
+              <input
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
+                id='height'
+                type='number'
+                name='height'
+                placeholder='176'
+                required
+              />
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-white text-sm font-bold mb-2'
+                htmlFor='activity-level'
+              >
+                Activity level
+              </label>
+              <select
+                className='block appearance-none w-full  border  text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                id='activity-level'
+                name='activity'
+                required
+              >
+                <option value='1.2'>Sedentary (office job)</option>
+                <option value='1.375'>Light Exercise (1-2 days/week)</option>
+                <option value='1.55'>Moderate Exercise (3-5 days/week)</option>
+                <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
+                <option value='1.9'>Athlete (2x per day)</option>
+              </select>
+            </div>
+            <button
+              className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
+              type='submit'
+            >
 
-                Start Your Plan &gt;
-              </button>
-            </form>
-          </section>
+              Start Your Plan &gt;
+            </button>
+          </form>
+        </section>
 
 
-          <section className='justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
-            {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
-              <BMR bmr={bmr} />
-              <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
-              {/* <CheckoutForm /> */}
+        <section className='justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
+          {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
+            <BMR bmr={bmr} />
+            <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
+            {/* <CheckoutForm /> */}
 
-              {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
+            {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
 
-              {/* <button onClick={generateNutritionPlan}
+            {/* <button onClick={generateNutritionPlan}
               className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
               type='submit'
             >
               Generate Nutrition Plan
             </button> */}
 
-              {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
+            {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
 
-              {!loading && (
-                <button
-                  className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
-                  onClick={(e) => generateNutritionPlan()}
-                >
-                  Generate Nutrition Plan &rarr;
-                </button>
-              )}
-
-              {loading && (
-                <button onClick={generateNutritionPlan}
-                  className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
-                  type='submit'
-                >
-                  <LoadingDots color="white" style="large" />
-                  <p>Please wait, this would take ~15 seconds.</p>
-                </button>
-              )}
-
-              {/* {<div className='font-bold text-red-600'>{error}</div>}`   */}
-
-            </>}
-
-
-          </section>
-          <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 from-white to-neutral-300 mt-10'>
-            {meals.length > 0 && <MealTable meals={meals} />}
-          </section>
-
-          {/* <ExerciseSelection /> */}
-
-          <section className='bg-gradient justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
-            {meals.length > 0 &&
-              <>
-                <div className="text-center mb-5 mt-10">
-                  <p className="text-5xl font-bold text-white">Let&apos;s generate exercise plan now !</p>
-                </div>
-                <ExerciseSelection />
-              </>
-            }
-
-          </section>
-          <footer className='text-white  font-bold text-xl flex justify-center p-4'>
-            <div className='fixed bottom-0 right-0 mb-4 '>
-              <a
-                href='https://twitter.com/sagarjani'
-                className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
+            {!loading && (
+              <button
+                className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
+                onClick={(e) => generateNutritionPlan()}
               >
-                Made By @SagarJani
-              </a>
-            </div>
-            <p>© 2023 AI Fitness Plan. All rights reserved.</p>
-          </footer>
-        </main>
-      </Layout>
+                Generate Nutrition Plan &rarr;
+              </button>
+            )}
+
+            {loading && (
+              <button onClick={generateNutritionPlan}
+                className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
+                type='submit'
+              >
+                <LoadingDots color="white" style="large" />
+                <p>Please wait, this would take ~15 seconds.</p>
+              </button>
+            )}
+
+            {/* {<div className='font-bold text-red-600'>{error}</div>}`   */}
+
+          </>}
+
+
+        </section>
+        <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 from-white to-neutral-300 mt-10'>
+          {meals.length > 0 && <MealTable meals={meals} />}
+        </section>
+
+        {/* <ExerciseSelection /> */}
+
+        <section className='bg-gradient justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
+          {meals.length > 0 &&
+            <>
+              <div className="text-center mb-5 mt-10">
+                <p className="text-5xl font-bold text-white">Let&apos;s generate exercise plan now !</p>
+              </div>
+              <ExerciseSelection />
+            </>
+          }
+
+        </section>
+        <footer className='text-white  font-bold text-xl flex justify-center p-4'>
+          <div className='fixed bottom-0 right-0 mb-4 '>
+            <a
+              href='https://twitter.com/sagarjani'
+              className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
+            >
+              Made By @SagarJani
+            </a>
+          </div>
+          <p>© 2023 AI Fitness Plan. All rights reserved.</p>
+        </footer>
+      </main>
+
     </NoSSRWrapper>
   )
 }

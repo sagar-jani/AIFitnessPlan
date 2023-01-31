@@ -3,6 +3,7 @@ import React from "react";
 import ClientTransformations from "../components/ClientTransformation";
 import FitnessOfferings from "../components/FitnessOfferings";
 import MyPassion from "../components/Passion";
+import Pricing from "../components/pricing";
 
 const About = () => {
   return (
@@ -11,7 +12,7 @@ const About = () => {
       </span>
       </p>
       <p className="mb-8 text-5xl font-extrabold  sm:text-7xl text-center"> I&apos;m
-        <a className="underline text-indigo-600 hover:text-indigo-500" href="https://twitter.com/sagarjani" target="_blank" rel="noopener noreferrer"> Sagar
+        <a className="underline text-primary hover:text-primary" href="https://twitter.com/sagarjani" target="_blank" rel="noopener noreferrer"> Sagar
         </a>
       </p>
 
@@ -51,9 +52,10 @@ const About = () => {
           I am a dedicated individual with a passion for fitness and a full-time career in IT. Despite the demands of my job and family, I have managed to maintain a healthy and active lifestyle through consistent exercise and careful time management. I believe that with the right mindset and dedication, anyone can achieve their fitness goals while also balancing other important aspects of their life. I am excited to share my experiences and tips for success with others who are also looking to improve their health and well-being.
         </p> */}
         {/* <MyPassion /> */}
-        <FitnessOfferings />
+
       </div>
       {/* </div> */}
+      <FitnessOfferings />
 
     </div>
   )

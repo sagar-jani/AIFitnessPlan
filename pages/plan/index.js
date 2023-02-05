@@ -14,7 +14,6 @@ import LoadingDots from '../../components/LoadingDots';
 import Ingredients from '../../components/Ingredients';
 import DividerDropdown from '../../components/dropdown';
 import ExerciseSelection from '../../components/ExerciseSelection';
-import Layout from '../../components/layout';
 import NutritionInput from '../../components/NutritionInput';
 
 const Plan = () => {
@@ -155,7 +154,7 @@ const Plan = () => {
       <main>
         <section className='pb-40 text-white '>
           <Head>
-            <title>Diet Plan Generator</title>
+            <title>Fitness, Diet, and Exercise on AI</title>
             <meta
               name='viewport'
               content='initial-scale=1.0, width=device-width'

@@ -8,7 +8,6 @@ function MealTable(props) {
     (acc, meal) => {
       if (meal.foods && meal.foods.length > 0) {
         meal.foods.forEach((food) => {
-          console.log('foodie', food)
           if (food?.protein) {
             acc.protein += parseInt(food?.protein)
           }

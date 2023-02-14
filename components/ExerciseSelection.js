@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LoadingDots from './LoadingDots';
+import WorkoutFormat from './WorkoutFormat';
 import WorkoutTable from './WorkoutTable';
 
 const ExerciseSelection = () => {
@@ -14,6 +15,7 @@ const ExerciseSelection = () => {
       background-image: linear-gradient(90deg, rgba(131, 58, 180, .9) 0%, rgba(253, 29, 29, .9) 100%);
   }
 `;
+
 
   const formatWorkout = (workoutPlan) => {
     const workoutArray = [];
@@ -70,26 +72,29 @@ const ExerciseSelection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    const workoutType = e.target.workout.value
     const homePrompt = `Generate workout plan for ${e.target.workout.value} to perform at Home like day1, day2, day3 in table format with columns separate by | - No##Workout##Sets##Reps`
     // const gymPrompt = `Generate a workout plan for ${e.target.workout.value} for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in format like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps`
     const gymPrompt = `Generate a workout plan for ${e.target.workout.value}  for full body workout with weights comprising of the compound and isolated exercise like Jeff Nippard’s Big 5 in clear headers like day1, day2, day3 in table format with columns separate by | - No|Workout|Sets|Reps|`
     const prompt = e.target.workout.value === 'Home' ? homePrompt : gymPrompt
-    console.log('e.target.workout.value', e.target.workout.value)
+    const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
-      const response = await fetch(`/api/ai`, {
+      const response = await fetch(`${BASE_URL}/workout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          prompt
+          workoutType,
+          // prompt
         }),
       })
-
-      console.log('response', response)
       const data = await response.json()
       console.log('data', data)
-      formatWorkout(data.plan)
+      // formatWorkout(data.plan)
+      const workoutArray = JSON.parse(data.plan);
+      setWorkout(workoutArray);
+      // formatWorkoutNew(data.plan)
 
     } catch (error) {
       setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")
@@ -172,7 +177,8 @@ const ExerciseSelection = () => {
       </div>
 
 
-      {workout.length > 0 && <WorkoutTable workoutArray={workout} />}
+      {/* {workout.length > 0 && <WorkoutTable workoutArray={workout} />} */}
+      {workout.length > 0 && <WorkoutFormat workoutArray={workout} />}
 
     </>
   );

@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "openai": "^3.1.0"
+  },
+  "devDependencies": {
+    "serverless-plugin-include-dependencies": "^5.0.0"
   }
 }

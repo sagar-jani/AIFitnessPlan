@@ -6,7 +6,6 @@ import MaintainanceCalorie from '../../components/maintainance-calorie';
 import BMR from '../../components/bmr';
 import MacroCalculation from '../../components/macro-calculation';
 import CheckoutForm from '../../components/CheckoutForm';
-import dynamic from 'next/dynamic'
 
 
 import NoSSRWrapper from '../../components/dynamic'
@@ -34,7 +33,6 @@ const Plan = () => {
   const bmrAnalysisRef = useRef(null)
 
   const formatResponse = (response) => {
-    console.log('format response', response)
     const meals = []
 
     // Split the response into lines
@@ -43,7 +41,6 @@ const Plan = () => {
     let currentMeal = { name: '', foods: [] }
 
     lines.forEach((line) => {
-      console.log('line', line)
       // Skip empty lines
       if (line.trim() === '') {
         return
@@ -64,17 +61,15 @@ const Plan = () => {
       else {
         // Split the line by "(" to get the food name and details
         const parts = line.split('(')
-        console.log('parts', parts)
 
         if (parts.length < 2) {
           return
         }
         // Trim any leading/trailing whitespace
         const foodName = parts.length > 0 && parts[0].trim()
-        console.log('foodName', foodName)
         // Split the details string by ", " to get the individual details
         const details = parts[1].slice(0, -1).split(',')
-        console.log('details', details)
+
         if (details.length < 4) {
           return
         }
@@ -86,7 +81,6 @@ const Plan = () => {
           fat: details[2].trim().split(' ')[0],
           carbs: details[3].trim().split(' ')[0],
         }
-        console.log('food', food)
         // Add the food to the current meal's foods list
         currentMeal.foods.push(food)
       }
@@ -94,8 +88,6 @@ const Plan = () => {
 
     // Add the final meal to the meals list
     meals.push(currentMeal)
-
-    console.log('meals', meals)
     setMeals(meals)
     return meals
   }
@@ -109,23 +101,24 @@ const Plan = () => {
 
     const tdeeCalculated = activeTab === 'maintenance' ? tdee : activeTab === 'musclebuilding' ? tdee + 500 : tdee - 500
 
-    const prompt = `one-day diet for ${dietPattern} with ${cuisine} with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
-
-    console.log('prompt', prompt)
-    console.log('Generating plan for', dietType, tdeeCalculated, activeTab, dietPattern, cuisine)
-    const BASE_URL = 'https://9585g9ydqf.execute-api.us-east-1.amazonaws.com/dev'
+    // const prompt = `one-day diet for ${dietPattern} with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
+    const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
-      const response = await fetch(`${BASE_URL}/diet-planner`, {
+      const response = await fetch(`${BASE_URL}/diet`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          prompt
+          dietPattern,
+          protein,
+          fat,
+          carb,
+          tdeeCalculated
         }),
       })
 
-      console.log('response', response)
+
       const data = await response.json()
       console.log('meals', formatResponse(data.plan))
 
@@ -143,8 +136,6 @@ const Plan = () => {
     setBMR(bmrDerived)
     document.getElementById('bmrAnalysisSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
     const tdeeCalculated = bmrDerived * e.target.activity.value
-    console.log('TDEE', tdeeCalculated)
-    console.log('bmr', bmrDerived)
     setTdee(Math.ceil(tdeeCalculated))
   }
 
@@ -307,7 +298,7 @@ const Plan = () => {
 
         {/* <ExerciseSelection /> */}
 
-        <section className='bg-gradient justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b from-white to-neutral-300 mt-10'>
+        <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b mt-10'>
           {meals.length > 0 &&
             <>
               <div className="text-center mb-5 mt-10">
@@ -318,19 +309,7 @@ const Plan = () => {
           }
 
         </section>
-        <footer className='text-white  font-bold text-xl flex justify-center p-4'>
-          <div className='fixed bottom-0 right-0 mb-4 '>
-            <a
-              href='https://twitter.com/sagarjani'
-              className='right-0 bottom-0 mb-4 mr-4 font-mono text-white bg-black rounded-xl p-4 '
-            >
-              Made By @SagarJani
-            </a>
-          </div>
-          <p>© 2023 AI Fitness Plan. All rights reserved.</p>
-        </footer>
       </main>
-
     </NoSSRWrapper>
   )
 }

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import LoadingDots from "./LoadingDots";
+import MacroRecipeFormat from "./MacroRecipeFormat";
 import MealFormat from "./MealFormat";
 
 const MacroRecipe = () => {
   const [loading, setLoading] = useState(false)
   const [macro, setMacro] = useState()
+  const [meals, setMeals] = useState([])
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -17,9 +19,10 @@ const MacroRecipe = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          goal: e.target.goal.value,
+          protein: e.target.protein.value,
+          fats: e.target.protein.value,
+          carbs: e.target.protein.value,
           dietType: e.target.dietType.value,
-          days: e.target.days.value,
         }),
       })
       setLoading(false);
@@ -43,7 +46,7 @@ const MacroRecipe = () => {
   return (
     <>
       <div className="text-center mb-5 mt-10">
-        <p className="text-white text-5xl font-bold">Generate Meal Plan</p>
+        <p className="text-white text-5xl font-bold">Macro Planner </p>
       </div>
       <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
         <div className='mb-10'>
@@ -97,12 +100,31 @@ const MacroRecipe = () => {
           />
         </div>
 
+        <div className='mb-10'>
+          <label className='block text-white font-bold mb-5' htmlFor='dietType'>
+            Choose your Dietary Requirment
+          </label>
+          <select
+            className='block appearance-none w-full  border border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+            id='dietType'
+            name='dietType'
+          >
+            <option value='No Dietary Restrictions'>No Dietary Restrictions</option>
+            <option value='Pescatarian'>Pescatarian</option>
+            <option value='Ovo-vegetarian'>Vegetarian</option>
+            <option value='Vegetarian'>Vegetarian</option>
+            <option value='Vegan'>Vegan</option>
+            <option value='Dairy-Free'>Dairy-Free</option>
+            <option value='Gluten-Free'>Gluten-Free</option>
+          </select>
+        </div>
+
 
         {!loading && (
           <button
             type='submit'
             className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ">
-            Generate Your Meal Plan &rarr;
+            Generate Recipe &rarr;
           </button>
         )}
 
@@ -112,11 +134,10 @@ const MacroRecipe = () => {
             type='submit'
           >
             <LoadingDots color="white" style="large" />
-            {/* <p>Please wait, this would take ~15 seconds.</p> */}
           </button>
         )}
       </form>
-      {/* {macro !== null && <MealFormat meal={meal} />} */}
+      {macro !== null && <MacroRecipeFormat meals={meals} />}
     </>
   )
 }

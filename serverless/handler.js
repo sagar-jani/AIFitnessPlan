@@ -143,3 +143,47 @@ module.exports.mealPlanner = async (event) => {
     }
   }
 }
+
+module.exports.macroPlanner = async (event) => {
+
+  const eventBody = JSON.parse(event.body);
+  const { protein, fats, carbs, dietType } = eventBody;
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a protein-rich meal plan by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: {"Meal": string, "Instructions": string[], "Ingredients": string[], }`
+
+  console.log('event.body', event.body)
+
+  try {
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      temperature: 1,
+      max_tokens: 1000,
+      top_p: 0.7,
+      best_of: 1,
+      n: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+    const data = response.data.choices[0].text
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      body: JSON.stringify({
+        meal: data
+      })
+    };
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.status);
+      console.error(error.response.data);
+    } else {
+      console.error(error.message);
+    }
+  }
+}

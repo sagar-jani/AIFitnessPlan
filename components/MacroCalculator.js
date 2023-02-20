@@ -33,18 +33,7 @@ const MacroCalculator = () => {
         <li className='inline-block mx-2'>
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Macro Recipe</Link>
         </li>
-        <li className="inline-block mx-2">
-          <Link href={`${amazonLink}`} className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">EBook</Link >
-        </li>
-        {/* <li className="inline-block mx-4">
-          <Link href=''>
-            <a target="_blank" href={`${amazonLink}`} rel="noopener noreferrer" className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">
-            </a>
-          </Link>
-        </li> */}
-        {/* <li className="inline-block mx-4">
-          <Link href='/transformation' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Transformations</Link>
-        </li> */}
+
       </ul>
     </div >
 

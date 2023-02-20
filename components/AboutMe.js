@@ -31,6 +31,9 @@ const AboutMe = () => {
     <div className='flex'>
       <ul className='mx-auto'>
         <li className='inline-block mx-2'>
+          <Link href='/macro' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Macro Recipe</Link>
+        </li>
+        <li className='inline-block mx-2'>
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">About Me</Link>
         </li>
         <li className="inline-block mx-2">

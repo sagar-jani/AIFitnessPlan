@@ -59,10 +59,7 @@ const Home = () => {
             <p className='text-center text-white'>Exercise You Want to Do </p>
           </div>
         </div>
-        <h1 className='text-white text-5xl font-bold mt-20'>HOW IT WORKS</h1>
-        <p className='text-white text-lg font-outline'>
-          Learn How Many Calories You Burn Every Day
-        </p>
+        <h1 className='text-white text-5xl font-bold mt-20 mb-10'>HOW IT WORKS</h1>
 
         <div className='grid grid-cols-2 d-flex justify-content-center align-items-center gap-10'>
           <div className='mx-auto'>

@@ -99,3 +99,47 @@ module.exports.plan = async (event) => {
     }
   }
 }
+
+module.exports.mealPlanner = async (event) => {
+
+  const eventBody = JSON.parse(event.body);
+  const { goal, dietType, days } = eventBody;
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a protein-rich meal plan by strictly following these rules: 1- Goal: ${goal} 2- Diet Requirement: ${dietType}  3- For how many Days: ${days}  4- Make sure to include meals for lunch and dinner with macr count Output: ONLY MARKDOWN JSON. JSON Format example: [ {"Day": number,  "Meals": [{"Lunch": string, "Carbs": number, "Protein": number, "Fats": number}, {"Dinner": string, "Carbs": number, "Protein": number, "Fats": number}]}] `
+
+  console.log('event.body', event.body)
+
+  try {
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      temperature: 1,
+      max_tokens: 3800,
+      top_p: 0.7,
+      best_of: 1,
+      n: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+    const data = response.data.choices[0].text
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      body: JSON.stringify({
+        meal: data
+      })
+    };
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.status);
+      console.error(error.response.data);
+    } else {
+      console.error(error.message);
+    }
+  }
+}

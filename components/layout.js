@@ -3,11 +3,16 @@ import AboutMe from './AboutMe'
 
 import SocialIcons from './SocialIcons';
 import { FaEnvelope } from 'react-icons/fa';
+import MacroRecipe from './MacroRecipe';
+import MacroCalculator from './MacroCalculator';
 
 const Layout = ({ children }) => {
   return (
     <div className='bg-gradient '>
       <header className=' flex justify-center'>
+        {/* <nav className=" mb-10 mt-10">
+          <MacroCalculator />
+        </nav> */}
         <nav className=" mb-10 mt-10">
           <AboutMe />
         </nav>

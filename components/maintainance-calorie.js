@@ -3,7 +3,7 @@ const MaintainanceCalorie = (props) => {
   const { tdee, bmr } = props;
   return (
     <>
-      <div className="text-center mb-5 mt-10">
+      <div className="text-center mb-5">
         <p className="text-white text-5xl font-bold">Your Maintenance Calories</p>
       </div>
 

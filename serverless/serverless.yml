@@ -5,7 +5,7 @@ org: sagaraj
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 provider:
   name: aws
@@ -20,11 +20,11 @@ functions:
   DietPlanner:
     handler: handler.plan
     events:
-    - http:
-         path: diet
-         method: post
-         cors:
-            origin: '*'
+      - http:
+          path: diet
+          method: post
+          cors:
+            origin: "*"
             headers:
               - Content-Type
               - X-Amz-Date
@@ -36,20 +36,37 @@ functions:
             allowCredentials: false
 
   WorkoutPlanner:
-      handler: handler.workoutPlanner
-      events:
+    handler: handler.workoutPlanner
+    events:
       - http:
           path: workout
           method: post
           cors:
-              origin: '*'
-              headers:
-                - Content-Type
-                - X-Amz-Date
-                - Authorization
-                - X-Api-Key
-                - X-Amz-Security-Token
-                - X-Amz-User-Agent
-                - X-Amzn-Trace-Id
-              allowCredentials: false
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: false
 
+  MealPlanner:
+    handler: handler.mealPlanner
+    events:
+      - http:
+          path: meal
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: false

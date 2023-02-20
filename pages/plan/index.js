@@ -10,10 +10,11 @@ import CheckoutForm from '../../components/CheckoutForm';
 
 import NoSSRWrapper from '../../components/dynamic'
 import LoadingDots from '../../components/LoadingDots';
-import Ingredients from '../../components/Ingredients';
-import DividerDropdown from '../../components/dropdown';
 import ExerciseSelection from '../../components/ExerciseSelection';
-import NutritionInput from '../../components/NutritionInput';
+import MealPlanner from '../../components/MealPlanner';
+import Dropdown from '../../components/dropdown';
+import GoalsDropdown from '../../components/GoalsDropdown';
+import DietTypeDropDown from '../../components/DietType';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -24,7 +25,7 @@ const Plan = () => {
   const [dietType, setDietType] = useState('ModCarb')
   const [loading, setLoading] = useState(false)
   const [ingredients, setIngredients] = useState()
-  const [exercisePlanConsent, setExercisePlanConsent] = useState(false)
+  const [chart, setChart] = useState("")
 
 
   const [dietPattern, setDietPattern] = useState('Vegetarian');
@@ -92,6 +93,14 @@ const Plan = () => {
     return meals
   }
 
+
+
+  //   setMeals(rows)
+  //   return rows
+  // }
+  const mealServe = [];
+  let buffer = '';
+
   const generateNutritionPlan = async () => {
     setLoading(true)
 
@@ -105,6 +114,7 @@ const Plan = () => {
     const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
       const response = await fetch(`${BASE_URL}/diet`, {
+        // const response = await fetch(`api/nutrition`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,6 +128,12 @@ const Plan = () => {
         }),
       })
 
+      if (!response.ok) {
+        console.log("error", response.statusText);
+        return;
+      }
+
+      setLoading(false);
 
       const data = await response.json()
       console.log('meals', formatResponse(data.plan))
@@ -159,17 +175,17 @@ const Plan = () => {
               AI POWERED FITNESS
             </h1>
             <p className='text-white text-lg font-black ' style={{ fontFamily: 'Inter, sans-serif' }}>
-              Personalised nutrition plan to achieve your goal
+              Your Personal Fitness Coach
             </p>
           </div>
 
-          <form className='mx-auto max-w-lg mt-20' onSubmit={handleSubmit}>
-            <div className='mb-4'>
-              <label className='block text-white text-sm font-bold mb-2' htmlFor='gender'>
+          <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
+            <div className='mb-10'>
+              <label className='block text-white font-bold mb-2' htmlFor='gender'>
                 Gender
               </label>
               <select
-                className='block appearance-none w-full  border border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                className='block appearance-none border w-full border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
                 id='gender'
                 name='gender'
               >
@@ -178,18 +194,18 @@ const Plan = () => {
                 required
               </select>
             </div>
-            <div className='mb-4'>
+            <div className='mb-10'>
               <label
-                className='block text-white text-sm font-bold mb-2'
+                className='block text-white  font-bold mb-2'
                 htmlFor='age'
               >
                 Age
               </label>
               <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
             </div>
-            <div className='mb-4'>
+            <div className='mb-10'>
               <label
-                className='block text-white text-sm font-bold mb-2'
+                className='block text-white font-bold mb-2'
                 htmlFor='weight'
               >
                 Weight (kg)
@@ -203,9 +219,9 @@ const Plan = () => {
                 required
               />
             </div>
-            <div className='mb-4'>
+            <div className='mb-10'>
               <label
-                className='block text-white text-sm font-bold mb-2'
+                className='block text-white font-bold mb-2'
                 htmlFor='height'
               >
                 Height (cm)
@@ -219,9 +235,9 @@ const Plan = () => {
                 required
               />
             </div>
-            <div className='mb-4'>
+            <div className='mb-10'>
               <label
-                className='block text-white text-sm font-bold mb-2'
+                className='block text-white font-bold mb-2'
                 htmlFor='activity-level'
               >
                 Activity level
@@ -250,10 +266,13 @@ const Plan = () => {
         </section>
 
 
-        <section className='justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
+        <section className='flex flex-col justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
           {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
             <BMR bmr={bmr} />
-            <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
+
+
+            <MealPlanner />
+            {/* <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} /> */}
             {/* <CheckoutForm /> */}
 
             {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
@@ -267,7 +286,7 @@ const Plan = () => {
 
             {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
 
-            {!loading && (
+            {/* {!loading && (
               <button
                 className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
                 onClick={(e) => generateNutritionPlan()}
@@ -284,14 +303,11 @@ const Plan = () => {
                 <LoadingDots color="white" style="large" />
                 <p>Please wait, this would take ~15 seconds.</p>
               </button>
-            )}
-
-            {/* {<div className='font-bold text-red-600'>{error}</div>}`   */}
-
+            )} */}
           </>}
 
-
         </section>
+
         <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 from-white to-neutral-300 mt-10'>
           {meals.length > 0 && <MealTable meals={meals} />}
         </section>
@@ -307,6 +323,23 @@ const Plan = () => {
               <ExerciseSelection />
             </>
           }
+
+          {chart && (
+            <div className="mb-10 px-4">
+              <h2 className="mx-auto mt-16 max-w-3xl border-t text-white pt-8 text-center text-3xl font-bold sm:text-5xl">
+                Summary
+              </h2>
+              <div className="mx-auto mt-6 max-w-3xl text-lg leading-7 text-white">
+                {chart.split(". ").map((sentence, index) => (
+                  <div key={index}>
+                    {sentence.length > 0 && (
+                      <li className="mb-2 list-disc">{sentence}</li>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
         </section>
       </main>

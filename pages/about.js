@@ -16,21 +16,6 @@ const About = () => {
         </a>
       </p>
 
-      {/* <div className="px-4 mb-8 space-y-12 sm:grid sm:gap-y-12 sm:space-y-0 sm:grid-cols-3 sm:gap-x-8"> */}
-      {/* <div>
-          <Image
-            src='/images/fitness-coach.jpg'
-            alt='Picture of the author'
-            width={800}
-            height={800}
-          />
-        </div> */}
-      {/* <div className="rounded-full justify-center text-center self-center ">
-       */}
-
-
-
-
       <div className="max-w-prose mx-auto prose prose-indigo text-center">
         <div className=" mb-8   sm:space-y-0 sm:grid-cols-3 ">
           <Image
@@ -48,10 +33,6 @@ const About = () => {
             Founder, Fitness Coach, Dad & Full-time Engineer.
           </span>
         </p>
-        {/* <p className="text-xl font-medium text-center mt-10">
-          I am a dedicated individual with a passion for fitness and a full-time career in IT. Despite the demands of my job and family, I have managed to maintain a healthy and active lifestyle through consistent exercise and careful time management. I believe that with the right mindset and dedication, anyone can achieve their fitness goals while also balancing other important aspects of their life. I am excited to share my experiences and tips for success with others who are also looking to improve their health and well-being.
-        </p> */}
-        {/* <MyPassion /> */}
 
       </div>
       {/* </div> */}

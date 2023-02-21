@@ -5,7 +5,7 @@ import MealFormat from "./MealFormat";
 
 const MacroRecipe = () => {
   const [loading, setLoading] = useState(false)
-  const [macro, setMacro] = useState()
+  const [macro, setMacro] = useState(null)
   const [meals, setMeals] = useState([])
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -137,7 +137,7 @@ const MacroRecipe = () => {
           </button>
         )}
       </form>
-      {macro !== null && <MacroRecipeFormat meals={meals} />}
+      {meals.length > 0 && <MacroRecipeFormat meals={meals} />}
     </>
   )
 }

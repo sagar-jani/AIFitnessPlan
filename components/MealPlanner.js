@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import LoadingDots from './LoadingDots';
 import MealFormat from './MealFormat';
-import MealPlanTable from './MealplanTable';
 
 const MealPlanner = () => {
   const [selectedValue, setSelectedValue] = useState('');

@@ -1,7 +1,6 @@
 import React from 'react';
 const MacroRecipeFormat = ({ meals }) => {
-  console.log('typeof meals', typeof meals);
-  const recipes = JSON.parse(meals);
+  const recipes = meals && JSON.parse(meals);
 
   return (
     <div className="flex flex-col items-center justify-center">

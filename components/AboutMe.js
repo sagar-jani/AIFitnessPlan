@@ -30,14 +30,22 @@ const AboutMe = () => {
   return (
     <div className='flex'>
       <ul className='mx-auto'>
+
         <li className='inline-block mx-2'>
-          <Link href='/macro' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Macro Recipe</Link>
+          <Link href='/' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Home</Link>
         </li>
         <li className='inline-block mx-2'>
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">About Me</Link>
         </li>
         <li className="inline-block mx-2">
           <Link href={`${amazonLink}`} className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">EBook</Link >
+        </li>
+
+        <li className='inline-block mx-2'>
+          <Link href='/macro' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Generate Meal</Link>
+        </li>
+        <li className='inline-block mx-2'>
+          <Link href='/plan' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Fitness Plan</Link>
         </li>
         {/* <li className="inline-block mx-4">
           <Link href=''>

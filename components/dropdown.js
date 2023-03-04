@@ -53,7 +53,7 @@ function Dropdown({ options }) {
                 key={option.value}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 role="menuitem"
-                tabIndex="-1"
+                tabIndex={-1}
                 id={`menu-item-${option.value}`}
                 onClick={() => handleOptionClick(option)}
               >

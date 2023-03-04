@@ -10,7 +10,7 @@ const MacroRecipeFormat = ({ meals }) => {
           className="max-w-lg rounded overflow-hidden shadow-lg my-4 mx-2 bg-white"
         >
           <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{recipe.Meal}</div>
+            <div className="font-bold text-xl mb-2">{recipe.mealName}</div>
             <div className="text-gray-700 text-base">
               <h2 className="text-lg font-medium mb-2">Instructions:</h2>
               <ul className="list-disc list-inside">

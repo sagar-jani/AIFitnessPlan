@@ -270,9 +270,9 @@ const Plan = () => {
           {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
             <BMR bmr={bmr} />
 
-
+            <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
             <MealPlanner />
-            {/* <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} /> */}
+
             {/* <CheckoutForm /> */}
 
             {/* {ingredients && <Ingredients ingredients={ingredients} />} */}

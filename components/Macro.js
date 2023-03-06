@@ -8,7 +8,7 @@ const Boxes = (props) => {
   const highCarbClassName = dietType === 'highCarb' ? ' bg-lime-100 ' : ' bg-peach '
 
   return (
-    <div>
+    <div className='py-10'>
       <p className='mt-10 text-xl text-white'>
         Select any one plan below to generate a nutrition plan.
       </p>
@@ -87,7 +87,7 @@ const Boxes = (props) => {
         </button>
       </div >
 
-      <p className='text-white'>There are 4 calories per gram of both protein and carbohydrates, and 9 calories per gram of fats.
+      <p className='text-white text-lg md:text-xl'>There are <span className="text-blue-600"> 4 calories  </span> per gram for protein and carbohydrates, and <span className="text-blue-600"> 9 calories </span>  of fats.
 
       </p>
     </div >

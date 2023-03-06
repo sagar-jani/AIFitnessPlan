@@ -10,8 +10,8 @@ const MacroCalculation = (props) => {
     setActiveTab('maintenance')
   }, [])
   return (
-    <div className="text-center border-2 mb-10 " >
-      <div className="text-center mb-5 mt-10">
+    <div className="text-center border-2 mb-10 py-10" >
+      <div className="text-center">
         <p className="text-white text-5xl font-bold m-5">Macro Nutrients </p>
         <div className='flex text-center  justify-center'>
           <p className='w-1/2 text-white'>Macronutrients are the nutrients we need in larger quantities that provide us with energy: in other words, fat, protein and carbohydrate.

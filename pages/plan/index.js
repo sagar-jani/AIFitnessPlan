@@ -6,6 +6,7 @@ import MaintainanceCalorie from '../../components/maintainance-calorie';
 import BMR from '../../components/bmr';
 import MacroCalculation from '../../components/macro-calculation';
 import CheckoutForm from '../../components/CheckoutForm';
+import Image from 'next/image';
 
 
 import NoSSRWrapper from '../../components/dynamic'
@@ -15,6 +16,10 @@ import MealPlanner from '../../components/MealPlanner';
 import Dropdown from '../../components/dropdown';
 import GoalsDropdown from '../../components/GoalsDropdown';
 import DietTypeDropDown from '../../components/DietType';
+import DropDownTransition from '../../components/DropDownTransition';
+import { activityLevels, genders } from '../../utils/dropDownTypes';
+import ResizablePanel from '../../components/ResizablePanel';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -26,12 +31,31 @@ const Plan = () => {
   const [loading, setLoading] = useState(false)
   const [ingredients, setIngredients] = useState()
   const [chart, setChart] = useState("")
+  const [activityLevel, setActivityLevel] = useState("Sedentary (office job)")
+  const [gender, setGender] = useState("Female")
 
 
   const [dietPattern, setDietPattern] = useState('Vegetarian');
   const [cuisine, setCuisine] = useState('Italian');
 
   const bmrAnalysisRef = useRef(null)
+  function getActivityLevelValue(label) {
+    switch (label) {
+      case 'Sedentary (office job)':
+        return 1.2;
+      case 'Light Exercise (1-2 days/week)':
+        return 1.375;
+      case 'Moderate Exercise (3-5 days/week)':
+        return 1.55;
+      case 'Heavy Exercise (6-7 days/week)':
+        return 1.725;
+      case 'Athlete (2x per day)':
+        return 1.9;
+      default:
+        throw new Error(`Invalid activity level label: ${label}`);
+    }
+  }
+
 
   const formatResponse = (response) => {
     const meals = []
@@ -146,41 +170,62 @@ const Plan = () => {
     }
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const bmrDerived = e.target.gender.value === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
+    const bmrDerived = gender === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
     setBMR(bmrDerived)
     document.getElementById('bmrAnalysisSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    const tdeeCalculated = bmrDerived * e.target.activity.value
+    const tdeeCalculated = bmrDerived * getActivityLevelValue(activityLevel)
     setTdee(Math.ceil(tdeeCalculated))
   }
 
   return (
-    <NoSSRWrapper>
+    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+      <Head>
+        <title>Fitness, Diet, and Exercise on AI</title>
+        <meta
+          name='viewport'
+          content='initial-scale=1.0, width=device-width'
+        />
+      </Head>
 
-      <main>
-        <section className='pb-40 text-white '>
-          <Head>
-            <title>Fitness, Diet, and Exercise on AI</title>
-            <meta
-              name='viewport'
-              content='initial-scale=1.0, width=device-width'
-            />
-          </Head>
+      <main className="flex flex-1 w-full flex-col items-center justify-center text-center text-black px-4 mt-4 sm:mb-0 mb-8">
+
+        <section>
+
           <div className=' flex items-center justify-center flex-col '>
             <Link href="/" className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
               Fitness AI
             </Link>
-            <h1 className='text-white text-5xl font-black mt-20 ' style={{ fontFamily: 'Inter, sans-serif' }}>
-              AI POWERED FITNESS
+            <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
+              Generate your <span className="text-blue-600">Fitness Plan</span>
             </h1>
-            <p className='text-white text-lg font-black ' style={{ fontFamily: 'Inter, sans-serif' }}>
-              Your Personal Fitness Coach
-            </p>
           </div>
-
-          <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
-            <div className='mb-10'>
+          <ResizablePanel>
+            <AnimatePresence mode="wait">
+              <motion.div className="flex justify-between items-center w-full flex-col mt-4">
+                <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
+                  <div className="space-y-4 w-full max-w-sm">
+                    <div className="flex mt-3 items-center space-x-3">
+                      {/* <Image
+                        src="/images/number-1-white.svg"
+                        width={30}
+                        height={30}
+                        alt="1 icon"
+                      /> */}
+                      <p className="text-left font-medium text-white">
+                        Choose gender.
+                      </p>
+                    </div>
+                    <DropDownTransition
+                      value={gender}
+                      // @ts-ignore
+                      setValue={(newValue) => setGender(newValue)}
+                      values={genders}
+                    />
+                  </div>
+                  {/* <div className='mb-10'>
               <label className='block text-white font-bold mb-2' htmlFor='gender'>
                 Gender
               </label>
@@ -193,8 +238,22 @@ const Plan = () => {
                 <option value='Female'>Female</option>
                 required
               </select>
-            </div>
-            <div className='mb-10'>
+            </div> */}
+                  <div className="space-y-4 w-full max-w-sm">
+                    <div className="flex mt-3 items-center space-x-3">
+                      {/* <Image
+                        src="/images/number-2-white.svg"
+                        width={30}
+                        height={30}
+                        alt="1 icon"
+                      /> */}
+                      <p className="text-left font-medium text-white">
+                        What is your age ?
+                      </p>
+                    </div>
+                    <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
+                  </div>
+                  {/* <div className='mb-10'>
               <label
                 className='block text-white  font-bold mb-2'
                 htmlFor='age'
@@ -202,8 +261,30 @@ const Plan = () => {
                 Age
               </label>
               <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
-            </div>
-            <div className='mb-10'>
+            </div> */}
+
+                  <div className="space-y-4 w-full max-w-sm">
+                    <div className="flex mt-3 items-center space-x-3">
+                      {/* <Image
+                        src="/images/number-3-white.svg"
+                        width={30}
+                        height={30}
+                        alt="1 icon"
+                      /> */}
+                      <p className="text-left font-medium text-white">
+                        What is your weight (kg) ?
+                      </p>
+                    </div>
+                    <input
+                      className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
+                      id='weight'
+                      type='number'
+                      name='weight'
+                      placeholder='79'
+                      required
+                    />
+                  </div>
+                  {/* <div className='mb-10'>
               <label
                 className='block text-white font-bold mb-2'
                 htmlFor='weight'
@@ -218,8 +299,30 @@ const Plan = () => {
                 placeholder='79'
                 required
               />
-            </div>
-            <div className='mb-10'>
+            </div> */}
+                  <div className="space-y-4 w-full max-w-sm">
+                    <div className="flex mt-3 items-center space-x-3">
+                      {/* <Image
+                        src="/images/number-4-white.svg"
+                        width={30}
+                        height={30}
+                        alt="1 icon"
+                      /> */}
+                      <p className="text-left font-medium text-white">
+                        What is your height (cm) ?
+                      </p>
+                    </div>
+                    <input
+                      className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
+                      id='height'
+                      type='number'
+                      name='height'
+                      placeholder='176'
+                      required
+                    />
+                  </div>
+
+                  {/* <div className='mb-10'>
               <label
                 className='block text-white font-bold mb-2'
                 htmlFor='height'
@@ -234,8 +337,27 @@ const Plan = () => {
                 placeholder='176'
                 required
               />
-            </div>
-            <div className='mb-10'>
+            </div> */}
+                  <div className="space-y-4 w-full max-w-sm">
+                    <div className="flex mt-3 items-center space-x-3">
+                      {/* <Image
+                        src="/images/number-5-white.svg"
+                        width={30}
+                        height={30}
+                        alt="1 icon"
+                      /> */}
+                      <p className="text-left font-medium text-white">
+                        Choose your activity level.
+                      </p>
+                    </div>
+                    <DropDownTransition
+                      value={activityLevel}
+                      // @ts-ignore
+                      setValue={(newValue) => setActivityLevel(newValue)}
+                      values={activityLevels}
+                    />
+                  </div>
+                  {/* <div className='mb-10'>
               <label
                 className='block text-white font-bold mb-2'
                 htmlFor='activity-level'
@@ -254,19 +376,24 @@ const Plan = () => {
                 <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
                 <option value='1.9'>Athlete (2x per day)</option>
               </select>
-            </div>
-            <button
-              className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
-              type='submit'
-            >
+            </div> */}
+                  <div className="flex space-x-2 justify-center">
+                    <button
+                      className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
+                      type='submit'
+                    >
 
-              Start Your Plan &gt;
-            </button>
-          </form>
+                      Start Your Plan &gt;
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </AnimatePresence>
+          </ResizablePanel>
         </section>
 
 
-        <section className='flex flex-col justify-center items-center content-center' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
+        <section className='flex flex-col justify-center items-center content-center py-20' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
           {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
             <BMR bmr={bmr} />
 
@@ -343,7 +470,7 @@ const Plan = () => {
 
         </section>
       </main>
-    </NoSSRWrapper>
+    </div >
   )
 }
 

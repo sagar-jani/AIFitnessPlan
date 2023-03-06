@@ -13,13 +13,12 @@ const MaintainanceCalorie = (props) => {
           {tdee.toLocaleString('en-US')}
         </div>
 
-        <div className="w-1/2 px-11 py-5  placeholder-sky-200 border border-gray-200 rounded-xl shadow-md text-white text-md dark:bg-gray-800 dark:border-gray-700">
-          Based on your stats, the best estimate for your maintenance calories is
-          <span className='px-1 font-bold'>
-            {tdee}
-          </span>
-          per day based on the Harris-Benedict, which is widely known to be the most accurate. The table below shows the difference if you were to have selected a different activity level.
+        <div className="w-2/3 px-11 py-5 text-lg md:text-xl placeholder-sky-200 border border-gray-200 rounded-xl shadow-md text-white text-md dark:bg-gray-800 dark:border-gray-700">
+          Based on your stats, the best estimate for your maintenance calories is <span className='px-1 font-bold text-blue-400'>{tdee}</span> per day based on the Harris-Benedict, which is widely known to be the most accurate.
+          <br /><br />
+          The table below shows the difference if you were to have selected a different activity level.
         </div>
+
       </div>
 
     </>

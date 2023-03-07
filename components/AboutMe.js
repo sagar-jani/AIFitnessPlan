@@ -38,7 +38,17 @@ const AboutMe = () => {
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">About Me</Link>
         </li>
         <li className="inline-block mx-2">
-          <Link href={`${amazonLink}`} className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">EBook</Link >
+          {/* <Link target="_blank" href={`${amazonLink}`} rel="noopener noreferrer"  passHref className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">
+            <a target="_blank" rel="noopener noreferrer">
+              Ebook
+            </a>
+          </Link > */}
+
+          <a href={amazonLink} target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">
+            Ebook
+          </a>
+
+
         </li>
 
         <li className='inline-block mx-2'>

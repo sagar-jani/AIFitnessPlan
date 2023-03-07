@@ -1,7 +1,7 @@
+import React from "react"
+import MacroRecipe from "../components/MacroRecipe"
 
 
-const { default: React } = require("react")
-const { default: MacroRecipe } = require("../components/MacroRecipe")
 
 const Macro = () => {
   return <MacroRecipe />

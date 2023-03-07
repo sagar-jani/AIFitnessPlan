@@ -25,7 +25,7 @@ const MacroRecipe = () => {
           protein: e.target.protein.value,
           fats: e.target.protein.value,
           carbs: e.target.protein.value,
-          dietType: e.target.dietType.value,
+          dietType: dietType,
         }),
       })
       setLoading(false);

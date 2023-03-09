@@ -48,14 +48,17 @@ const AboutMe = () => {
             Ebook
           </a>
 
-
         </li>
 
         <li className='inline-block mx-2'>
           <Link href='/macro' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Generate Meal</Link>
         </li>
         <li className='inline-block mx-2'>
-          <Link href='/plan' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Fitness Plan</Link>
+          <Link href='/plan' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Nutrition Plan</Link>
+        </li>
+
+        <li className='inline-block mx-2'>
+          <Link href='/exercise' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Exercise Plan</Link>
         </li>
         {/* <li className="inline-block mx-4">
           <Link href=''>

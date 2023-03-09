@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 import React from "react";
 import ClientTransformations from "../components/ClientTransformation";
@@ -8,6 +9,13 @@ import Pricing from "../components/pricing";
 const About = () => {
   return (
     <div className="bg-gradient text-white">
+      <Head>
+        <title>About Page</title>
+        <meta
+          name='viewport'
+          content='initial-scale=1.0, width=device-width'
+        />
+      </Head>
       <p className="mb-4 text-5xl font-extrabold  sm:text-7xl text-center">G&apos;day! <span role="img" aria-label="Waving-hand emoji">👋
       </span>
       </p>

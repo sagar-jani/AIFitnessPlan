@@ -187,3 +187,47 @@ module.exports.macroPlanner = async (event) => {
     }
   }
 }
+
+module.exports.exercisePlanner = async (event) => {
+
+  const eventBody = JSON.parse(event.body);
+  const { protein, fats, carbs, dietType } = eventBody;
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate exercise plan for Day 1 - push, Day -2 - legs and Day 3- Pull. Number of exercises per day: at least 4. Output: ONLY MARKDOWN JSON.  JSON Format example:  [ {"Day": number,  "Exercises": [{"Name": string, "sets": number, "reps": number}]}]`
+
+  console.log('event.body', event.body)
+
+  try {
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      temperature: 1,
+      max_tokens: 1000,
+      top_p: 0.7,
+      best_of: 1,
+      n: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+    const data = response.data.choices[0].text
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      body: JSON.stringify({
+        workoutPlan: data
+      })
+    };
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.status);
+      console.error(error.response.data);
+    } else {
+      console.error(error.message);
+    }
+  }
+}

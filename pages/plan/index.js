@@ -20,6 +20,8 @@ import DropDownTransition from '../../components/DropDownTransition';
 import { activityLevels, genders } from '../../utils/dropDownTypes';
 import ResizablePanel from '../../components/ResizablePanel';
 import { AnimatePresence, motion } from 'framer-motion';
+import { signIn, useSession } from 'next-auth/react';
+import { Rings } from 'react-loader-spinner';
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -37,6 +39,8 @@ const Plan = () => {
 
   const [dietPattern, setDietPattern] = useState('Vegetarian');
   const [cuisine, setCuisine] = useState('Italian');
+
+  const { data: session, status } = useSession();
 
   const bmrAnalysisRef = useRef(null)
   function getActivityLevelValue(label) {
@@ -118,10 +122,6 @@ const Plan = () => {
   }
 
 
-
-  //   setMeals(rows)
-  //   return rows
-  // }
   const mealServe = [];
   let buffer = '';
 
@@ -181,7 +181,7 @@ const Plan = () => {
   }
 
   return (
-    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <main className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
         <title>Fitness, Diet, and Exercise on AI</title>
         <meta
@@ -300,9 +300,45 @@ const Plan = () => {
         <section className='flex flex-col justify-center items-center content-center py-20' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
           {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
             <BMR bmr={bmr} />
-
             <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
-            <MealPlanner />
+
+            {status === "loading" ? (
+              <div className="max-w-[670px] h-[250px] flex justify-center items-center">
+                <Rings
+                  height="100"
+                  width="100"
+                  color="black"
+                  radius="6"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="rings-loading"
+                />
+              </div>
+            ) : status === "authenticated" ? (
+              <MealPlanner />
+            ) : (
+
+              <div className="flex py-20  flex-col justify-center items-center space-y-6">
+                <div className=" text-white text-xl md:text-2xl">
+                  Sign in below with Google to create a free account and generate workout plan.
+                </div>
+                <button
+                  onClick={() => signIn("google")}
+                  className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                >
+                  <Image
+                    src="/images/google.png"
+                    width={20}
+                    height={20}
+                    alt="google's logo"
+                  />
+                  <span>Sign in with Google</span>
+                </button>
+              </div>
+
+            )}
+
 
             {/* <CheckoutForm /> */}
 
@@ -354,7 +390,6 @@ const Plan = () => {
               </div>
             </div>
           )}
-
         </section>
       </main>
     </div >

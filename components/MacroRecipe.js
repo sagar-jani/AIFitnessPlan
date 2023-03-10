@@ -111,19 +111,7 @@ const MacroRecipe = () => {
           <label className='block text-white font-bold mb-5' htmlFor='dietType'>
             Choose your Dietary Requirment
           </label>
-          {/* <select
-            className='block appearance-none w-full  border border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-            id='dietType'
-            name='dietType'
-          >
-            <option value='No Dietary Restrictions'>No Dietary Restrictions</option>
-            <option value='Pescatarian'>Pescatarian</option>
-            <option value='Ovo-vegetarian'>Ovo-Vegetarian</option>
-            <option value='Vegetarian'>Vegetarian</option>
-            <option value='Vegan'>Vegan</option>
-            <option value='Dairy-Free'>Dairy-Free</option>
-            <option value='Gluten-Free'>Gluten-Free</option>
-          </select> */}
+
           <DropDownTransition value={dietType} setValue={(diet) => setDietType(diet)} values={dietTypes} />
         </div>
 

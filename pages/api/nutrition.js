@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 export const config = {
   runtime: "edge",
@@ -10,6 +12,11 @@ if (!process.env.OPENAI_API_KEY) {
 const handler = async (req, res) => {
   const body = await req.json()
   console.log('body', body)
+
+  const session = await getServerSession(req, res, authOptions);
+  if (!session) {
+    return res.status(500).json("Login to upload.");
+  }
 
   const { goal, days, dietType } = req.body;
   const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a protein-rich meal plan by strictly following these rules: 1- Goal: ${goal} 2- Diet Requirement: ${dietType}  3- For how many Days: ${days}  4- Make sure to include meals for lunch and dinner with macr count Output: ONLY MARKDOWN JSON. JSON Format example: [ {"Day": number,  "Meals": [{"Lunch": string, "Carbs": number, "Protein": number, "Fats": number}, {"Dinner": string, "Carbs": number, "Protein": number, "Fats": number}]}] `

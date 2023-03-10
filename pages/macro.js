@@ -16,26 +16,27 @@ const Macro = () => {
           content='initial-scale=1.0, width=device-width'
         />
       </Head>
-      {status === "loading" ? (
-        <div className="max-w-[670px] h-[250px] flex justify-center items-center">
-          <Rings
-            height="100"
-            width="100"
-            color="black"
-            radius="6"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="rings-loading"
-          />
-        </div>
-      ) : status === "authenticated" ? (
-        <MacroRecipe />
-      ) : (
-        (
-          <div className="flex py-20  flex-col justify-center items-center space-y-6 max-w-[670px] -mt-8">
-            <div className="max-w-xl text-white">
-              Sign in below with Google to create a free account and generate meal.
+      <section className='flex flex-col justify-center items-center content-center py-20'>
+        {status === "loading" ? (
+          <div className="max-w-[670px] h-[250px] flex justify-center items-center">
+            <Rings
+              height="100"
+              width="100"
+              color="black"
+              radius="6"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="rings-loading"
+            />
+          </div>
+        ) : status === "authenticated" ? (
+          <MacroRecipe />
+        ) : (
+
+          <div className="flex py-20  flex-col justify-center items-center space-y-6 ">
+            <div className=" text-white text-xl md:text-2xl">
+              Sign in below with Google to create a free account and generate workout plan.
             </div>
             <button
               onClick={() => signIn("google")}
@@ -50,8 +51,9 @@ const Macro = () => {
               <span>Sign in with Google</span>
             </button>
           </div>
-        )
-      )}
+
+        )}
+      </section>
     </>
   )
 }

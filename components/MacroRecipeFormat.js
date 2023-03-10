@@ -10,16 +10,25 @@ const MacroRecipeFormat = ({ meals }) => {
           className="w-2/3  rounded overflow-hidden shadow-lg py-5 my-5  bg-blue text-white border"
         >
           <div className="px-6 py-4">
-            <div className="font-bold text-2xl mb-2 md:text-4xl text-center">{recipe.RecipeName}</div>
-            <div className=" text-base">
-              <h2 className="text-lg font-bold mb-2 md:text-2xl">Instructions:</h2>
-              <ul className="list-disc list-inside text-lg md:text-xl">
+            <div className="font-bold text-2xl mb-2 md:text-4xl text-center text-primary py-2" >{recipe.RecipeName}</div>
+            <div className=" text-base py-2">
+              <h2 className="text-lg font-bold mb-2 md:text-2xl py-2"><span className='text-primary'> Difficulty: </span> <span className='text-lg md:text-xl'> {recipe.Difficulty} </span></h2>
+              <h2 className="text-lg font-bold mb-2 md:text-2xl text-primary py-2">  Kitchen Tools: </h2>
+              <ul className="list-disc list-inside text-lg md:text-xl py-2">
+                {recipe.KitchenTools.map(tool => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
+              <h2 className="text-lg font-bold mb-2 md:text-2xl text-primary py-2">Instructions:</h2>
+
+              <ul className="list-disc list-inside text-lg md:text-xl py-2">
+
                 {recipe.Instructions.map((instruction, index) => (
                   <li key={index}>{instruction}</li>
                 ))}
               </ul>
-              <h2 className="text-lg font-bold my-2 md:text-2xl py-4">Ingredients:</h2>
-              <ul className="list-disc list-inside text-lg md:text-xl">
+              <h2 className="text-lg font-bold my-2 md:text-2xl py-4 text-primary">Ingredients:</h2>
+              <ul className="list-disc list-inside text-lg md:text-xl py-2">
                 {recipe.Ingredients.map((ingredient, index) => (
                   <li key={index}>{ingredient}</li>
                 ))}
@@ -29,38 +38,6 @@ const MacroRecipeFormat = ({ meals }) => {
         </div>
       ))}
     </div>
-    // <div className="bg-white rounded-lg overflow-hidden shadow-md mt-20">
-    //   <table className="w-full">
-    //     <thead>
-    //       <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-    //         <th className="py-3 px-6 text-left">Day</th>
-    //         <th className="py-3 px-6 text-left">Meals</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody className="text-gray-600 text-sm font-light">
-    //       {mealPlanArray.map((day) => (
-    //         <tr key={day.Day}>
-    //           <td className="py-3 px-6 text-left">{day.Day}</td>
-    //           <td className="py-3 px-6 text-left">
-    //             <ul>
-    //               {day.Meals.map((meal, index) => (
-    //                 <li key={index}>
-    //                   <div className="flex flex-row justify-between">
-    //                     <span className="font-medium">{Object.keys(meal)[0]}:</span>
-    //                     <span className="ml-2">{Object.values(meal)[0]}</span>
-    //                     <span className="ml-2">Carbs: {meal.Carbs}</span>
-    //                     <span className="ml-2">Protein: {meal.Protein}</span>
-    //                     <span className="ml-2">Fats: {meal.Fats}</span>
-    //                   </div>
-    //                 </li>
-    //               ))}
-    //             </ul>
-    //           </td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
   )
 }
 

@@ -1,4 +1,7 @@
 
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
+
 export const config = {
   runtime: "edge",
 };
@@ -8,11 +11,17 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const handler = async (req, res) => {
-  const body = await req.json()
-  console.log('body', body)
 
-  const { protein, fats, carbs, dietType } = req.body;
-  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: [{"RecipeName": string, "Difficulty": string, Kitchen Tools: string[] "Instructions": string[], "Ingredients": string[]}]`
+  // Check if user is logged in
+  const session = await getServerSession(req, res, authOptions);
+  if (!session) {
+    return res.status(500).json("Login to upload.");
+  }
+
+  const body = await req.json()
+  const { protein, fats, carbs, dietType } = body
+  console.log('protein, fats, carbs, dietType', protein, fats, carbs, dietType);
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: [{"RecipeName": string, "Difficulty": string, KitchenTools: string[] "Instructions": string[], "Ingredients": string[]}]`
 
   const payload = {
     model: "text-davinci-003",

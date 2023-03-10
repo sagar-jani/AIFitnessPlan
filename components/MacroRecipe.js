@@ -3,18 +3,22 @@ import { dietTypes } from "../utils/dropDownTypes";
 import DropDownTransition from "./DropDownTransition";
 import LoadingDots from "./LoadingDots";
 import MacroRecipeFormat from "./MacroRecipeFormat";
-import MealFormat from "./MealFormat";
+import { useSession, signIn } from "next-auth/react";
+// import useSWR from "swr";
+import { Rings } from "react-loader-spinner";
 
 const MacroRecipe = () => {
   const [loading, setLoading] = useState(false)
   const [macro, setMacro] = useState(null)
   const [meals, setMeals] = useState([])
   const [dietType, setDietType] = useState("No Dietary Restrictions")
+
+  const { data: session, status } = useSession();
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
 
-    const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
       const response = await fetch(`/api/macro`, {
         method: 'POST',
@@ -23,8 +27,8 @@ const MacroRecipe = () => {
         },
         body: JSON.stringify({
           protein: e.target.protein.value,
-          fats: e.target.protein.value,
-          carbs: e.target.protein.value,
+          fats: e.target.fats.value,
+          carbs: e.target.carbs.value,
           dietType: dietType,
         }),
       })

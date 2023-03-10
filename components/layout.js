@@ -6,6 +6,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import MacroRecipe from './MacroRecipe';
 import MacroCalculator from './MacroCalculator';
 import Link from 'next/link';
+import ProfilePhoto from './ProfilePhoto';
 
 const Layout = ({ children }) => {
   return (
@@ -24,6 +25,9 @@ const Layout = ({ children }) => {
             <FaEnvelope className="text-gmail" size={30} />
           </a>
           <SocialIcons />
+        </nav>
+        <nav className="flex text-center mb-10 mt-10 ml-20">
+          <ProfilePhoto />
         </nav>
       </header>
       <main className="bg-gradient">

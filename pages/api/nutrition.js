@@ -1,4 +1,3 @@
-const { OpenAIStream } = require("../../utils/OpenAIStream");
 
 export const config = {
   runtime: "edge",
@@ -8,32 +7,52 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
-export default async function handler(req) {
-  console.log('req', req.body)
-  const { protein, fat, carb, tdeeCalculated, dietPattern } = req.body;
-  console.log(protein, fat, carb, tdeeCalculated, dietPattern)
+const handler = async (req, res) => {
+  const body = await req.json()
+  console.log('body', body)
 
-  try {
+  const { goal, days, dietType } = req.body;
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a protein-rich meal plan by strictly following these rules: 1- Goal: ${goal} 2- Diet Requirement: ${dietType}  3- For how many Days: ${days}  4- Make sure to include meals for lunch and dinner with macr count Output: ONLY MARKDOWN JSON. JSON Format example: [ {"Day": number,  "Meals": [{"Lunch": string, "Carbs": number, "Protein": number, "Fats": number}, {"Dinner": string, "Carbs": number, "Protein": number, "Fats": number}]}] `
 
-    const prompt = `one-day diet for ${dietPattern} with exact ${Math.ceil(protein)} g protein, ${Math.ceil(fat)} g fat, and ${Math.ceil(carb)} g carbs & exact calorie ${Math.ceil(tdeeCalculated)} per day, 4 meals, give calorie & macro details for each food and overall meal, food item format should be like Oatmeal - 1 cup (150 calories, 5g protein, 2.5g fat, 27g carbs )`
+  const payload = {
+    model: "text-davinci-003",
+    prompt,
+    temperature: 0.7,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    max_tokens: 1000,
+    n: 1,
+  };
 
-    const payload = {
-      model: "text-davinci-003",
-      prompt,
-      temperature: 0.5,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      max_tokens: 3800,
-      stream: true,
-      n: 1,
-    };
+  const response = await fetch("https://api.openai.com/v1/completions", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+    },
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
 
-    const stream = await OpenAIStream(payload);
-    return new Response(stream);
-  } catch (e) {
-    config.log('error')
-    console.log({ e });
-    return new Response(e, { status: 500 });
-  }
+  console.log('response', response)
+
+  const data = await response.json()
+  console.log('data', data)
+  console.log('text', data.choices[0].text)
+
+  const result = data.choices[0].text
+  return new Response(
+    JSON.stringify({
+      meal: result,
+    }),
+    {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'charset': 'utf-8',
+      },
+    }
+  )
 }
+
+export default handler;

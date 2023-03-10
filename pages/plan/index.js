@@ -208,12 +208,7 @@ const Plan = () => {
                 <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
                   <div className="space-y-4 w-full max-w-sm">
                     <div className="flex mt-3 items-center space-x-3">
-                      {/* <Image
-                        src="/images/number-1-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      /> */}
+
                       <p className="text-left font-medium text-white">
                         Choose gender.
                       </p>
@@ -225,52 +220,21 @@ const Plan = () => {
                       values={genders}
                     />
                   </div>
-                  {/* <div className='mb-10'>
-              <label className='block text-white font-bold mb-2' htmlFor='gender'>
-                Gender
-              </label>
-              <select
-                className='block appearance-none border w-full border-gray-200 text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                id='gender'
-                name='gender'
-              >
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
-                required
-              </select>
-            </div> */}
+
                   <div className="space-y-4 w-full max-w-sm">
                     <div className="flex mt-3 items-center space-x-3">
-                      {/* <Image
-                        src="/images/number-2-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      /> */}
+
                       <p className="text-left font-medium text-white">
                         What is your age ?
                       </p>
                     </div>
                     <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
                   </div>
-                  {/* <div className='mb-10'>
-              <label
-                className='block text-white  font-bold mb-2'
-                htmlFor='age'
-              >
-                Age
-              </label>
-              <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
-            </div> */}
+
 
                   <div className="space-y-4 w-full max-w-sm">
                     <div className="flex mt-3 items-center space-x-3">
-                      {/* <Image
-                        src="/images/number-3-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      /> */}
+
                       <p className="text-left font-medium text-white">
                         What is your weight (kg) ?
                       </p>
@@ -284,30 +248,10 @@ const Plan = () => {
                       required
                     />
                   </div>
-                  {/* <div className='mb-10'>
-              <label
-                className='block text-white font-bold mb-2'
-                htmlFor='weight'
-              >
-                Weight (kg)
-              </label>
-              <input
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-                id='weight'
-                type='number'
-                name='weight'
-                placeholder='79'
-                required
-              />
-            </div> */}
+
                   <div className="space-y-4 w-full max-w-sm">
                     <div className="flex mt-3 items-center space-x-3">
-                      {/* <Image
-                        src="/images/number-4-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      /> */}
+
                       <p className="text-left font-medium text-white">
                         What is your height (cm) ?
                       </p>
@@ -322,30 +266,9 @@ const Plan = () => {
                     />
                   </div>
 
-                  {/* <div className='mb-10'>
-              <label
-                className='block text-white font-bold mb-2'
-                htmlFor='height'
-              >
-                Height (cm)
-              </label>
-              <input
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-                id='height'
-                type='number'
-                name='height'
-                placeholder='176'
-                required
-              />
-            </div> */}
                   <div className="space-y-4 w-full max-w-sm">
                     <div className="flex mt-3 items-center space-x-3">
-                      {/* <Image
-                        src="/images/number-5-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      /> */}
+
                       <p className="text-left font-medium text-white">
                         Choose your activity level.
                       </p>
@@ -357,26 +280,7 @@ const Plan = () => {
                       values={activityLevels}
                     />
                   </div>
-                  {/* <div className='mb-10'>
-              <label
-                className='block text-white font-bold mb-2'
-                htmlFor='activity-level'
-              >
-                Activity level
-              </label>
-              <select
-                className='block appearance-none w-full  border  text-black py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                id='activity-level'
-                name='activity'
-                required
-              >
-                <option value='1.2'>Sedentary (office job)</option>
-                <option value='1.375'>Light Exercise (1-2 days/week)</option>
-                <option value='1.55'>Moderate Exercise (3-5 days/week)</option>
-                <option value='1.725'>Heavy Exercise (6-7 days/week)</option>
-                <option value='1.9'>Athlete (2x per day)</option>
-              </select>
-            </div> */}
+
                   <div className="flex space-x-2 justify-center">
                     <button
                       className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
@@ -413,24 +317,7 @@ const Plan = () => {
 
             {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
 
-            {/* {!loading && (
-              <button
-                className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center "
-                onClick={(e) => generateNutritionPlan()}
-              >
-                Generate Nutrition Plan &rarr;
-              </button>
-            )}
 
-            {loading && (
-              <button onClick={generateNutritionPlan}
-                className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
-                type='submit'
-              >
-                <LoadingDots color="white" style="large" />
-                <p>Please wait, this would take ~15 seconds.</p>
-              </button>
-            )} */}
           </>}
 
         </section>

@@ -6,12 +6,13 @@ import * as ga from '../lib/ga'
 import { useRouter } from 'next/router'
 import { Inter } from '@next/font/google'
 import Layout from '../components/layout'
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
   subsets: ['latin'],
 })
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -29,9 +30,11 @@ export default function App({ Component, pageProps }) {
   }, [router.events])
   return (
     // <main className={inter.className}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-    // </main>
+    <SessionProvider session={session}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </SessionProvider>
+
   )
 }

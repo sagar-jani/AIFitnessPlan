@@ -148,7 +148,7 @@ module.exports.macroPlanner = async (event) => {
 
   const eventBody = JSON.parse(event.body);
   const { protein, fats, carbs, dietType } = eventBody;
-  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a protein-rich meal plan by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: [{"RecipeName": string, "Difficulty": string, Kitchen Tools: string[] "Instructions": string[], "Ingredients": string[]}]`
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: [{"RecipeName": string, "Difficulty": string, Kitchen Tools: string[] "Instructions": string[], "Ingredients": string[]}]`
 
   console.log('event.body', event.body)
 

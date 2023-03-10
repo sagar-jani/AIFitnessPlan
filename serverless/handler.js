@@ -191,7 +191,6 @@ module.exports.macroPlanner = async (event) => {
 module.exports.exercisePlanner = async (event) => {
 
   const eventBody = JSON.parse(event.body);
-  const { protein, fats, carbs, dietType } = eventBody;
   const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate exercise plan for Day 1 - push, Day -2 - legs and Day 3- Pull. Number of exercises per day: at least 4. Output: ONLY MARKDOWN JSON.  JSON Format example:  [ {"Day": number,  "Exercises": [{"Name": string, "sets": number, "reps": number}]}]`
 
   console.log('event.body', event.body)

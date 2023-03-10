@@ -11,9 +11,9 @@ const ExercisePlanner = () => {
     e.preventDefault()
     setLoading(true)
 
-    const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
+    // const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
-      const response = await fetch(`${BASE_URL}/exercise`, {
+      const response = await fetch(`/api/exercise`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

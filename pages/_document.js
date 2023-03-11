@@ -18,7 +18,7 @@ export default function Document() {
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Fitness, Diet, and Exercise on AI" />
         <meta property="og:locale" content="en_US" />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Revolutionise Fitness Using AI" />
         <meta name="twitter:description" content="Learn about the latest research and developments in AI-driven fitness, diet, and exercise. Get personalized recommendations and achieve your health goals with cutting-edge technology." />
         <meta name="twitter:image" content="https://www.aifitnessplanner.com/images/ai-fitness-og-1.png" />

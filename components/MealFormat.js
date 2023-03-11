@@ -5,15 +5,15 @@ const MealFormat = ({ mealPlan }) => {
   const mealPlanArray = JSON.parse(mealPlan);
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md mt-20">
-      <table className="w-full">
+    <div className="rounded-lg  shadow-md mt-20 text-white justify-center text-center">
+      <table className="w-2/3 mx-auto">
         <thead>
-          <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+          <tr className="bg-gray-100 text-black text-center align-center uppercase text-sm leading-normal">
             <th className="py-3 px-6 text-left">Day</th>
             <th className="py-3 px-6 text-left">Meals</th>
           </tr>
         </thead>
-        <tbody className="text-gray-600 text-sm font-light">
+        <tbody className=" font-light text-lg md:text-xl">
           {mealPlanArray.map((day) => (
             <tr key={day.Day}>
               <td className="py-3 px-6 text-left">{day.Day}</td>
@@ -22,11 +22,15 @@ const MealFormat = ({ mealPlan }) => {
                   {day.Meals.map((meal, index) => (
                     <li key={index}>
                       <div className="flex flex-row justify-between">
-                        <span className="font-medium">{Object.keys(meal)[0]}:</span>
-                        <span className="ml-2">{Object.values(meal)[0]}</span>
-                        <span className="ml-2">Carbs: {meal.Carbs}</span>
-                        <span className="ml-2">Protein: {meal.Protein}</span>
-                        <span className="ml-2">Fats: {meal.Fats}</span>
+                        <div className='w-1/2 py-5 text-lg md:text-xl'>
+                          <span className="font-bold text-primary">{Object.keys(meal)[0]}:</span>
+                          <span className="ml-2">{Object.values(meal)[0]}</span>
+                        </div>
+                        <div className='flex flex-col items-start py-5'>
+                          <span className="ml-2"> <span className="font-bold text-primary"> Carbs: </span> {meal.Carbs}</span>
+                          <span className="ml-2"><span className="font-bold text-primary"> Protein: </span> {meal.Protein}</span>
+                          <span className="ml-2"><span className="font-bold text-primary"> Fats: </span> {meal.Fats}</span>
+                        </div>
                       </div>
                     </li>
                   ))}

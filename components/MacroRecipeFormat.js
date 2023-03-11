@@ -1,14 +1,12 @@
 import React from 'react';
 const MacroRecipeFormat = ({ meals }) => {
-  const recipes = meals && JSON.parse(meals);
+  console.log('meals inside MacroRecipeFormat', meals)
+  const recipe = meals && JSON.parse(meals);
 
   return (
     <div className="flex flex-col items-center justify-center py-10">
-      {recipes.map((recipe, index) => (
-        <div
-          key={index}
-          className="w-2/3  rounded overflow-hidden shadow-lg py-5 my-5  bg-blue text-white border"
-        >
+      {
+        <div className="w-full rounded overflow-hidden shadow-lg py-5 my-5  bg-blue text-white border">
           <div className="px-6 py-4">
             <div className="font-bold text-2xl mb-2 md:text-4xl text-center text-primary py-2" >{recipe.RecipeName}</div>
             <div className=" text-base py-2">
@@ -36,7 +34,8 @@ const MacroRecipeFormat = ({ meals }) => {
             </div>
           </div>
         </div>
-      ))}
+      }
+      )
     </div>
   )
 }

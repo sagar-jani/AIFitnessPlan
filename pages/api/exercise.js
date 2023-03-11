@@ -1,24 +1,20 @@
 
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 
-// export const config = {
-//   runtime: "edge",
-// };
+export const config = {
+  runtime: "edge",
+};
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
 const handler = async (req, res) => {
-  const body = await req.json()
-  console.log('body', body)
 
   // Check if user is logged in
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) {
-    return res.status(500).json("Login to upload.");
-  }
+  // const session = await getServerSession(req, res, authOptions);
+  // if (!session) {
+  //   return res.status(500).json("Login to upload.");
+  // }
 
   const { goal, days, dietType } = req.body;
   const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate exercise plan for Day 1 - push, Day -2 - legs and Day 3- Pull. Number of exercises per day: at least 4. Output: ONLY MARKDOWN JSON.  JSON Format example:  [ {"Day": number,  "Exercises": [{"Name": string, "sets": number, "reps": number}]}]`

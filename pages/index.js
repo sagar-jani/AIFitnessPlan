@@ -14,12 +14,12 @@ const Home = () => {
       <div className=' flex items-center justify-center flex-col '>
         <div className='absolute top-0 right-0'>
         </div>
-        <h1 className='text-white text-5xl font-bold mt-20'>
-          AI POWERED FITNESS
+        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
+          <span className="text-blue-600">AI Powered </span> Fitness
         </h1>
-        <p className='text-white text-lg font-outline'>
-          Personalised nutrition plan to achieve your goal
-        </p>
+        <h1 className="mx-auto max-w-xl font-display text-xl font-bold tracking-normal text-slate-100 sm:text-2xl mb-5">
+          Personalised <span className="text-blue-600"> Fitness Plan</span>
+        </h1>
         <div className='grid grid-cols-2 grid-rows-2 gap-1 mt-20'>
           <div className='col-span-1 row-span-1 flex items-center justify-center'>
             <Image

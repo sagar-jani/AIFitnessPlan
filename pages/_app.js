@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { Inter } from '@next/font/google'
 import Layout from '../components/layout'
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   return (
     // <main className={inter.className}>
     <SessionProvider session={session}>
+      <Analytics />
       <Layout>
         <Component {...pageProps} />
       </Layout>

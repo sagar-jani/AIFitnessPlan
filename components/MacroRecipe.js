@@ -39,8 +39,15 @@ const MacroRecipe = () => {
       }
 
       const data = await response.json()
-      console.log('meals', data.meal)
-      setMeals(data.meal)
+      console.log('meal', data.meal)
+      console.log('meal', data.meal.answer)
+      if (data?.meal?.Answer) {
+        console.log('answer')
+        setMeals(data?.meal?.Answer)
+      } else {
+        setMeals(data.meal)
+      }
+
 
     } catch (error) {
       // setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")

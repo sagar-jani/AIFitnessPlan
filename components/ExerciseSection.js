@@ -10,6 +10,8 @@ const ExerciseSection = () => {
     e.preventDefault()
     setLoading(true)
 
+    console.log('Invoking e', e)
+
     try {
       const response = await fetch(`/api/exercise`, {
         method: 'POST',

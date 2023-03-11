@@ -7,6 +7,7 @@ import LoadingDots from '../components/LoadingDots'
 import MacroRecipe from "../components/MacroRecipe"
 import WorkoutPlan from "../components/WorkoutPlan"
 import Image from "next/image"
+import ExerciseSection from "../components/ExerciseSection"
 const ExercisePlanner = () => {
   const { data: session, status } = useSession();
 
@@ -34,7 +35,7 @@ const ExercisePlanner = () => {
             />
           </div>
         ) : status === "authenticated" ? (
-          <MacroRecipe />
+          <ExerciseSection />
         ) : (
 
           <div className="flex py-20  flex-col justify-center items-center space-y-6">

@@ -1,10 +1,6 @@
-
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
-
-// export const config = {
-//   runtime: "edge",
-// };
+export const config = {
+  runtime: "edge",
+};
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
@@ -13,16 +9,17 @@ if (!process.env.OPENAI_API_KEY) {
 const handler = async (req, res) => {
 
   // Check if user is logged in
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) {
-    return res.status(500).json("Login to upload.");
-  }
+  // const session = await getServerSession(req, res, authOptions);
+  // if (!session) {
+  //   return res.status(500).json("Login to upload.");
+  // }
 
   const body = await req.json()
   const { protein, fats, carbs, dietType } = body
   console.log('protein, fats, carbs, dietType', protein, fats, carbs, dietType);
-  const prompt = `Task: Analyse according to the instructions in my text. My Text: Create a healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: [{"RecipeName": string, "Difficulty": string, KitchenTools: string[] "Instructions": string[], "Ingredients": string[]}]`
+  const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate one healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: {"RecipeName": string, "Difficulty": string, KitchenTools: string[] "Instructions": string[], "Ingredients": string[]}`
 
+  console.log('prompt', prompt)
   const payload = {
     model: "text-davinci-003",
     prompt,
@@ -43,13 +40,9 @@ const handler = async (req, res) => {
     body: JSON.stringify(payload),
   });
 
-  console.log('response', response)
-
   const data = await response.json()
-  console.log('data', data)
-  console.log('text', data.choices[0].text)
-
   const result = data.choices[0].text
+
   return new Response(
     JSON.stringify({
       meal: result,

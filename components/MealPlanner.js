@@ -12,7 +12,6 @@ const MealPlanner = () => {
     e.preventDefault()
     setLoading(true)
 
-    // const BASE_URL = 'https://8yy45prgz5.execute-api.us-east-1.amazonaws.com/dev'
     try {
       const response = await fetch(`/api/nutrition`, {
         method: 'POST',
@@ -49,7 +48,7 @@ const MealPlanner = () => {
   };
 
   return (
-    <>
+    <section className='w-full'>
       <div className="text-center mb-5 mt-10">
         <p className="text-white text-5xl font-bold">Generate Meal Plan</p>
       </div>
@@ -130,7 +129,7 @@ const MealPlanner = () => {
         )}
       </form>
       {meals.length > 0 && <MealFormat mealPlan={meals} />}
-    </>
+    </section>
   );
 }
 

@@ -392,7 +392,7 @@ const Plan = () => {
           )}
         </section>
       </main>
-    </div >
+    </main>
   )
 }
 

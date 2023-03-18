@@ -21,6 +21,9 @@ const ExercisePlanner = () => {
         />
       </Head>
       <section className='flex flex-col justify-center items-center content-center py-20'>
+        <ExerciseSection />
+      </section>
+      {/* <section className='flex flex-col justify-center items-center content-center py-20'>
         {status === "loading" ? (
           <div className="max-w-[670px] h-[250px] flex justify-center items-center">
             <Rings
@@ -58,7 +61,7 @@ const ExercisePlanner = () => {
 
         )}
 
-      </section>
+      </section> */}
     </>
 
   )

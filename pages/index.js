@@ -21,6 +21,7 @@ const Home = () => {
         <h1 className="mx-auto max-w-xl font-display text-xl font-bold tracking-normal text-slate-100 sm:text-2xl mb-5">
           Personalised <span className="text-blue-600"> Fitness Plan</span>
         </h1>
+
         <div className='grid grid-cols-2 grid-rows-2 gap-1 mt-20'>
           <div className='col-span-1 row-span-1 flex items-center justify-center'>
             <Image

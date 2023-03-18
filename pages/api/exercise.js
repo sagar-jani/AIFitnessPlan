@@ -17,16 +17,17 @@ const handler = async (req, res) => {
   // }
 
   const { goal, days, dietType } = req.body;
-  const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate exercise plan for Day 1 - push, Day -2 - legs and Day 3- Pull. Number of exercises per day: at least 4. Output: ONLY MARKDOWN JSON.  JSON Format example:  [ {"Day": number,  "Exercises": [{"Name": string, "sets": number, "reps": number}]}]`
+  // const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate exercise plan for Day 1 - push, Day -2 - legs and Day 3- Pull. Number of exercises per day: at least 4. Output: ONLY MARKDOWN JSON.  JSON Format example:  [ {"Day": number,  "Exercises": [{"Name": string, "sets": number, "reps": number}]}]`
 
+  const prompt = "Generate a workout plan for someone with mix of cardio and strength training for 4 days per week, make sure to cover all muscle groups at least once. Include combination of compound and isolated exercises."
   const payload = {
-    model: "text-davinci-003",
+    model: "gpt-4",
     prompt,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 1000,
+    max_tokens: 2000,
     n: 1,
   };
 

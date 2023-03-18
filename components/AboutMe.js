@@ -60,7 +60,7 @@ const AboutMe = () => {
         </li>
 
         <li className='inline-block mx-2'>
-          <Link href='/exercise' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Exercise Plan</Link>
+          <Link href='/workout' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Workout Plan</Link>
         </li>
         <li className='inline-block mx-2'>
           <Link href='/pricing' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Pricing</Link>

@@ -45,6 +45,7 @@
     "swr": "^2.1.0"
   },
   "devDependencies": {
+    "@types/react": "18.0.28",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
     "prisma": "^4.11.0",

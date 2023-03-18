@@ -13,7 +13,7 @@ const ExerciseSection = () => {
     console.log('Invoking e', e)
 
     try {
-      const response = await fetch(`/api/exercise`, {
+      const response = await fetch(`/api/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

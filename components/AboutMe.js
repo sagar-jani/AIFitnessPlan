@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
 
 const AboutMe = () => {
   const [amazonLink, setAmazonLink] = useState('https://www.amazon.com/dp/B0BRGWJ1QF');
@@ -32,7 +33,8 @@ const AboutMe = () => {
       <ul className='mx-auto'>
 
         <li className='inline-block mx-2'>
-          <Link href='/' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Home</Link>
+          <Link href='/' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Home
+          </Link>
         </li>
         <li className='inline-block mx-2'>
           <Link href='/about' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">About Me</Link>
@@ -59,6 +61,9 @@ const AboutMe = () => {
 
         <li className='inline-block mx-2'>
           <Link href='/exercise' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Exercise Plan</Link>
+        </li>
+        <li className='inline-block mx-2'>
+          <Link href='/pricing' className="px-4 py-2 text-xl font-medium text-primary hover:text-gray-400">Pricing</Link>
         </li>
         {/* <li className="inline-block mx-4">
           <Link href=''>

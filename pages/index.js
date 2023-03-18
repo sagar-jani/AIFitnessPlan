@@ -10,6 +10,7 @@ const Home = () => {
       <Head>
         <title>Fitness AI Homepage</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
       </Head>
       <div className=' flex items-center justify-center flex-col '>
         <div className='absolute top-0 right-0'>

@@ -4,11 +4,15 @@ import MacroRecipe from "../components/MacroRecipe"
 import { Rings } from "react-loader-spinner";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
+import Header from "../components/Header";
 
 const Macro = () => {
   const { data: session, status } = useSession();
+
   return (
-    <>
+    <div className="flex max-w-6xl mx-auto flex-col py-2 min-h-screen">
+
+      <Header photo={session?.user?.image || undefined} />
       <Head>
         <title>Macro Planner - Generate Meal !</title>
         <meta
@@ -16,7 +20,7 @@ const Macro = () => {
           content='initial-scale=1.0, width=device-width'
         />
       </Head>
-      <section className='flex flex-col justify-center items-center content-center py-20'>
+      <div className='flex flex-col justify-center items-center content-center py-20'>
         {status === "loading" ? (
           <div className="max-w-[670px] h-[250px] flex justify-center items-center">
             <Rings
@@ -53,8 +57,9 @@ const Macro = () => {
           </div>
 
         )}
-      </section>
-    </>
+      </div>
+    </div>
+
   )
 }
 

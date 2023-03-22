@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+import prisma from "../../lib/prismadb";
 export const config = {
   runtime: "edge",
 };
@@ -7,6 +9,18 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const handler = async (req, res) => {
+  console.log('coming')
+  const { data: session, status } = useSession();
+  const userId = session?.user?.id;
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     id: userId,
+  //   },
+  // });
+  // console.log('user', user)
+  // if (user.generationCount < 2) {
+  //   console.log('allow')
+  // }
 
   // Check if user is logged in
   // const session = await getServerSession(req, res, authOptions);

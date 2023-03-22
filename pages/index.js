@@ -2,17 +2,21 @@ import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
+import Header from '../components/Header';
+import { useSession } from 'next-auth/react';
 
 const Home = () => {
+  const { data: session, status } = useSession();
   return (
 
-    <section className=' min-h-screen'>
+    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
         <title>Fitness AI Homepage</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
       </Head>
-      <div className=' flex items-center justify-center flex-col '>
+      <Header photo={session?.user?.image || undefined} />
+      <div className=' flex items-center justify-center flex-col background-gradient'>
         <div className='absolute top-0 right-0'>
         </div>
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
@@ -84,11 +88,11 @@ const Home = () => {
         </div>
 
         <Link href="/plan" className="inline-flex items-center px-10 mt-20 py-5 text-2xl font-medium text-center justify-center text-white bg-primary rounded-3xl hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >
-          Get started
-          <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" > <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+          Generate your fitness plan
+          {/* <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" > <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg> */}
         </Link >
-      </div >
-    </section >
+      </div>
+    </div>
 
   )
 }

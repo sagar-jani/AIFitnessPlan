@@ -10,6 +10,9 @@ import { Uploader } from "uploader";
 import LoadingDots from "../components/LoadingDots";
 import { CompareSlider } from "../components/CompareSlider";
 import { faDedent } from "@fortawesome/free-solid-svg-icons";
+import Error from 'next/error'
+import Header from "../components/Header";
+
 
 const uploader = Uploader({
   apiKey: !!process.env.NEXT_PUBLIC_UPLOAD_API_KEY
@@ -56,8 +59,10 @@ const AnalyseTechnique = () => {
       },
       body: JSON.stringify({ imageUrl: fileUrl }),
     });
+    console.log('response', response)
     if (!response.ok) {
-      throw new Error(response.statusText);
+      // throw new Error(response.statusText);
+      return <Error statusCode={response.status} />
     }
 
     // This data is a ReadableStream
@@ -128,6 +133,7 @@ const AnalyseTechnique = () => {
 
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+      <Header photo={session?.user?.image || undefined} />
       <Head>
         <title>Analyse Training Technique</title>
       </Head>

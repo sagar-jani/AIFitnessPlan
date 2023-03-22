@@ -43,6 +43,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  generationCount   Int     @default(0)
+  isPro           Boolean   @default(false)
 }
 
 model VerificationToken {

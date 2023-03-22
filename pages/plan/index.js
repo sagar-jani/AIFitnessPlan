@@ -22,6 +22,8 @@ import ResizablePanel from '../../components/ResizablePanel';
 import { AnimatePresence, motion } from 'framer-motion';
 import { signIn, useSession } from 'next-auth/react';
 import { Rings } from 'react-loader-spinner';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar'
 
 const Plan = () => {
   const [tdee, setTdee] = useState(0)
@@ -181,218 +183,245 @@ const Plan = () => {
   }
 
   return (
-    <main className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    // <main className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+
+    <div className="flex max-w-6xl mx-auto flex-col py-2 min-h-screen">
       <Head>
         <title>Fitness, Diet, and Exercise on AI</title>
-        <meta
-          name='viewport'
-          content='initial-scale=1.0, width=device-width'
-        />
       </Head>
-
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center text-black px-4 mt-4 sm:mb-0 mb-8">
-
-        <section>
-
-          <div className=' flex items-center justify-center flex-col '>
-            <Link href="/" className='absolute top-0 left-0 pl-4 pt-2 font-medium text-white'>
-              Fitness AI
-            </Link>
-            <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-              Generate your <span className="text-blue-600">Fitness Plan</span>
-            </h1>
+      <Header photo={session?.user?.image || undefined} />
+      <div className="flex w-full">
+        {status === 'authenticated' && (
+          <div className="flex-none  py-5">
+            <Sidebar />
           </div>
-          <ResizablePanel>
-            <AnimatePresence mode="wait">
-              <motion.div className="flex justify-between items-center w-full flex-col mt-4">
-                <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
-
-                      <p className="text-left font-medium text-white">
-                        Choose gender.
-                      </p>
+        )}
+        <main className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
+          {/* <main className="flex flex-1 w-full flex-col items-center justify-center text-center text-black px-4 mt-4 sm:mb-0 mb-8"> */}
+          <section>
+            <div className=' flex items-center justify-center flex-col '>
+              <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
+                Generate your <span className="text-blue-600">Fitness Plan</span>
+              </h1>
+            </div>
+            <ResizablePanel>
+              <AnimatePresence mode="wait">
+                <motion.div className="flex justify-between items-center w-full flex-col mt-4">
+                  {status !== "authenticated" ? (
+                    <div className="h-[250px] flex flex-col items-center space-y-6 text-xl">
+                      <div className="max-w-xl text-gray-300">
+                        Sign in below with Google to create a free account and
+                        generate your fitness plan today.
+                        You will be able to do generate 3 plans (nutrition/exercise/meals).
+                      </div>
+                      <button
+                        onClick={() => signIn("google")}
+                        className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                      >
+                        <Image
+                          src="/images/google.png"
+                          width={20}
+                          height={20}
+                          alt="google's logo"
+                        />
+                        <span>Sign in with Google</span>
+                      </button>
                     </div>
-                    <DropDownTransition
-                      value={gender}
-                      // @ts-ignore
-                      setValue={(newValue) => setGender(newValue)}
-                      values={genders}
-                    />
-                  </div>
+                  ) :
+                    <>
+                      {/* <div className='mx-auto justify-start items-center h-screen'>
+                      <Sidebar />
+                    </div> */}
+                      <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
+                        <div className="space-y-4 w-full max-w-sm">
+                          <div className="flex mt-3 items-center space-x-3">
 
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
+                            <p className="text-left font-medium text-white">
+                              Choose gender.
+                            </p>
+                          </div>
+                          <DropDownTransition
+                            value={gender}
+                            // @ts-ignore
+                            setValue={(newValue) => setGender(newValue)}
+                            values={genders}
+                          />
+                        </div>
 
-                      <p className="text-left font-medium text-white">
-                        What is your age ?
-                      </p>
-                    </div>
-                    <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
-                  </div>
+                        <div className="space-y-4 w-full max-w-sm">
+                          <div className="flex mt-3 items-center space-x-3">
 
-
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
-
-                      <p className="text-left font-medium text-white">
-                        What is your weight (kg) ?
-                      </p>
-                    </div>
-                    <input
-                      className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
-                      id='weight'
-                      type='number'
-                      name='weight'
-                      placeholder='79'
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
-
-                      <p className="text-left font-medium text-white">
-                        What is your height (cm) ?
-                      </p>
-                    </div>
-                    <input
-                      className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
-                      id='height'
-                      type='number'
-                      name='height'
-                      placeholder='176'
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
-
-                      <p className="text-left font-medium text-white">
-                        Choose your activity level.
-                      </p>
-                    </div>
-                    <DropDownTransition
-                      value={activityLevel}
-                      // @ts-ignore
-                      setValue={(newValue) => setActivityLevel(newValue)}
-                      values={activityLevels}
-                    />
-                  </div>
-
-                  <div className="flex space-x-2 justify-center">
-                    <button
-                      className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
-                      type='submit'
-                    >
-
-                      Start Your Plan &gt;
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            </AnimatePresence>
-          </ResizablePanel>
-        </section>
+                            <p className="text-left font-medium text-white">
+                              What is your age ?
+                            </p>
+                          </div>
+                          <input required className="appearance-none block w-full  text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="age" type="text" placeholder="39"></input>
+                        </div>
 
 
-        <section className='flex flex-col justify-center items-center content-center py-20' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
-          {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
-            <BMR bmr={bmr} />
-            <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
+                        <div className="space-y-4 w-full max-w-sm">
+                          <div className="flex mt-3 items-center space-x-3">
 
-            {status === "loading" ? (
-              <div className="max-w-[670px] h-[250px] flex justify-center items-center">
-                <Rings
-                  height="100"
-                  width="100"
-                  color="black"
-                  radius="6"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                  ariaLabel="rings-loading"
-                />
-              </div>
-            ) : status === "authenticated" ? (
-              <MealPlanner />
-            ) : (
+                            <p className="text-left font-medium text-white">
+                              What is your weight (kg) ?
+                            </p>
+                          </div>
+                          <input
+                            className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
+                            id='weight'
+                            type='number'
+                            name='weight'
+                            placeholder='79'
+                            required
+                          />
+                        </div>
 
-              <div className="flex py-20  flex-col justify-center items-center space-y-6">
-                <div className=" text-white text-xl md:text-2xl">
-                  Sign in below with Google to create a free account and generate workout plan.
-                </div>
-                <button
-                  onClick={() => signIn("google")}
-                  className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
-                >
-                  <Image
-                    src="/images/google.png"
-                    width={20}
-                    height={20}
-                    alt="google's logo"
+                        <div className="space-y-4 w-full max-w-sm">
+                          <div className="flex mt-3 items-center space-x-3">
+
+                            <p className="text-left font-medium text-white">
+                              What is your height (cm) ?
+                            </p>
+                          </div>
+                          <input
+                            className='shadow appearance-none border rounded w-full py-3 px-4 text-black leading-tight focus:outline-none focus:shadow-outline'
+                            id='height'
+                            type='number'
+                            name='height'
+                            placeholder='176'
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-4 w-full max-w-sm">
+                          <div className="flex mt-3 items-center space-x-3">
+
+                            <p className="text-left font-medium text-white">
+                              Choose your activity level.
+                            </p>
+                          </div>
+                          <DropDownTransition
+                            value={activityLevel}
+                            // @ts-ignore
+                            setValue={(newValue) => setActivityLevel(newValue)}
+                            values={activityLevels}
+                          />
+                        </div>
+
+                        <div className="flex space-x-2 justify-center">
+                          <button
+                            className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
+                            type='submit'
+                          >
+                            Start Your Plan &gt;
+                          </button>
+                        </div>
+                      </form>
+                    </>
+                  }
+                </motion.div>
+              </AnimatePresence>
+            </ResizablePanel>
+          </section>
+
+
+          <section className='flex flex-col justify-center items-center content-center py-20' ref={bmrAnalysisRef} id="bmrAnalysisSection"  >
+            {tdee > 0 && <> <MaintainanceCalorie tdee={tdee} bmr={bmr} />
+              <BMR bmr={bmr} />
+              <MacroCalculation tdee={tdee} activeTab={activeTab} setActiveTab={setActiveTab} dietType={dietType} setDietType={setDietType} />
+
+              {status === "loading" ? (
+                <div className="max-w-[670px] h-[250px] flex justify-center items-center">
+                  <Rings
+                    height="100"
+                    width="100"
+                    color="black"
+                    radius="6"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="rings-loading"
                   />
-                  <span>Sign in with Google</span>
-                </button>
-              </div>
+                </div>
+              ) : status === "authenticated" ? (
+                <MealPlanner />
+              ) : (
 
-            )}
+                <div className="flex py-20  flex-col justify-center items-center space-y-6">
+                  <div className=" text-white text-xl md:text-2xl">
+                    Sign in below with Google to create a free account and generate workout plan.
+                  </div>
+                  <button
+                    onClick={() => signIn("google")}
+                    className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                  >
+                    <Image
+                      src="/images/google.png"
+                      width={20}
+                      height={20}
+                      alt="google's logo"
+                    />
+                    <span>Sign in with Google</span>
+                  </button>
+                </div>
+
+              )}
 
 
-            {/* <CheckoutForm /> */}
+              {/* <CheckoutForm /> */}
 
-            {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
+              {/* {ingredients && <Ingredients ingredients={ingredients} />} */}
 
-            {/* <button onClick={generateNutritionPlan}
+              {/* <button onClick={generateNutritionPlan}
               className='block bg-teal-700 text-2xl text-white font-bold mx-auto py-8 px-8 rounded-xl text-center '
               type='submit'
             >
               Generate Nutrition Plan
             </button> */}
 
-            {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
+              {/* <NutritionInput setDietPattern={setDietPattern} setCuisine={setCuisine} cuisine={cuisine} dietPattern={dietPattern} /> */}
 
 
-          </>}
+            </>}
 
-        </section>
+          </section>
 
-        <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 from-white to-neutral-300 mt-10'>
-          {meals.length > 0 && <MealTable meals={meals} />}
-        </section>
+          <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 from-white to-neutral-300 mt-10'>
+            {meals.length > 0 && <MealTable meals={meals} />}
+          </section>
 
-        {/* <ExerciseSelection /> */}
+          {/* <ExerciseSelection /> */}
 
-        <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b mt-10'>
-          {meals.length > 0 &&
-            <>
-              <div className="text-center mb-5 mt-10">
-                <p className="text-5xl font-bold text-white">Let&apos;s generate exercise plan now !</p>
+          <section className='justify-center relative overflow-hidden bg-cover bg-bottom text-neutral-800 pb-8 lg:pb-16 xl:pb-32 bg-gradient-to-b mt-10'>
+            {meals.length > 0 &&
+              <>
+                <div className="text-center mb-5 mt-10">
+                  <p className="text-5xl font-bold text-white">Let&apos;s generate exercise plan now !</p>
+                </div>
+                <ExerciseSelection />
+              </>
+            }
+
+            {chart && (
+              <div className="mb-10 px-4">
+                <h2 className="mx-auto mt-16 max-w-3xl border-t text-white pt-8 text-center text-3xl font-bold sm:text-5xl">
+                  Summary
+                </h2>
+                <div className="mx-auto mt-6 max-w-3xl text-lg leading-7 text-white">
+                  {chart.split(". ").map((sentence, index) => (
+                    <div key={index}>
+                      {sentence.length > 0 && (
+                        <li className="mb-2 list-disc">{sentence}</li>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <ExerciseSelection />
-            </>
-          }
-
-          {chart && (
-            <div className="mb-10 px-4">
-              <h2 className="mx-auto mt-16 max-w-3xl border-t text-white pt-8 text-center text-3xl font-bold sm:text-5xl">
-                Summary
-              </h2>
-              <div className="mx-auto mt-6 max-w-3xl text-lg leading-7 text-white">
-                {chart.split(". ").map((sentence, index) => (
-                  <div key={index}>
-                    {sentence.length > 0 && (
-                      <li className="mb-2 list-disc">{sentence}</li>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </section>
-      </main>
-    </main>
+            )}
+          </section>
+        </main>
+      </div>
+    </div>
   )
 }
 

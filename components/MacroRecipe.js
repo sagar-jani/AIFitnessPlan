@@ -13,8 +13,6 @@ const MacroRecipe = () => {
   const [meals, setMeals] = useState([])
   const [dietType, setDietType] = useState("No Dietary Restrictions")
 
-  const { data: session, status } = useSession();
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)

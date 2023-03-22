@@ -4,13 +4,15 @@ import Image from "next/image";
 import React from "react";
 import { useRef, useState } from "react";
 import LoadingDots from '../../components/LoadingDots'
+import Header from '../../components/Header'
+import { signIn, useSession } from 'next-auth/react';
 
 const Workout = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [generatedBios, setGeneratedBios] = useState("");
 
-
+  const { data: session, status } = useSession();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setGeneratedBios("");
@@ -76,35 +78,42 @@ const Workout = () => {
 
 
   return (
-    <section className=" justify-center text-center text-white px-10">
-      <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-10">
-        Generate your <span className="text-blue-600">Exercise Plan</span>
-      </h1>
-
-      {!loading && (
-        <button
-          className="bg-black rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 my-10"
-          onClick={(e) => handleSubmit(e)}
-        >
-          Generate workout 🏋️‍♂️
-        </button>
-      )}
-      {loading && (
-        <button
-          className="bg-black rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 my-10"
-          disabled
-        >
-          <LoadingDots color="white" style="large" />
-        </button>
-      )}
-
-      {generatedBios && (
-        <>
-          <DisplayText text={generatedBios} />
-        </>)}
+    <div className="flex max-w-6xl mx-auto flex-col py-2 min-h-screen">
+      <Head>
+        <title>Workout AI</title>
+      </Head>
+      <Header photo={session?.user?.image || undefined} />
+      <section className=" justify-center text-center text-white px-10">
+        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-10">
+          Generate your <span className="text-blue-600">Exercise Plan</span>
+        </h1>
 
 
-    </section>
+        {!loading && (
+          <button
+            className="bg-black rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 my-10"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Generate workout 🏋️‍♂️
+          </button>
+        )}
+        {loading && (
+          <button
+            className="bg-black rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 my-10"
+            disabled
+          >
+            <LoadingDots color="white" style="large" />
+          </button>
+        )}
+
+        {generatedBios && (
+          <>
+            <DisplayText text={generatedBios} />
+          </>)}
+
+
+      </section>
+    </div>
   )
 };
 

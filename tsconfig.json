@@ -24,8 +24,11 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/workout/index.jsx",
-    "pages/api/generate.js"
-  ],
+    "pages/api/generate.js",
+    "utils/redis.js",
+    "components/CompareSlider.jsx",
+    "pages/api/remaining.js"
+, "components/Header.jsx"  ],
   "exclude": [
     "node_modules"
   ]

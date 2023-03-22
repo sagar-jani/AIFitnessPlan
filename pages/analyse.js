@@ -146,12 +146,12 @@ const AnalyseTechnique = () => {
   return (
     // <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
     <div className="flex w-full px-20  flex-col py-2 min-h-screen">
-      <Header photo={session?.user?.image || undefined} />
+
       <Head>
         <title>Analyse Training Technique</title>
       </Head>
       <Script src="https://js.stripe.com/v3/pricing-table.js" />
-      {/* <Header photo={session?.user?.image || undefined} /> */}
+      <Header photo={session?.user?.image || undefined} />
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">

@@ -1,7 +1,10 @@
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import React from "react"
 
 const SideBar = () => {
+
+  const { data: session } = useSession()
   return (
     <aside className="flex flex-col w-80 h-500x px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 text-xl">
       <div className="flex flex-col justify-between flex-1 py-4">
@@ -48,7 +51,22 @@ const SideBar = () => {
             <span className="mx-4 font-medium">Form Check</span>
           </a>
 
-          <hr className="mt-44 mb-20 border-gray-200 dark:border-gray-600" />
+          <hr className="mt-44  border-gray-200 dark:border-gray-600" />
+
+          <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="/analyse">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+              className="w-5 h-5">
+              <path fillRule="evenodd"
+                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+            </svg>
+
+
+            <span className="mx-4 font-medium">{session?.user?.name}</span>
+          </a>
+
+
 
           {/* <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

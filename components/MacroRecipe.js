@@ -6,6 +6,9 @@ import MacroRecipeFormat from "./MacroRecipeFormat";
 import { useSession, signIn } from "next-auth/react";
 // import useSWR from "swr";
 import { Rings } from "react-loader-spinner";
+import ResizablePanel from "./ResizablePanel";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 const MacroRecipe = () => {
   const [loading, setLoading] = useState(false)
@@ -60,84 +63,114 @@ const MacroRecipe = () => {
       <div className="text-center mb-5 mt-10">
         <p className="text-white text-5xl font-bold">Macro Planner </p>
       </div>
-      <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
-        <div className='mb-10'>
-          <label
-            className='block text-white font-bold mb-2'
-            htmlFor='protein'
-          >
-            Protein
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-            id='protein'
-            name='protein'
-            type='number'
-            placeholder='0'
-            required
-          />
-        </div>
+      <ResizablePanel>
+        <AnimatePresence mode="wait">
+          <motion.div className="flex flex-col justify-between items-center w-1/2  mx-auto mt-4 text-xl">
+            {/* className='flex items-center justify-center flex-col  mx-auto mt-20 w-1/2  text-xl' */}
+            <form onSubmit={handleSubmit} className="w-1/2">
+              <div className="flex mt-6 w-96 items-center space-x-3 my-2 ">
+                <Image
+                  src="/images/number-1-white.svg"
+                  width={30}
+                  height={30}
+                  alt="1 icon"
+                />
+                <p className="text-left font-medium text-white">
+                  Your target Protein for this meal ?
+                </p>
+              </div>
+              <div className='mb-10'>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
+                  id='protein'
+                  name='protein'
+                  type='number'
+                  placeholder='0'
+                  required
+                />
+              </div>
 
-        <div className='mb-10'>
-          <label
-            className='block text-white font-bold mb-2'
-            htmlFor='carbs'
-          >
-            Carbs
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-            id='carbs'
-            name='carbs'
-            type='number'
-            placeholder='0'
-            required
-          />
-        </div>
+              <div className='mb-10'>
+                <div className="flex mt-6 w-96 items-center space-x-3 my-2 ">
+                  <Image
+                    src="/images/number-2-white.svg"
+                    width={30}
+                    height={30}
+                    alt="1 icon"
+                  />
+                  <p className="text-left font-medium text-white">
+                    Your target Carbs for this meal ?
+                  </p>
+                </div>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
+                  id='carbs'
+                  name='carbs'
+                  type='number'
+                  placeholder='0'
+                  required
+                />
+              </div>
 
-        <div className='mb-10'>
-          <label
-            className='block text-white font-bold mb-2'
-            htmlFor='fats'
-          >
-            Fats
-          </label>
-          <input
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
-            id='fats'
-            name='fats'
-            type='number'
-            placeholder='0'
-            required
-          />
-        </div>
+              <div className='mb-10'>
+                <div className="flex mt-6 w-96 items-center space-x-3 my-2 ">
+                  <Image
+                    src="/images/number-3-white.svg"
+                    width={30}
+                    height={30}
+                    alt="1 icon"
+                  />
+                  <p className="text-left font-medium text-white">
+                    Your target Fats for this meal ?
+                  </p>
+                </div>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
+                  id='fats'
+                  name='fats'
+                  type='number'
+                  placeholder='0'
+                  required
+                />
+              </div>
 
-        <div className='mb-10'>
-          <label className='block text-white font-bold mb-5' htmlFor='dietType'>
-            Choose your Dietary Requirment
-          </label>
+              <div className='mb-10'>
+                <div className="flex mt-6 w-96 items-center space-x-3 my-2 ">
+                  <Image
+                    src="/images/number-3-white.svg"
+                    width={30}
+                    height={30}
+                    alt="1 icon"
+                  />
+                  <p className="text-left font-medium text-white">
+                    Your dietary requirements ?
+                  </p>
+                </div>
 
-          <DropDownTransition value={dietType} setValue={(diet) => setDietType(diet)} values={dietTypes} />
-        </div>
+                <DropDownTransition value={dietType} setValue={(diet) => setDietType(diet)} values={dietTypes} />
+              </div>
 
 
-        {!loading && (
-          <button
-            type='submit'
-            className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ">
-            Generate Recipe &rarr;
-          </button>
-        )}
+              {!loading && (
+                <button
+                  type='submit'
+                  className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ">
+                  Generate Recipe &rarr;
+                </button>
+              )}
 
-        {loading && (
-          <button
-            className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
-            type='submit'
-          >
-            <LoadingDots color="white" style="large" />
-          </button>
-        )}
-      </form>
+              {loading && (
+                <button
+                  className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
+                  type='submit'
+                >
+                  <LoadingDots color="white" style="large" />
+                </button>
+              )}
+            </form>
+          </motion.div>
+        </AnimatePresence>
+      </ResizablePanel>
       {meals.length > 0 && <MacroRecipeFormat meals={meals} />}
     </>
   )

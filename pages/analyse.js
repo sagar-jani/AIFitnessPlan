@@ -13,6 +13,8 @@ import { faDedent } from "@fortawesome/free-solid-svg-icons";
 import Error from 'next/error'
 import Header from "../components/Header";
 import Script from "next/script";
+import SideBar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 
 
 const uploader = Uploader({
@@ -142,72 +144,78 @@ const AnalyseTechnique = () => {
 
 
   return (
-    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    // <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <div className="flex w-full px-20  flex-col py-2 min-h-screen">
       <Header photo={session?.user?.image || undefined} />
       <Head>
         <title>Analyse Training Technique</title>
       </Head>
-      <Script src="https://js.stripe.com/v3/pricing-table.js">
-
-      </Script>
+      <Script src="https://js.stripe.com/v3/pricing-table.js" />
       {/* <Header photo={session?.user?.image || undefined} /> */}
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
+      <div className="flex w-full">
+        {status === 'authenticated' && (
+          <div className="flex-none  py-5">
+            <Sidebar />
+          </div>
+        )}
+        <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
 
-        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-          Analyse your <span className="text-blue-600">Excercise Form</span>
-        </h1>
-        <ResizablePanel>
-          <AnimatePresence mode="wait">
-            <motion.div className="flex justify-between items-center w-full flex-col mt-4">
-              <div className="mt-4 w-full max-w-sm">
-                <div className="flex mt-6 w-96 items-center space-x-3 ">
-                  <Image
-                    src="/images/number-1-white.svg"
-                    width={30}
-                    height={30}
-                    alt="1 icon"
-                  />
-                  <p className="text-left font-medium text-white">
-                    Upload a vidoe of your workout.
-                  </p>
+          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
+            Analyse your <span className="text-blue-600">Excercise Form</span>
+          </h1>
+          <ResizablePanel>
+            <AnimatePresence mode="wait">
+              <motion.div className="flex justify-between items-center w-full flex-col mt-4">
+                <div className="mt-4 w-full max-w-sm">
+                  <div className="flex mt-6 w-96 items-center space-x-3 ">
+                    <Image
+                      src="/images/number-1-white.svg"
+                      width={30}
+                      height={30}
+                      alt="1 icon"
+                    />
+                    <p className="text-left font-medium text-white">
+                      Upload a vidoe of your workout.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {!feedback && <UploadDropZone />}
+                {!feedback && <UploadDropZone />}
 
-              {loading && (
-                <button
-                  disabled
-                  className="bg-blue-500 rounded-full text-white font-medium px-4 pt-2 pb-3 mt-8 w-40"
-                >
-                  <span className="pt-4">
-                    <LoadingDots color="white" style="large" />
-                  </span>
-                </button>
-              )}
+                {loading && (
+                  <button
+                    disabled
+                    className="bg-blue-500 rounded-full text-white font-medium px-4 pt-2 pb-3 mt-8 w-40"
+                  >
+                    <span className="pt-4">
+                      <LoadingDots color="white" style="large" />
+                    </span>
+                  </button>
+                )}
 
-              {/* {feedback && (
+                {/* {feedback && (
                 <CompareSlider
                   original={originalPhoto}
                   restored={feedback}
                 />
               )} */}
 
-              {feedback && <div className="text-white">{ApiResponse(feedback)}</div>}
-              {!proPlan && (
-                <section className="h-screen">
-                  <div className="bg-gradient">
-                    <stripe-pricing-table pricing-table-id="prctbl_1MnKxXH9GTHwGMksHuVBo5Le"
-                      publishable-key="pk_test_51MmbbuH9GTHwGMks2J2KLJLAO5dTLiyzUY5au9xS82CMTdJxoeutIaQU8Bher3v9jc1HCGXu6B11JSuRGAz2gLxJ009vGyjvWH" customer-email={session?.user?.email}>
-                    </stripe-pricing-table>
-                  </div>
-                </section>
-              )}
+                {feedback && <div className="text-white">{ApiResponse(feedback)}</div>}
+                {!proPlan && (
+                  <section className="h-screen">
+                    <div className="bg-gradient">
+                      <stripe-pricing-table pricing-table-id="prctbl_1MnKxXH9GTHwGMksHuVBo5Le"
+                        publishable-key="pk_test_51MmbbuH9GTHwGMks2J2KLJLAO5dTLiyzUY5au9xS82CMTdJxoeutIaQU8Bher3v9jc1HCGXu6B11JSuRGAz2gLxJ009vGyjvWH" customer-email={session?.user?.email}>
+                      </stripe-pricing-table>
+                    </div>
+                  </section>
+                )}
 
-            </motion.div>
-          </AnimatePresence>
-        </ResizablePanel>
-      </main>
+              </motion.div>
+            </AnimatePresence>
+          </ResizablePanel>
+        </main>
+      </div>
     </div>
   );
 }

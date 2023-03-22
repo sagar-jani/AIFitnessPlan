@@ -185,7 +185,7 @@ const Plan = () => {
   return (
     // <main className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
 
-    <div className="flex max-w-6xl mx-auto flex-col py-2 min-h-screen">
+    <div className="flex w-full px-20  flex-col py-2 min-h-screen">
       <Head>
         <title>Fitness, Diet, and Exercise on AI</title>
       </Head>
@@ -199,7 +199,7 @@ const Plan = () => {
         <main className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
           {/* <main className="flex flex-1 w-full flex-col items-center justify-center text-center text-black px-4 mt-4 sm:mb-0 mb-8"> */}
           <section>
-            <div className=' flex items-center justify-center flex-col '>
+            <div className='flex items-center justify-center flex-col '>
               <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
                 Generate your <span className="text-blue-600">Fitness Plan</span>
               </h1>
@@ -228,11 +228,9 @@ const Plan = () => {
                       </button>
                     </div>
                   ) :
+
                     <>
-                      {/* <div className='mx-auto justify-start items-center h-screen'>
-                      <Sidebar />
-                    </div> */}
-                      <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
+                      <form className='flex items-center justify-center flex-col  mx-auto mt-20 w-1/2  text-xl' onSubmit={handleSubmit}>
                         <div className="space-y-4 w-full max-w-sm">
                           <div className="flex mt-3 items-center space-x-3">
 
@@ -421,7 +419,7 @@ const Plan = () => {
           </section>
         </main>
       </div>
-    </div>
+    </div >
   )
 }
 

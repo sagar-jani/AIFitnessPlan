@@ -1,10 +1,10 @@
 import Head from "next/head"
 import React from "react"
-import MacroRecipe from "../components/MacroRecipe"
+import MacroRecipe from "../../components/MacroRecipe"
 import { Rings } from "react-loader-spinner";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
 const Macro = () => {
   const { data: session, status } = useSession();
@@ -37,7 +37,6 @@ const Macro = () => {
         ) : status === "authenticated" ? (
           <MacroRecipe />
         ) : (
-
           <div className="flex py-20  flex-col justify-center items-center space-y-6 ">
             <div className=" text-white text-xl md:text-2xl">
               Sign in below with Google to create a free account and generate workout plan.
@@ -55,7 +54,6 @@ const Macro = () => {
               <span>Sign in with Google</span>
             </button>
           </div>
-
         )}
       </div>
     </div>

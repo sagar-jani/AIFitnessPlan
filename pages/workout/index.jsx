@@ -13,6 +13,7 @@ const Workout = () => {
   const [generatedBios, setGeneratedBios] = useState("");
 
   const { data: session, status } = useSession();
+  console.log('session', session)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setGeneratedBios("");

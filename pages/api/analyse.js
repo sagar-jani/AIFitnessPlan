@@ -45,7 +45,7 @@ const handler = async (req, res) => {
 
     if (!user.isPro) {
       console.log('not pro')
-      return res.status(500).json({ error: "Upgrate to Pro plan to analyse the technique." });
+      return res.status(500).json({ error: "NO_PRO_PLAN" });
     }
 
     const prompt = `Here is video ${imageUrl}`

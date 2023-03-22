@@ -12,6 +12,7 @@ import { CompareSlider } from "../components/CompareSlider";
 import { faDedent } from "@fortawesome/free-solid-svg-icons";
 import Error from 'next/error'
 import Header from "../components/Header";
+import Script from "next/script";
 
 
 const uploader = Uploader({
@@ -27,6 +28,7 @@ const AnalyseTechnique = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [originalPhoto, setOriginalPhoto] = useState(null);
+  const [proPlan, setProPlan] = useState(false)
 
   const options = {
     maxFileCount: 1,
@@ -62,29 +64,37 @@ const AnalyseTechnique = () => {
     console.log('response', response)
     if (!response.ok) {
       // throw new Error(response.statusText);
-      return <Error statusCode={response.status} />
-    }
-
-    // This data is a ReadableStream
-    const data = response.body;
-    if (!data) {
-      return;
-    }
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      setFeedback((prev) => prev + chunkValue);
-    }
-
-    setTimeout(() => {
       setLoading(false);
-    }, 1300);
+      const json = await response.json()
+      console.log('json', json)
+      if (json.error === 'NO_PRO_PLAN') {
+        setProPlan(false)
+      }
+    } else {
+      setProPlan(true)
+      // This data is a ReadableStream
+      const data = response.body;
+      if (!data) {
+        return;
+      }
+
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        setFeedback((prev) => prev + chunkValue);
+      }
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1300);
+    }
+
+
   }
 
   const displayText = (feedback) => {
@@ -137,6 +147,9 @@ const AnalyseTechnique = () => {
       <Head>
         <title>Analyse Training Technique</title>
       </Head>
+      <Script src="https://js.stripe.com/v3/pricing-table.js">
+
+      </Script>
       {/* <Header photo={session?.user?.image || undefined} /> */}
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
 
@@ -181,6 +194,15 @@ const AnalyseTechnique = () => {
               )} */}
 
               {feedback && <div className="text-white">{ApiResponse(feedback)}</div>}
+              {!proPlan && (
+                <section className="h-screen">
+                  <div className="bg-gradient">
+                    <stripe-pricing-table pricing-table-id="prctbl_1MnKxXH9GTHwGMksHuVBo5Le"
+                      publishable-key="pk_test_51MmbbuH9GTHwGMks2J2KLJLAO5dTLiyzUY5au9xS82CMTdJxoeutIaQU8Bher3v9jc1HCGXu6B11JSuRGAz2gLxJ009vGyjvWH" customer-email={session?.user?.email}>
+                    </stripe-pricing-table>
+                  </div>
+                </section>
+              )}
 
             </motion.div>
           </AnimatePresence>

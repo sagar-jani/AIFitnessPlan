@@ -1,14 +1,26 @@
-export const config = {
-  runtime: "edge",
-};
+import { getSession } from 'next-auth/react';
+import prisma from '../../lib/prismadb'
+
+// export const config = {
+//   runtime: "edge",
+// };
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
 const handler = async (req, res) => {
-  const body = await req.json()
-  console.log('body', body)
+  // const body = await req.json()
+  // console.log('body', body)
+  const session = await getSession({ req })
+  console.log('session', session)
+
+  await prisma.user.update(
+    {
+      where: { email: session?.user?.email },
+      data: { generationCount: { increment: 1 } }
+    }
+  );
 
   // const session = await getServerSession(req, res, authOptions);
   // if (!session) {
@@ -45,18 +57,19 @@ const handler = async (req, res) => {
   console.log('text', data.choices[0].text)
 
   const result = data.choices[0].text
-  return new Response(
-    JSON.stringify({
-      meal: result,
-    }),
-    {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'charset': 'utf-8',
-      },
-    }
-  )
+  res.status(200).json({ meal: result })
+  // return new Response(
+  //   JSON.stringify({
+  //     meal: result,
+  //   }),
+  //   {
+  //     status: 200,
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       'charset': 'utf-8',
+  //     },
+  //   }
+  // )
 }
 
 export default handler;

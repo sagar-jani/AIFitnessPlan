@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import Image from "next/image";
@@ -14,6 +14,7 @@ import Error from 'next/error'
 import Header from "../components/Header";
 import Script from "next/script";
 import SideBar from "../components/Sidebar";
+import prisma from '../lib/prismadb'
 import Sidebar from "../components/Sidebar";
 
 
@@ -23,7 +24,7 @@ const uploader = Uploader({
     : "free",
 });
 
-const AnalyseTechnique = () => {
+const AnalyseTechnique = ({ user }) => {
   const { data: session, status } = useSession();
 
   const [feedback, setFeedback] = useState(null);
@@ -155,7 +156,7 @@ const AnalyseTechnique = () => {
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">
-            <Sidebar />
+            <Sidebar count={user?.generationCount} />
           </div>
         )}
         <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
@@ -218,6 +219,22 @@ const AnalyseTechnique = () => {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log('email', session?.user?.email)
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+  })
+  console.log('generationCount', user?.generationCount)
+  return {
+    props: {
+      user,
+    },
+  }
 }
 
 export default AnalyseTechnique;

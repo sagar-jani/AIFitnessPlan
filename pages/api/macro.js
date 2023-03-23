@@ -1,34 +1,20 @@
-
-export const config = {
-  runtime: "edge",
-};
+import { getServerSession } from 'next-auth';
+import { getSession, useSession } from 'next-auth/react';
+import prisma from '../../lib/prismadb'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
 const handler = async (req, res) => {
-  console.log('coming')
-  // const { data: session, status } = useSession();
-  // const userId = session?.user?.id;
-  // const user = await prisma.user.findUnique({
-  //   where: {
-  //     id: userId,
-  //   },
-  // });
-  // console.log('user', user)
-  // if (user.generationCount < 2) {
-  //   console.log('allow')
-  // }
-
   // Check if user is logged in
   // const session = await getServerSession(req, res, authOptions);
   // if (!session) {
   //   return res.status(500).json("Login to upload.");
   // }
 
-  const body = await req.json()
-  const { protein, fats, carbs, dietType } = body
+  // const body = await req.json()
+  const { protein, fats, carbs, dietType } = req.body
   console.log('protein, fats, carbs, dietType', protein, fats, carbs, dietType);
   const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate one healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: {"RecipeName": string, "Difficulty": string, KitchenTools: string[] "Instructions": string[], "Ingredients": string[]}`
 
@@ -55,19 +41,33 @@ const handler = async (req, res) => {
 
   const data = await response.json()
   const result = data.choices[0].text
+  console.log('result', result)
+  // const session = await getSession({ req })
+  // await prisma.user.update({
+  //   where: {
+  //     email: session?.user?.email,
+  //   },
+  //   data: {
+  //     generationCount: {
+  //       increment: 1,
+  //     },
+  //   },
+  // })
 
-  return new Response(
-    JSON.stringify({
-      meal: result,
-    }),
-    {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'charset': 'utf-8',
-      },
-    }
-  )
+  return res.status(200).json({ meal: result })
+
+  // return new Response(
+  //   JSON.stringify({
+  //     meal: result,
+  //   }),
+  //   {
+  //     status: 200,
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       'charset': 'utf-8',
+  //     },
+  //   }
+  // )
 }
 
 export default handler;

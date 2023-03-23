@@ -2,12 +2,13 @@ import Head from "next/head"
 import React from "react"
 import MacroRecipe from "../../components/MacroRecipe"
 import { Rings } from "react-loader-spinner";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, getSession } from "next-auth/react";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
+import prisma from '../../lib/prismadb'
 
-const Macro = () => {
+const Macro = ({ user }) => {
   const { data: session, status } = useSession();
 
   return (
@@ -24,7 +25,7 @@ const Macro = () => {
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">
-            <Sidebar />
+            <Sidebar count={user?.generationCount} />
           </div>
         )}
 
@@ -72,5 +73,22 @@ const Macro = () => {
 
   )
 }
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log('email', session?.user?.email)
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+  })
+  console.log('generationCount', user?.generationCount)
+  return {
+    props: {
+      user,
+    },
+  }
+}
+
 
 export default Macro

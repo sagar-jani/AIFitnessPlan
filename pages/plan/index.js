@@ -20,12 +20,13 @@ import DropDownTransition from '../../components/DropDownTransition';
 import { activityLevels, genders } from '../../utils/dropDownTypes';
 import ResizablePanel from '../../components/ResizablePanel';
 import { AnimatePresence, motion } from 'framer-motion';
-import { signIn, useSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import { Rings } from 'react-loader-spinner';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar'
+import prisma from '../../lib/prismadb'
 
-const Plan = () => {
+const Plan = ({ user }) => {
   const [tdee, setTdee] = useState(0)
   const [error, setError] = useState('')
   const [meals, setMeals] = useState([])
@@ -45,6 +46,8 @@ const Plan = () => {
   const { data: session, status } = useSession();
 
   const bmrAnalysisRef = useRef(null)
+
+
   function getActivityLevelValue(label) {
     switch (label) {
       case 'Sedentary (office job)':
@@ -61,6 +64,7 @@ const Plan = () => {
         throw new Error(`Invalid activity level label: ${label}`);
     }
   }
+
 
 
   const formatResponse = (response) => {
@@ -173,6 +177,8 @@ const Plan = () => {
   }
 
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const bmrDerived = gender === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
@@ -193,7 +199,7 @@ const Plan = () => {
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">
-            <Sidebar />
+            <Sidebar count={user?.generationCount} />
           </div>
         )}
         <main className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
@@ -230,7 +236,7 @@ const Plan = () => {
                   ) :
 
                     <>
-                      <form className='flex items-center justify-center flex-col  mx-auto mt-20 w-1/2  text-xl' onSubmit={handleSubmit}>
+                      <form className='flex items-center justify-center flex-col  mx-auto mt-5 w-1/2  text-xl' onSubmit={handleSubmit}>
                         <div className="space-y-4 w-full max-w-sm">
                           <div className="flex mt-3 items-center space-x-3">
 
@@ -421,6 +427,22 @@ const Plan = () => {
       </div>
     </div >
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log('email', session?.user?.email)
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+  })
+  console.log('generationCount', user?.generationCount)
+  return {
+    props: {
+      user,
+    },
+  }
 }
 
 export default Plan

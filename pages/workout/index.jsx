@@ -5,20 +5,21 @@ import React from "react";
 import { useRef, useState } from "react";
 import LoadingDots from '../../components/LoadingDots'
 import Header from '../../components/Header'
-import { signIn, useSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import Sidebar from "../../components/Sidebar";
 
-const Workout = () => {
+const Workout = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [generatedBios, setGeneratedBios] = useState("");
 
   const { data: session, status } = useSession();
-  console.log('session', session)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setGeneratedBios("");
     setLoading(true);
+
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -89,7 +90,7 @@ const Workout = () => {
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">
-            <Sidebar />
+            <Sidebar count={user?.generationCount} />
           </div>
         )}
         <section className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
@@ -128,12 +129,26 @@ const Workout = () => {
             <>
               <DisplayText text={generatedBios} />
             </>)}
-
-
         </section>
       </div>
     </div>
   )
 };
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log('email', session?.user?.email)
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+  })
+  console.log('generationCount', user?.generationCount)
+  return {
+    props: {
+      user,
+    },
+  }
+}
 
 export default Workout;

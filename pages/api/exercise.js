@@ -9,7 +9,7 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const handler = async (req, res) => {
-
+  console.log('req', req)
   // Check if user is logged in
   // const session = await getServerSession(req, res, authOptions);
   // if (!session) {

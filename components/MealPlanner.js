@@ -6,7 +6,7 @@ import MealFormat from './MealFormat';
 const MealPlanner = () => {
   const [loading, setLoading] = useState(false)
   const [days, setDays] = useState(1);
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,6 +33,27 @@ const MealPlanner = () => {
       const data = await response.json()
       console.log('meals', data.meal)
       setMeals(data.meal)
+      // if (!response.ok) {
+      //   throw new Error(response.statusText);
+      // }
+
+      // // This data is a ReadableStream
+      // const data = response.body;
+      // if (!data) {
+      //   return;
+      // }
+
+      // const reader = data.getReader();
+      // const decoder = new TextDecoder();
+      // let done = false;
+
+      // while (!done) {
+      //   const { value, done: doneReading } = await reader.read();
+      //   done = doneReading;
+      //   const chunkValue = decoder.decode(value);
+      //   setMeals((prev) => prev + chunkValue);
+      // }
+      // setLoading(false);
 
     } catch (error) {
       // setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")
@@ -129,6 +150,7 @@ const MealPlanner = () => {
         )}
       </form>
       {meals.length > 0 && <MealFormat mealPlan={meals} />}
+      {/* {meals && (<div className='text-white'> {meals} </div>)} */}
     </section>
   );
 }

@@ -19,6 +19,9 @@ const MacroRecipe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    console.log('e.target.protein.value', e.target.protein.value)
+    console.log('e.target.fats.value', e.target.fats.value)
+    console.log('e.target.carbs.value', e.target.carbs.value)
 
     try {
       const response = await fetch(`/api/macro`, {
@@ -38,6 +41,29 @@ const MacroRecipe = () => {
         console.log("error", response.statusText);
         return;
       }
+      // console.log('response', response)
+      // if (!response.ok) {
+      //   throw new Error(response.statusText);
+      // }
+
+      // // This data is a ReadableStream
+      // const data = response.body;
+      // if (!data) {
+      //   return;
+      // }
+
+      // const reader = data.getReader();
+      // const decoder = new TextDecoder();
+      // let done = false;
+
+      // while (!done) {
+      //   const { value, done: doneReading } = await reader.read();
+      //   done = doneReading;
+      //   const chunkValue = decoder.decode(value);
+      //   console.log('chunkValue', chunkValue)
+      //   setMeals((prev) => prev + chunkValue);
+      // }
+      // setLoading(false);
 
       const data = await response.json()
       console.log('meal', data.meal)
@@ -168,10 +194,15 @@ const MacroRecipe = () => {
                 </button>
               )}
             </form>
+            {/* {meals && (
+              <div className="font-bold text-white">
+                {meals}
+              </div>)} */}
           </motion.div>
         </AnimatePresence>
       </ResizablePanel>
       {meals.length > 0 && <MacroRecipeFormat meals={meals} />}
+
     </>
   )
 }

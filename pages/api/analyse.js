@@ -4,6 +4,7 @@ import redis from "../../utils/redis";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 import prisma from '../../lib/prismadb'
+import { getSession } from "next-auth/react";
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
@@ -29,6 +30,16 @@ const handler = async (req, res) => {
   // const body = await req.json()
   // const { imageUrl } = body
   console.log('imageUrl', imageUrl)
+
+  const session = await getSession({ req })
+  console.log('session', session)
+
+  await prisma.user.update(
+    {
+      where: { email: session?.user?.email },
+      data: { generationCount: { increment: 1 } }
+    }
+  );
 
   // Check if user is logged in
   try {

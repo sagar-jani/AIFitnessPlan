@@ -19,6 +19,17 @@ const handler = async (req, res) => {
   const prompt = `Task: Analyse according to the instructions in my text. My Text: Generate one healthy recipe by strictly following these rules: 1- Protein: ${protein}g 2- Fats: ${fats}g  3- Carbs: 4${carbs}g  4- Diet type: ${dietType} Output: ONLY MARKDOWN JSON. JSON Format example: {"RecipeName": string, "Difficulty": string, KitchenTools: string[] "Instructions": string[], "Ingredients": string[]}`
 
   console.log('prompt', prompt)
+
+  const session = await getSession({ req })
+  console.log('session', session)
+
+  await prisma.user.update(
+    {
+      where: { email: session?.user?.email },
+      data: { generationCount: { increment: 1 } }
+    }
+  );
+
   const payload = {
     model: "text-davinci-003",
     prompt,

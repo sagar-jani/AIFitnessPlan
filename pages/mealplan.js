@@ -1,18 +1,27 @@
 
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import LoadingDots from '../components/LoadingDots';
 import MealFormat from '../components/MealFormat';
 import Sidebar from '../components/Sidebar';
 import prisma from '../lib/prismadb'
+import Link from 'next/link';
 
 const MealPlanner = ({ user }) => {
   const [loading, setLoading] = useState(false)
   const [days, setDays] = useState(1);
   const [meals, setMeals] = useState("");
+  const [disableBtn, setDisableBtn] = useState(false)
+
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (user.generationCount > 7) {
+      setDisableBtn(true)
+    }
+  }, user)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -90,6 +99,22 @@ const MealPlanner = ({ user }) => {
           <div className="text-center mb-5 mt-10">
             <p className="text-white text-5xl font-bold">Generate Meal Plan</p>
           </div>
+          <>
+            {user?.generationCount >= 7 && (
+              <div className="flex flex-col mx-auto max-w-5xl py-5 px-10  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
+
+                <span className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
+                    aria-hidden="true" className="px-2 py-5 space-x-2 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z">
+                    </path>
+                  </svg>
+
+                  Your Free Plan is over!</span>
+                <span>
+                  You have used 100% of your free plan. <Link href='/pricing' className="underline"> Upgrade to the Pro Plan to generate unlimited plans! </Link ></span>
+              </div>
+            )}
+          </>
           <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
             <div className='mb-10'>
               <label className='block text-white  font-bold mb-5' htmlFor='goal'>
@@ -151,7 +176,8 @@ const MealPlanner = ({ user }) => {
             {!loading && (
               <button
                 type='submit'
-                className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ">
+                disabled={disableBtn}
+                className={`block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ${disableBtn} ? bg-blue-200 hover:bg-blue-200 : bg-primary hover:bg-primary`}>
                 Generate Your Meal Plan &rarr;
               </button>
             )}

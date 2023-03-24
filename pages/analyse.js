@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import ResizablePanel from '../components/ResizablePanel'
 import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
@@ -16,6 +16,7 @@ import Script from "next/script";
 import SideBar from "../components/Sidebar";
 import prisma from '../lib/prismadb'
 import Sidebar from "../components/Sidebar";
+import Link from "next/link";
 
 
 const uploader = Uploader({
@@ -32,6 +33,14 @@ const AnalyseTechnique = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [originalPhoto, setOriginalPhoto] = useState(null);
   const [proPlan, setProPlan] = useState(false)
+  const [disableBtn, setDisableBtn] = useState(false)
+
+
+  useEffect(() => {
+    if (user.generationCount > 7) {
+      setDisableBtn(true)
+    }
+  }, user)
 
   const options = {
     maxFileCount: 1,
@@ -164,6 +173,24 @@ const AnalyseTechnique = ({ user }) => {
           <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
             Analyse your <span className="text-blue-600">Excercise Form</span>
           </h1>
+
+          <>
+            {user?.generationCount >= 7 && (
+              <div className="flex flex-col mx-auto max-w-5xl py-5 px-10  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
+
+                <span className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
+                    aria-hidden="true" className="px-2 py-5 space-x-2 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z">
+                    </path>
+                  </svg>
+
+                  Your Free Plan is over!</span>
+                <span>
+                  You have used 100% of your free plan. <Link href='/pricing' className="underline"> Upgrade to the Pro Plan to generate unlimited plans! </Link ></span>
+              </div>
+            )}
+          </>
+
           <ResizablePanel>
             <AnimatePresence mode="wait">
               <motion.div className="flex justify-between items-center w-full flex-col mt-4">
@@ -202,7 +229,7 @@ const AnalyseTechnique = ({ user }) => {
               )} */}
 
                 {feedback && <div className="text-white">{ApiResponse(feedback)}</div>}
-                {!proPlan && (
+                {/* {!proPlan && (
                   <section className="h-screen">
                     <div className="bg-gradient">
                       <stripe-pricing-table pricing-table-id="prctbl_1MnKxXH9GTHwGMksHuVBo5Le"
@@ -210,7 +237,7 @@ const AnalyseTechnique = ({ user }) => {
                       </stripe-pricing-table>
                     </div>
                   </section>
-                )}
+                )} */}
 
               </motion.div>
             </AnimatePresence>

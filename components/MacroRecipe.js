@@ -10,7 +10,7 @@ import ResizablePanel from "./ResizablePanel";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-const MacroRecipe = () => {
+const MacroRecipe = ({ disabled }) => {
   const [loading, setLoading] = useState(false)
   const [macro, setMacro] = useState(null)
   const [meals, setMeals] = useState([])
@@ -74,8 +74,6 @@ const MacroRecipe = () => {
       } else {
         setMeals(data.meal)
       }
-
-
     } catch (error) {
       // setError("Oops, something went wrong on our website! But don't worry, our team of monkeys are fixing it as we speak. In the meantime, go grab a drink and relax. We'll be back to normal soon.")
       console.log('An error occured while generating nutrition plan', error)
@@ -180,7 +178,8 @@ const MacroRecipe = () => {
               {!loading && (
                 <button
                   type='submit'
-                  className="block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ">
+                  disabled={disabled}
+                  className={`block  rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8  text-center ${disabled} ? bg-blue-200 hover:bg-blue-200 : bg-primary hover:bg-primary`}>
                   Generate Recipe &rarr;
                 </button>
               )}

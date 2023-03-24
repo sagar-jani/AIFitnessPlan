@@ -24,7 +24,7 @@ import { getSession, signIn, useSession } from 'next-auth/react';
 import { Rings } from 'react-loader-spinner';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar'
-import prisma from '../../lib/prismadb'
+// import prisma from '../../lib/prismadb'
 
 const Plan = ({ user }) => {
   const [tdee, setTdee] = useState(0)
@@ -429,20 +429,21 @@ const Plan = ({ user }) => {
   )
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
-  console.log('email', session?.user?.email)
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session?.user?.email,
-    },
-  })
-  console.log('generationCount', user?.generationCount)
-  return {
-    props: {
-      user,
-    },
-  }
-}
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context)
+//   console.log('session', session)
+//   console.log('email', session?.user?.email)
+//   const user = await prisma.user.findUnique({
+//     where: {
+//       email: session?.user?.email,
+//     },
+//   })
+//   console.log('generationCount', user?.generationCount)
+//   return {
+//     props: {
+//       user,
+//     },
+//   }
+// }
 
 export default Plan

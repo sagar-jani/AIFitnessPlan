@@ -7,6 +7,7 @@ import LoadingDots from '../../components/LoadingDots'
 import Header from '../../components/Header'
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Sidebar from "../../components/Sidebar";
+import prisma from '../../lib/prismadb'
 
 const Workout = ({ user }) => {
   const [loading, setLoading] = useState(false);

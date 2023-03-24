@@ -22,7 +22,7 @@ const Workout = ({ user }) => {
     if (user.generationCount > 7) {
       setDisableBtn(true)
     }
-  }, user)
+  }, [user])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,9 +103,7 @@ const Workout = ({ user }) => {
           </div>
         )}
         <section className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
-          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-10">
-            Generate your <span className="text-blue-600">Exercise Plan</span>
-          </h1>
+
 
           {user?.generationCount >= 7 && (
             <div className="flex flex-col mx-auto max-w-5xl py-5 px-10 mb-16  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
@@ -122,10 +120,14 @@ const Workout = ({ user }) => {
             </div>
           )}
 
+          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-10">
+            Generate your <span className="text-blue-600">Exercise Plan</span>
+          </h1>
+
           {!loading && (
 
             <button
-              className={`block text-2xl text-white font-bold mx-auto py-5 px-10 rounded-xl text-center ${disableBtn} ? bg-blue-200 hover:bg-blue-200 : bg-primary hover:bg-primary`}
+              className={`block text-2xl text-white font-bold mx-auto py-5 px-10 rounded-xl text-center ${disableBtn ? "bg-blue-200 hover:bg-blue-200" : "bg-primary hover:bg-primary"}`}
               type='submit'
               disabled={disableBtn}
               onClick={(e) => handleSubmit(e)}

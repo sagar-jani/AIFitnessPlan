@@ -11,6 +11,7 @@ export const config = {
 const handler = async (req) => {
   console.log('req', req)
 
+
   // const prompt = "Generate a workout plan for someone with mix of cardio and strength training for 4 days per week, make sure to cover all muscle groups at least once. Include combination of compound and isolated exercises."
   const prompt = "Generate strength training workout plan for beginner 4 days per week (excluding rest day), and cover all muscle groups at least once. Include no more than 5 exercises daily, LISS  cardio on rest days."
   const suggestedPromptByGPT = "Create a 4-week workout plan for a beginner looking to build muscle and improve cardiovascular fitness. The user can exercise 5 days a week and has access to a gym with standard equipment. Include warm-ups, strength training exercises, and cardio workouts."

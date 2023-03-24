@@ -17,7 +17,7 @@ const Macro = ({ user }) => {
     if (user.generationCount > 7) {
       setDisableBtn(true)
     }
-  }, user)
+  }, [user])
   return (
     <div className="flex w-full px-20  flex-col py-2 min-h-screen">
       <Head>

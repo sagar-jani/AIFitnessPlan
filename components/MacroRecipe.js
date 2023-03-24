@@ -15,6 +15,7 @@ const MacroRecipe = ({ disabled }) => {
   const [macro, setMacro] = useState(null)
   const [meals, setMeals] = useState([])
   const [dietType, setDietType] = useState("No Dietary Restrictions")
+  console.log('disabled', disabled)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -179,7 +180,7 @@ const MacroRecipe = ({ disabled }) => {
                 <button
                   type='submit'
                   disabled={disabled}
-                  className={`block  rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8  text-center ${disabled} ? bg-blue-200 hover:bg-blue-200 : bg-primary hover:bg-primary`}>
+                  className={`block   rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8  text-center ${disabled ? "bg-blue-200 hover:bg-blue-200" : "bg-primary hover:bg-primary"}`}>
                   Generate Recipe &rarr;
                 </button>
               )}

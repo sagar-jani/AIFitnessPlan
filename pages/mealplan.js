@@ -21,7 +21,7 @@ const MealPlanner = ({ user }) => {
     if (user.generationCount > 7) {
       setDisableBtn(true)
     }
-  }, user)
+  }, [user])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -96,12 +96,9 @@ const MealPlanner = ({ user }) => {
           </div>
         )}
         <section className='w-full'>
-          <div className="text-center mb-5 mt-10">
-            <p className="text-white text-5xl font-bold">Generate Meal Plan</p>
-          </div>
           <>
             {user?.generationCount >= 7 && (
-              <div className="flex flex-col mx-auto max-w-5xl py-5 px-10  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
+              <div className="flex flex-col mx-auto max-w-5xl py-5 px-10 mt-10  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
 
                 <span className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
@@ -115,6 +112,11 @@ const MealPlanner = ({ user }) => {
               </div>
             )}
           </>
+
+          <div className="text-center mb-5 mt-10">
+            <p className="text-white text-5xl font-bold">Generate Meal Plan</p>
+          </div>
+
           <form className='mx-auto mt-20 w-1/2 text-xl' onSubmit={handleSubmit}>
             <div className='mb-10'>
               <label className='block text-white  font-bold mb-5' htmlFor='goal'>
@@ -177,7 +179,7 @@ const MealPlanner = ({ user }) => {
               <button
                 type='submit'
                 disabled={disableBtn}
-                className={`block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ${disableBtn} ? bg-blue-200 hover:bg-blue-200 : bg-primary hover:bg-primary`}>
+                className={`block bg-primary rounded-xl text-white text-xl  mx-auto font-medium py-6 px-8 mt-8 hover:bg-primary text-center ${disableBtn ? "bg-blue-200 hover:bg-blue-200" : "bg-primary hover:bg-primary"}`}>
                 Generate Your Meal Plan &rarr;
               </button>
             )}

@@ -33,14 +33,14 @@ const AnalyseTechnique = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [originalPhoto, setOriginalPhoto] = useState(null);
   const [proPlan, setProPlan] = useState(false)
-  const [disableBtn, setDisableBtn] = useState(false)
+  const [disable, setDisable] = useState(false)
 
 
   useEffect(() => {
     if (user.generationCount > 7) {
-      setDisableBtn(true)
+      setDisable(true)
     }
-  }, user)
+  }, [user])
 
   const options = {
     maxFileCount: 1,
@@ -170,10 +170,6 @@ const AnalyseTechnique = ({ user }) => {
         )}
         <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
 
-          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-            Analyse your <span className="text-blue-600">Excercise Form</span>
-          </h1>
-
           <>
             {user?.generationCount >= 7 && (
               <div className="flex flex-col mx-auto max-w-5xl py-5 px-10  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
@@ -190,6 +186,10 @@ const AnalyseTechnique = ({ user }) => {
               </div>
             )}
           </>
+
+          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
+            Analyse your <span className="text-blue-600">Excercise Form</span>
+          </h1>
 
           <ResizablePanel>
             <AnimatePresence mode="wait">
@@ -208,7 +208,7 @@ const AnalyseTechnique = ({ user }) => {
                   </div>
                 </div>
 
-                {!feedback && <UploadDropZone />}
+                {!feedback && !disable && <UploadDropZone />}
 
                 {loading && (
                   <button

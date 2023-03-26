@@ -45,6 +45,7 @@ model User {
   sessions      Session[]
   generationCount   Int     @default(0)
   isPro           Boolean   @default(false)
+  purchases     Purchase[]
 }
 
 model VerificationToken {
@@ -53,4 +54,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Purchase {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  creditAmount Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

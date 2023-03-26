@@ -32,7 +32,7 @@ const Pricing = ({ user }) => {
         <section className="flex w-full flex-col py-10 text-center px-4 mt-4 sm:mb-0 mb-8">
           {/* <div className="bg-gradient"> */}
           <stripe-pricing-table pricing-table-id="prctbl_1MnKxXH9GTHwGMksHuVBo5Le"
-            publishable-key="pk_test_51MmbbuH9GTHwGMks2J2KLJLAO5dTLiyzUY5au9xS82CMTdJxoeutIaQU8Bher3v9jc1HCGXu6B11JSuRGAz2gLxJ009vGyjvWH" customer-email={session?.user?.email}>
+            publishable-key="pk_test_51MmbbuH9GTHwGMks2J2KLJLAO5dTLiyzUY5au9xS82CMTdJxoeutIaQU8Bher3v9jc1HCGXu6B11JSuRGAz2gLxJ009vGyjvWH" customer-email={session?.user?.email} client-reference-id={session.user.email}>
           </stripe-pricing-table>
           {/* </div> */}
         </section>

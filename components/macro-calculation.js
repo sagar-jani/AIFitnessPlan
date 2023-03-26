@@ -12,9 +12,9 @@ const MacroCalculation = (props) => {
   return (
     <div className="text-center border-2 mb-10 py-10" >
       <div className="text-center">
-        <p className="text-white text-5xl font-bold m-5">Macro Nutrients </p>
+        <p className="text-white text-3xl md:text-5xl font-bold m-5">Macro Nutrients </p>
         <div className='flex text-center  justify-center'>
-          <p className='w-1/2 text-white'>Macronutrients are the nutrients we need in larger quantities that provide us with energy: in other words, fat, protein and carbohydrate.
+          <p className='w-2/3 text-lg md:text-xl text-white'>Macronutrients are the nutrients we need in larger quantities that provide us with energy: in other words, fat, protein and carbohydrate.
           </p>
         </div>
       </div>
@@ -40,7 +40,7 @@ const MacroCalculation = (props) => {
       </div>
       {activeTab === 'maintenance' && (
         <>
-          <p className='text-white'>These macronutrient values reflect your maintenance calories of {tdee.toLocaleString("en-US")} calories per day.
+          <p className='text-white text-lg'>These macronutrient values reflect your maintenance calories of {tdee.toLocaleString("en-US")} calories per day.
           </p>
           <Boxes tdee={tdee} setDietType={setDietType} dietType={dietType} />
         </>

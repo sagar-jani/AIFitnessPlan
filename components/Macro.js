@@ -9,13 +9,12 @@ const Boxes = (props) => {
 
   return (
     <div className='py-10'>
-      <p className='mt-10 text-xl text-white'>
+      <p className=' text-lg text-white'>
         Select any one plan below to generate a nutrition plan.
       </p>
-      <div className={`grid grid-flow-col grid-rows-4 gap-4 justify-center place-items-center mb-10 `}>
+      <div className={`grid md:grid-flow-col grid-rows-2 md:grid-rows-4 gap-3 md:gap-4 justify-center place-items-center mt-10`}>
         <button className='row-span-3' onClick={() => { setDietType('modCarb'); console.log('dietType', dietType) }}>
-          <div className='grid-row-spaln'></div>
-          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32"
+          <button className=" bg-primary text-white p-2 rounded-md text-xs"
             onClick={() => setDietType('modCarb')}>
             Moderate Carb (30/35/35)
           </button>
@@ -41,7 +40,7 @@ const Boxes = (props) => {
 
         <button className='row-span-3' onClick={() => setDietType('lowCarb')}>
 
-          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32"
+          <button className=" bg-primary text-white p-2 rounded-md text-xs"
             onClick={() => setDietType('lowCarb')} >
             Lower Carb (40/40/20)
           </button>
@@ -66,7 +65,7 @@ const Boxes = (props) => {
         </button>
 
         <button className='row-span-3' onClick={() => setDietType('highCarb')}>
-          <button className=" bg-primary text-white p-2 rounded-md text-xs -mb-32" onClick={() => setDietType('highCarb')}>
+          <button className=" bg-primary text-white p-2 rounded-md text-xs" onClick={() => setDietType('highCarb')}>
             Higher Carb (30/20/50)
           </button>
 
@@ -87,7 +86,7 @@ const Boxes = (props) => {
         </button>
       </div >
 
-      <p className='text-white text-lg md:text-xl'>There are <span className="text-blue-600"> 4 calories  </span> per gram for protein and carbohydrates, and <span className="text-blue-600"> 9 calories </span>  of fats.
+      <p className='text-white mt-10 text-lg md:text-xl'>There are <span className="text-blue-600"> 4 calories  </span> per gram for protein and carbohydrates, and <span className="text-blue-600"> 9 calories </span>  of fats.
 
       </p>
     </div >

@@ -24,6 +24,9 @@ import { getSession, signIn, useSession } from 'next-auth/react';
 import { Rings } from 'react-loader-spinner';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar'
+import HamburgerMenu from '../../components/Hamburger'
+import Script from 'next/script';
+
 // import prisma from '../../lib/prismadb'
 
 const Plan = ({ user }) => {
@@ -191,15 +194,19 @@ const Plan = ({ user }) => {
   return (
     // <main className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
 
-    <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    // <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
         <title>Fitness, Diet, and Exercise on AI</title>
       </Head>
       <Header photo={session?.user?.image || undefined} />
+      <Script src="/scripts/hamburger.js" />
+      <HamburgerMenu />
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">
             <Sidebar count={user?.generationCount} />
+
           </div>
         )}
         <main className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
@@ -314,7 +321,7 @@ const Plan = ({ user }) => {
 
                         <div className="flex space-x-2 justify-center">
                           <button
-                            className='block py-6 px-8 bg-primary mt-10  text-white font-medium mx-auto text-xl rounded-xl text-center '
+                            className='w-full py-2 px-6 sm:py-6 sm:px-8 bg-primary mt-10  text-white font-medium mx-auto text-lg sm:text-xl rounded-xl text-center '
                             type='submit'
                           >
                             Start Your Plan &gt;

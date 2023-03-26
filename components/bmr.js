@@ -8,7 +8,7 @@ const BMR = (props) => {
       </div>
       <div className="flex flex-row mb-10 items-center justify-center text-white">
 
-        <div className='grid grid-cols-2 divide-y gap-x-20 gap-y-2 text-lg'>
+        <div className='grid grid-cols-2 divide-y gap-x-5 md:gap-x-20 gap-y-2 text-md md:text-lg'>
 
           <div className='col-span-1 row-span-1 '>
             Basal Metabolic Rate

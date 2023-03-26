@@ -5,7 +5,7 @@ import prisma from "../../lib/prismadb";
 import Stripe from 'stripe';
 import Cors from "micro-cors";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
 });
 
@@ -16,7 +16,7 @@ export const config = {
   },
 };
 
-const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || "";
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
 
 const cors = Cors({
   allowMethods: ["POST", "HEAD"],
@@ -84,11 +84,9 @@ const webhookHandler = async (req, res) => {
       });
     } else if (event.type === "payment_intent.payment_failed") {
       const paymentIntent = event.data.object;
-      console.log(
-        `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
-      );
+      console.log(`❌ Payment failed: ${paymentIntent.last_payment_error?.message}`);
     } else if (event.type === "charge.succeeded") {
-      const charge = event.data.object as Stripe.Charge;
+      const charge = event.data.object
       console.log(`💵 Charge id: ${charge.id}`);
     } else {
       console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);

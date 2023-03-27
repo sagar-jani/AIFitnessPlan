@@ -18,8 +18,8 @@ const Layout = ({ children }) => {
       <main className="bg-gradient" >
         {children}
       </main >
-      <footer className=' text-white font-bold text-xl flex justify-center p-4 mt-10 mb-5'>
-        <div className='fixed bottom-0 right-0 mr-4 mb-5 font-bold text-xl'>
+      <footer className=' text-white font-bold text-lg md:text-xl flex justify-center p-4 mt-10 mb-5'>
+        {/* <div className='fixed bottom-0 right-0 mr-4 mb-5 font-bold text-xl'>
           <a
             target="_blank"
             href='https://twitter.com/sagarjani'
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           >
             Made By @SagarJani
           </a>
-        </div>
+        </div> */}
         <p>© 2023 AI Fitness Plan. All rights reserved.</p>
       </footer>
     </div >

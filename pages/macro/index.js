@@ -19,7 +19,8 @@ const Macro = ({ user }) => {
     }
   }, [user])
   return (
-    <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    // <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
         <title>Macro Planner - Generate Meal !</title>
         <meta

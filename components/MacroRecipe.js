@@ -4,7 +4,6 @@ import DropDownTransition from "./DropDownTransition";
 import LoadingDots from "./LoadingDots";
 import MacroRecipeFormat from "./MacroRecipeFormat";
 import { useSession, signIn } from "next-auth/react";
-// import useSWR from "swr";
 import { Rings } from "react-loader-spinner";
 import ResizablePanel from "./ResizablePanel";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,14 +14,10 @@ const MacroRecipe = ({ disabled }) => {
   const [macro, setMacro] = useState(null)
   const [meals, setMeals] = useState([])
   const [dietType, setDietType] = useState("No Dietary Restrictions")
-  console.log('disabled', disabled)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    console.log('e.target.protein.value', e.target.protein.value)
-    console.log('e.target.fats.value', e.target.fats.value)
-    console.log('e.target.carbs.value', e.target.carbs.value)
 
     try {
       const response = await fetch(`/api/macro`, {
@@ -42,29 +37,6 @@ const MacroRecipe = ({ disabled }) => {
         console.log("error", response.statusText);
         return;
       }
-      // console.log('response', response)
-      // if (!response.ok) {
-      //   throw new Error(response.statusText);
-      // }
-
-      // // This data is a ReadableStream
-      // const data = response.body;
-      // if (!data) {
-      //   return;
-      // }
-
-      // const reader = data.getReader();
-      // const decoder = new TextDecoder();
-      // let done = false;
-
-      // while (!done) {
-      //   const { value, done: doneReading } = await reader.read();
-      //   done = doneReading;
-      //   const chunkValue = decoder.decode(value);
-      //   console.log('chunkValue', chunkValue)
-      //   setMeals((prev) => prev + chunkValue);
-      // }
-      // setLoading(false);
 
       const data = await response.json()
       console.log('meal', data.meal)
@@ -90,10 +62,9 @@ const MacroRecipe = ({ disabled }) => {
       </div>
       <ResizablePanel>
         <AnimatePresence mode="wait">
-          <motion.div className="flex flex-col justify-between items-center w-1/2  mx-auto mt-4 text-xl">
-            {/* className='flex items-center justify-center flex-col  mx-auto mt-20 w-1/2  text-xl' */}
-            <form onSubmit={handleSubmit} className="w-1/2">
-              <div className="flex mt-6 w-96 items-center space-x-3 my-2 ">
+          <motion.div className="flex flex-col justify-center items-center w-full  mx-auto mt-4 text-lg md:text-xl">
+            <form onSubmit={handleSubmit} className="w-2/3">
+              <div className="flex mt-6 w-full items-center space-x-3 my-2 ">
                 <Image
                   src="/images/number-1-white.svg"
                   width={30}
@@ -101,7 +72,7 @@ const MacroRecipe = ({ disabled }) => {
                   alt="1 icon"
                 />
                 <p className="text-left font-medium text-white">
-                  Your target Protein for this meal ?
+                  Target Protein ?
                 </p>
               </div>
               <div className='mb-10'>
@@ -124,7 +95,7 @@ const MacroRecipe = ({ disabled }) => {
                     alt="1 icon"
                   />
                   <p className="text-left font-medium text-white">
-                    Your target Carbs for this meal ?
+                    Target Carbs ?
                   </p>
                 </div>
                 <input
@@ -146,7 +117,7 @@ const MacroRecipe = ({ disabled }) => {
                     alt="1 icon"
                   />
                   <p className="text-left font-medium text-white">
-                    Your target Fats for this meal ?
+                    Target Fats ?
                   </p>
                 </div>
                 <input
@@ -168,13 +139,12 @@ const MacroRecipe = ({ disabled }) => {
                     alt="1 icon"
                   />
                   <p className="text-left font-medium text-white">
-                    Your dietary requirements ?
+                    Dietary requirements ?
                   </p>
                 </div>
 
                 <DropDownTransition value={dietType} setValue={(diet) => setDietType(diet)} values={dietTypes} />
               </div>
-
 
               {!loading && (
                 <button
@@ -194,10 +164,6 @@ const MacroRecipe = ({ disabled }) => {
                 </button>
               )}
             </form>
-            {/* {meals && (
-              <div className="font-bold text-white">
-                {meals}
-              </div>)} */}
           </motion.div>
         </AnimatePresence>
       </ResizablePanel>

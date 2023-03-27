@@ -91,7 +91,8 @@ const Workout = ({ user }) => {
 
   return (
     // <div className="flex max-w-6xl mx-auto flex-col py-2 min-h-screen">
-    <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    // <div className="flex w-full px-20  flex-col py-2 min-h-screen">
+    <div className="flex max-w-6xl mx-auto flex-col items-center  py-2 min-h-screen">
       <Head>
         <title>Workout AI</title>
       </Head>
@@ -103,7 +104,6 @@ const Workout = ({ user }) => {
           </div>
         )}
         <section className="flex flex-1 w-full flex-col  text-center px-4 mt-4 sm:mb-0 mb-8">
-
 
           {user?.generationCount >= 7 && (
             <div className="flex flex-col mx-auto max-w-5xl py-5 px-10 mb-16  text-xl justify-center text-center font-semibold text-brown  items-center   bg-yellow-50 ">
@@ -127,7 +127,7 @@ const Workout = ({ user }) => {
           {!loading && (
 
             <button
-              className={`block text-2xl text-white font-bold mx-auto py-5 px-10 rounded-xl text-center ${disableBtn ? "bg-blue-200 hover:bg-blue-200" : "bg-primary hover:bg-primary"}`}
+              className={`block text-2xl text-white font-bold mx-auto py-5 px-10 rounded-xl text-center mb-10 ${disableBtn ? "bg-blue-200 hover:bg-blue-200" : "bg-primary hover:bg-primary"}`}
               type='submit'
               disabled={disableBtn}
               onClick={(e) => handleSubmit(e)}
@@ -136,10 +136,6 @@ const Workout = ({ user }) => {
             </button>
           )}
           {loading && (
-            // <button
-            //   className="bg-black rounded-xl text-white font-medium px-5 py-5 sm:mt-10 mt-8 hover:bg-black/80 my-10"
-            //   disabled
-            // >
             <button
               className='block bg-primary text-2xl text-white font-bold mx-auto py-5 px-28 rounded-xl text-center'
               type='submit'

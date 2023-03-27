@@ -6,7 +6,7 @@ const MealFormat = ({ mealPlan }) => {
 
   return (
     <div className="rounded-lg  shadow-md mt-20 text-white justify-center text-center">
-      <table className="w-2/3 mx-auto">
+      <table className="w-full mx-auto">
         <thead>
           <tr className="bg-gray-100 text-black text-center align-center uppercase text-sm leading-normal">
             <th className="py-3 px-6 text-left">Day</th>

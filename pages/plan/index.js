@@ -24,10 +24,8 @@ import { getSession, signIn, useSession } from 'next-auth/react';
 import { Rings } from 'react-loader-spinner';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar'
-import HamburgerMenu from '../../components/Hamburger'
 import Script from 'next/script';
 
-// import prisma from '../../lib/prismadb'
 
 const Plan = ({ user }) => {
   const [tdee, setTdee] = useState(0)

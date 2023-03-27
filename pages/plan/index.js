@@ -178,8 +178,6 @@ const Plan = ({ user }) => {
   }
 
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const bmrDerived = gender === 'Male' ? 88.362 + (13.397 * e.target.weight.value) + (4.799 * e.target.height.value) - (5.677 * e.target.age.value) : 447.593 + (9.247 * e.target.weight.value) + (3.098 * e.target.height.value) - (4.330 * e.target.age.value)
@@ -198,7 +196,7 @@ const Plan = ({ user }) => {
         <title>Fitness, Diet, and Exercise on AI</title>
       </Head>
       <Header photo={session?.user?.image || undefined} />
-      <Script src="/scripts/hamburger.js" />
+
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">

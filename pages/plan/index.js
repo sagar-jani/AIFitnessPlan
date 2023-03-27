@@ -199,7 +199,6 @@ const Plan = ({ user }) => {
       </Head>
       <Header photo={session?.user?.image || undefined} />
       <Script src="/scripts/hamburger.js" />
-      <HamburgerMenu />
       <div className="flex w-full">
         {status === 'authenticated' && (
           <div className="flex-none  py-5">

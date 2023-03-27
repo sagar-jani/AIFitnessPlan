@@ -11,11 +11,17 @@ export const genders = [
   "Rather not say"
 ];
 export const dietTypes = [
-'No Dietary Restrictions',
-   'Pescatarian',
-   'Ovo-vegetarian',
-   'Vegetarian',
-   'Vegan',
-   'Dairy-Free',
-   'Gluten-Free'
+  'No Dietary Restrictions',
+  'Pescatarian',
+  'Ovo-vegetarian',
+  'Vegetarian',
+  'Vegan',
+  'Dairy-Free',
+  'Gluten-Free'
 ];
+
+export const goals = [
+  'Lose Fat',
+  'Gain Muscles',
+  'Healthy eating'
+]

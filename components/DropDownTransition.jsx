@@ -13,6 +13,7 @@ function classNames(...classes) {
 
 // TODO: Change names since this is a generic dropdown now
 export default function DropDownTransition({ value, setValue, values }) {
+  console.log('values', values)
   return (
     <Menu as="div" className="relative block text-left">
       <div>
@@ -39,7 +40,7 @@ export default function DropDownTransition({ value, setValue, values }) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden"
+          className=" left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           key={value}
         >
           <div className="">
@@ -51,7 +52,7 @@ export default function DropDownTransition({ value, setValue, values }) {
                     className={classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       themeItem === value ? "bg-gray-200" : "",
-                      "px-4 py-2 text-sm w-full text-left flex items-center space-x-2 justify-between"
+                      "px-4 py-1  w-full text-left flex items-center space-x-2 justify-between text-lg"
                     )}
                   >
                     <span>{themeItem}</span>

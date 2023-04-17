@@ -67,7 +67,7 @@ const handler = async (req, res) => {
   - Respond with two sections - Exercise Name & Feedback`
 
     const payload = {
-      model: "gpt-3.5-turbo",
+      // model: "gpt-3.5-turbo",
       messages: [{ role: "system", content: systemContent }, { role: "user", content: prompt }],
       temperature: 0.7,
       top_p: 1,
